@@ -38,16 +38,17 @@ button,select,input{font-family:inherit}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
 /* ==================== SEARCH BAR + MATCHING FILTER TOGGLE ==================== */
-.filterbar{display:grid;grid-template-columns:1fr 46px;gap:8px;margin:14px 0 0;align-items:stretch}
+.filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch}
 .filterbar .search-wrap{position:relative;min-width:0}
 .filterbar .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;width:15px;height:15px}
-.filterbar input[type=search]{width:100%;height:46px;padding:0 12px 0 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
+.filterbar input[type=search]{width:100%;height:48px;padding:0 12px 0 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
 .filterbar input[type=search]:focus{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
-.filterbar .filter-toggle{position:relative;width:46px;height:46px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0}
+.filterbar .filter-toggle{position:relative;width:48px;height:48px;min-height:48px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0;touch-action:manipulation}
 .filterbar .filter-toggle:hover{color:var(--t);border-color:var(--b2)}
+.filterbar .filter-toggle:active{transform:scale(.96)}
 .filterbar .filter-toggle.on{background:var(--br);border-color:var(--br);color:#fff;box-shadow:0 6px 14px -6px var(--brand-shadow)}
-.filterbar .filter-toggle svg{width:17px;height:17px}
-.filterbar .filter-toggle .badge-count{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--br);color:#fff;font:700 .62rem 'JetBrains Mono';display:none;place-items:center;border:2px solid var(--bg)}
+.filterbar .filter-toggle svg{width:18px;height:18px;pointer-events:none}
+.filterbar .filter-toggle .badge-count{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--br);color:#fff;font:700 .64rem 'JetBrains Mono';display:none;place-items:center;border:2px solid var(--bg);pointer-events:none}
 .filterbar .filter-toggle .badge-count.show{display:grid}
 .filterbar .filter-toggle.on .badge-count{background:#fff;color:var(--br);border-color:var(--br)}
 
@@ -88,12 +89,23 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ms-a button{flex:1;padding:7px;background:var(--s);border:1px solid var(--b);border-radius:7px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit}
 .ms-a button:hover{background:var(--s2);color:var(--t)}
 .ms-empty-mini{padding:14px;text-align:center;color:var(--t3);font-size:.76rem}
-.af{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:8px;border-top:1px dashed var(--b);font-size:.72rem;color:var(--t3);min-height:32px}
+
+/* NEW: Big reset button below filters */
+.reset-row{display:flex;justify-content:flex-end;padding-top:4px}
+.reset-all-btn{width:100%;padding:11px 14px;border-radius:10px;background:var(--erb);border:1px solid var(--err);color:var(--er);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
+.reset-all-btn:hover{background:var(--er);color:#fff;transform:translateY(-1px)}
+.reset-all-btn:active{transform:translateY(0) scale(.99)}
+.reset-all-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.reset-all-btn:disabled:hover{background:var(--erb);color:var(--er)}
+.reset-all-btn svg{width:14px;height:14px;flex-shrink:0}
+.reset-all-btn .rcount{font:700 .66rem 'JetBrains Mono';padding:1px 6px;border-radius:99px;background:rgba(255,255,255,.15);margin-left:2px}
+.reset-all-btn:hover .rcount{background:rgba(255,255,255,.25)}
+
+.af{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:.72rem;color:var(--t3);min-height:0}
+.af:empty{display:none}
 .af>b{color:var(--t2);font-weight:600}
 .af .tag2{display:inline-flex;align-items:center;gap:4px;padding:3px 8px 3px 10px;border-radius:7px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-size:.68rem;font-weight:600;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .af .tag2 b{cursor:pointer;opacity:.7;font-style:normal}.af .tag2 b:hover{opacity:1}
-.af .rst{margin-left:auto;padding:5px 10px;background:var(--erb);border:1px solid var(--err);color:var(--er);border-radius:8px;font-size:.68rem;font-weight:600;cursor:pointer;font-family:inherit}
-.af .rst:hover{background:var(--er);color:#fff}
 
 /* Notes tabs INSIDE filter panel */
 .fp-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px;background:var(--el);border:1px solid var(--b);border-radius:11px}
@@ -110,7 +122,7 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 }
 .fp-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;padding:0 2px;margin-bottom:-4px}
 
-.infobar{display:flex;justify-content:space-between;gap:8px;padding:0 4px 10px;color:var(--t3);font-size:.7rem;flex-wrap:wrap}
+.infobar{display:flex;justify-content:space-between;gap:8px;padding:8px 4px 10px;color:var(--t3);font-size:.7rem;flex-wrap:wrap}
 .ib{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;white-space:nowrap}
 .ib b{color:var(--t2);font-weight:600}.ib b.rd{color:var(--br);font-weight:700}
 .pct{padding:1px 6px;margin-left:6px;border-radius:99px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-weight:700;font-size:.64rem}
@@ -188,10 +200,12 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .clock i{width:5px;height:5px}
  .ibtn{width:32px;height:32px;font-size:14px;border-radius:8px}
  .tin{gap:4px;padding:9px 12px}
- .filterbar{margin:12px 0 0;grid-template-columns:1fr 44px}
- .filterbar input[type=search]{height:44px;padding:0 10px 0 34px;font-size:.82rem}
- .filterbar .search-wrap svg{left:10px;width:14px;height:14px}
- .filterbar .filter-toggle{width:44px;height:44px}
+ .filterbar{margin:12px 0 0;grid-template-columns:1fr 52px;gap:8px}
+ .filterbar input[type=search]{height:52px;padding:0 12px 0 36px;font-size:.85rem;border-radius:14px}
+ .filterbar .search-wrap svg{left:12px;width:16px;height:16px}
+ .filterbar .filter-toggle{width:52px;height:52px;min-height:52px;border-radius:14px}
+ .filterbar .filter-toggle svg{width:20px;height:20px}
+ .filterbar .filter-toggle .badge-count{min-width:20px;height:20px;font-size:.66rem;border-width:2px}
  .filters-panel .fp-inner{padding:11px;gap:9px}
  .card{padding:11px 12px 9px;gap:6px}
  .mem{font-size:.85rem;padding:6px 8px}
@@ -204,6 +218,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .rc{font-size:.58rem;padding:2px 6px}
  .st{font-size:.58rem}
  .fr{font-size:.6rem;padding:2px 6px}
+ .reset-all-btn{font-size:.8rem;padding:12px}
 }
 @media(max-width:400px){
  .ref{font-size:.6rem;padding:2px 7px}
@@ -211,6 +226,9 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .badge{font-size:.54rem;padding:2px 6px}
  .cnum{font-size:.56rem;height:17px;line-height:15px;padding:0 5px}
  .clock{display:none}
+ .filterbar{grid-template-columns:1fr 48px}
+ .filterbar input[type=search]{height:48px;border-radius:12px}
+ .filterbar .filter-toggle{width:48px;height:48px;min-height:48px;border-radius:12px}
 }
 .pf{display:flex;gap:8px;align-items:center;margin-bottom:14px}
 .pf label{font-size:.72rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
@@ -315,19 +333,19 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
 
- <!-- SEARCH + FILTER TOGGLE (filter icon matches search height exactly) -->
+ <!-- SEARCH + FILTER TOGGLE (bigger tap target) -->
  <div class="filterbar">
   <div class="search-wrap">
    <span id="si"></span>
    <input id="q" type="search" placeholder="Search rules, sections, memory…">
   </div>
-  <button class="filter-toggle" id="ftBtn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false">
+  <button class="filter-toggle" id="ftBtn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false" type="button">
    <span id="ftIco"></span>
    <span class="badge-count" id="ftCount">0</span>
   </button>
  </div>
 
- <!-- COLLAPSIBLE FILTER PANEL (contains tabs at bottom) -->
+ <!-- COLLAPSIBLE FILTER PANEL -->
  <div class="filters-panel" id="fpanel">
   <div class="fp-inner">
    <div class="row2">
@@ -343,9 +361,17 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
      <option value="most">Most read first</option>
     </select>
    </div>
+
    <div class="af" id="af"></div>
 
-   <!-- Notes tabs live INSIDE the filter panel -->
+   <!-- RESET ALL — always visible below filters -->
+   <button class="reset-all-btn" id="resetAllBtn" type="button">
+    <span id="resetIco"></span>
+    <span>Reset all filters</span>
+    <span class="rcount" id="resetCount">0</span>
+   </button>
+
+   <!-- Notes tabs at the bottom -->
    <div class="fp-lbl">Show</div>
    <div class="fp-tabs" id="qmenu" role="tablist" aria-label="Notes filter tabs"></div>
   </div>
@@ -372,7 +398,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.3",NAME:"My Notes",
+const C={VER:"v4.4",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -391,12 +417,14 @@ eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy=
 arrow:'<polyline points="9 18 15 12 9 6"/>',
 chev:'<polyline points="9 18 15 12 9 6"/>',
 filter:'<path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>',
+reset:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><polyline points="3 3 3 8 8 8"/>',
 thumbUp:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
 thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/>'};
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
 const eye=ico("eye");
 $("mk").innerHTML=ico("pen");$("rmk").innerHTML=ico("chart");$("si").innerHTML=ico("search");
 $("ftIco").innerHTML=ico("filter",2.4);
+$("resetIco").innerHTML=ico("reset",2.4);
 $("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
@@ -515,6 +543,7 @@ function setReact(k, val){
 /* ==================== FILTER PANEL TOGGLE ==================== */
 function activeFilterCount(){
  let n=0;
+ if(F.q)n++; /* include search in count for accuracy on reset button */
  if(F.category.length)n+=F.category.length;
  if(F.status.length)n+=F.status.length;
  if(F.reference.length)n+=F.reference.length;
@@ -537,9 +566,22 @@ function refreshBadge(){
  el.classList.toggle("show",n>0);
  const b=$("ftBtn");
  b.classList.toggle("on",FPANEL_OPEN||n>0);
+ const rc=$("resetCount");if(rc)rc.textContent=n;
+ const rb=$("resetAllBtn");if(rb)rb.disabled=n===0;
 }
 $("ftBtn").onclick=()=>setFPanel(!FPANEL_OPEN);
 setFPanel(FPANEL_OPEN,false);
+
+/* ==================== RESET ALL ==================== */
+$("resetAllBtn").onclick=()=>{
+ F={q:"",status:[],category:[],reference:[],sort:"default"};
+ $("q").value="";
+ $("sort").value="default";
+ [MC,MP,MR].forEach(m=>m&&m.setSelected([]));
+ clearScroll();
+ apply();
+ toast("Filters cleared.","ok");
+};
 
 /* ==================== MULTI-SELECT ==================== */
 class MSel{
@@ -642,7 +684,7 @@ function refreshSelectOptions(){
  if(MR){MR.opts=getAvailable("reference");MR.rt()}
 }
 
-/* ==================== NOTES TABS (inside filter panel) ==================== */
+/* ==================== NOTES TABS ==================== */
 function renderNotesTabs(){
  const tabs=[
   {v:"all",l:"All"},
@@ -821,20 +863,14 @@ function info(){const sh=Math.min(LOADED,VIEW.length),rd=VIEW.filter(r=>READ[key
  $("ibL").innerHTML=`<b>${sh}</b>/<b>${VIEW.length}</b>&nbsp;of&nbsp;<b>${ALL.length}</b>`;
  $("ibR").innerHTML=`<b class="rd">${rd}</b>/<b>${VIEW.length}</b><span class="pct ${pc?"":"z"}">${pc}% Read</span>`}
 function activeF(){const el=$("af"),T=[];
- if(F.q)T.push(["Search: "+F.q,()=>{F.q="";$("q").value=""}]);
- F.category.forEach(c=>T.push(["Category: "+c,()=>{F.category=F.category.filter(x=>x!==c);MC.setSelected(F.category)}]));
- F.status.forEach(s=>T.push(["Priority: "+s,()=>{F.status=F.status.filter(x=>x!==s);MP.setSelected(F.status)}]));
- F.reference.forEach(rr=>T.push(["Ref: "+rr,()=>{F.reference=F.reference.filter(x=>x!==rr);MR.setSelected(F.reference)}]));
- if(F.sort!=="default")T.push(["Sort: "+$("sort").selectedOptions[0].textContent,()=>{F.sort="default";$("sort").value="default"}]);
- if(!T.length){el.innerHTML="✓ No active filters";return}
- el.innerHTML="<b>Active filters:</b>"+T.map((t,i)=>`<span class="tag2">${esc(t[0])}<b data-i="${i}">✕</b></span>`).join("")+'<button class="rst" id="rst">Reset all</button>';
- el.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{T[+b.dataset.i][1]();apply()});
- $("rst").onclick=()=>{
-  F={q:"",status:[],category:[],reference:[],sort:"default"};
-  $("q").value="";$("sort").value="default";
-  [MC,MP,MR].forEach(m=>m&&m.setSelected([]));
-  clearScroll();apply();
- };
+ if(F.category.length||F.status.length||F.reference.length||F.sort!=="default"){
+  if(F.category.length)F.category.forEach(c=>T.push({l:"Category: "+c,undo:()=>{F.category=F.category.filter(x=>x!==c);MC.setSelected(F.category)}}));
+  if(F.status.length)F.status.forEach(s=>T.push({l:"Priority: "+s,undo:()=>{F.status=F.status.filter(x=>x!==s);MP.setSelected(F.status)}}));
+  if(F.reference.length)F.reference.forEach(rr=>T.push({l:"Ref: "+rr,undo:()=>{F.reference=F.reference.filter(x=>x!==rr);MR.setSelected(F.reference)}}));
+  if(F.sort!=="default")T.push({l:"Sort: "+$("sort").selectedOptions[0].textContent,undo:()=>{F.sort="default";$("sort").value="default"}});
+  el.innerHTML="<b>Active:</b>"+T.map((t,i)=>`<span class="tag2">${esc(t.l)}<b data-i="${i}">✕</b></span>`).join("");
+  el.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{T[+b.dataset.i].undo();apply()});
+ } else el.innerHTML="";
 }
 
 function buildSelects(){
@@ -849,6 +885,7 @@ function buildSelects(){
 
 $("q").oninput=e=>{F.q=e.target.value;apply()};$("sort").onchange=e=>{F.sort=e.target.value;apply()};
 
+/* ===== PROGRESS MODAL ===== */
 const RPT={period:"all",tab:"all"};
 const rm=$("rm"),rb=$("rb");
 const openR=()=>{renderR();rm.classList.add("show");document.body.style.overflow="hidden"};
