@@ -190,13 +190,13 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .sc.like .pc{background:var(--okb);color:var(--ok)}
 .sc.dislike .pc{background:var(--erb);color:var(--er)}
 
-/* ==================== COLLAPSIBLE CATEGORY COVERAGE (v3.6) ==================== */
+/* ==================== COLLAPSIBLE CATEGORY COVERAGE (v3.7) ==================== */
 .catsec{margin-bottom:16px;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;transition:border-color .15s}
 .catsec:hover{border-color:var(--b2)}
-.cathead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:background .15s}
+.cathead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:background .15s;text-align:left}
 .cathead:hover{background:var(--s2)}
 .cathead .ch-left{display:flex;align-items:center;gap:9px;min-width:0;flex:1}
-.cathead .ch-arrow{width:14px;height:14px;flex-shrink:0;color:var(--t3);transition:transform .25s}
+.cathead .ch-arrow{width:14px;height:14px;flex-shrink:0;color:var(--t3);transition:transform .25s;display:inline-flex}
 .catsec.open .cathead .ch-arrow{transform:rotate(90deg);color:var(--br)}
 .cathead .ch-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cathead .ch-summary{display:flex;align-items:center;gap:8px;flex-shrink:0}
@@ -207,14 +207,14 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .catsec.open .catbody{max-height:4000px}
 .catlist{display:flex;flex-direction:column;gap:8px;padding:10px 12px 12px}
 
-/* NEW 2-line layout: name on top, bar + counts below */
-.cr{padding:10px 12px;background:var(--s2);border:1px solid var(--b);border-radius:9px;transition:background .15s;display:flex;flex-direction:column;gap:7px}
+/* FORCE LEFT ALIGNMENT — 2-line layout */
+.cr{padding:10px 12px;background:var(--s2);border:1px solid var(--b);border-radius:9px;transition:background .15s;display:flex;flex-direction:column;gap:7px;text-align:left!important;align-items:stretch!important}
 .cr:hover{background:var(--s);border-color:var(--b2)}
-.cr .nm{font-size:.8rem;font-weight:700;color:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;letter-spacing:-.005em}
-.cr .meta{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;min-width:0}
-.cr .bar{height:7px;background:var(--mb);border-radius:99px;overflow:hidden;position:relative;min-width:0}
-.cr .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .35s}
-.cr .right{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.cr .nm{font-size:.8rem;font-weight:700;color:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;letter-spacing:-.005em;text-align:left!important;margin:0!important}
+.cr .meta{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;min-width:0;text-align:left!important}
+.cr .bar{height:7px;background:var(--mb);border-radius:99px;overflow:hidden;position:relative;min-width:0;display:block!important;width:100%!important}
+.cr .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .35s;min-width:0}
+.cr .right{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:'JetBrains Mono',monospace;justify-content:flex-end}
 .cr .cnt2{font-weight:700;font-size:.72rem;color:var(--t2);white-space:nowrap}
 .cr .sep2{color:var(--t3);opacity:.5;font-size:.7rem}
 .cr .pc2{font-weight:700;font-size:.7rem;padding:2px 7px;border-radius:99px;background:var(--bs);color:var(--bt);white-space:nowrap}
@@ -302,7 +302,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.6",NAME:"My Notes",
+const C={VER:"v3.7",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1"}};
@@ -711,7 +711,7 @@ function renderR(){
   <div class="sc dislike" data-tab="disliked"><span class="pc">${dislikePct}%</span><span class="lbl">Disliked</span><span class="num">${dislikedCount}</span><span class="sub">of all cards</span></div>
  </div>`;
 
- /* ==================== CATEGORY COVERAGE (2-line layout, collapsible) ==================== */
+ /* CATEGORY COVERAGE — 2-line layout, left-aligned */
  const allCatCounts=catCounts(),catKeys=Object.keys(allCatCounts).sort((a,b)=>a.localeCompare(b));
  const catReads={};ALL.forEach(r=>{if(READ[key(r)]){const c=String(r.category||"").trim()||"Uncategorized";catReads[c]=(catReads[c]||0)+1}});
 
