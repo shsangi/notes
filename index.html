@@ -189,15 +189,46 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .sc.cat .pc{background:var(--inb);color:var(--in)}
 .sc.like .pc{background:var(--okb);color:var(--ok)}
 .sc.dislike .pc{background:var(--erb);color:var(--er)}
-.catsec{margin-bottom:16px;background:var(--s);border:1px solid var(--b);border-radius:12px;padding:12px 14px}
-.catsec h4{font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.catlist{display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;padding-right:2px}
-.catlist::-webkit-scrollbar{width:6px}.catlist::-webkit-scrollbar-thumb{background:var(--b2);border-radius:6px}
-.cr{display:grid;grid-template-columns:1fr 80px auto;gap:9px;align-items:center;padding:6px 8px;background:var(--s2);border:1px solid var(--b);border-radius:8px;font-size:.76rem}
+
+/* ==================== COLLAPSIBLE CATEGORY COVERAGE ==================== */
+.catsec{margin-bottom:16px;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;transition:border-color .15s}
+.catsec:hover{border-color:var(--b2)}
+.cathead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:background .15s}
+.cathead:hover{background:var(--s2)}
+.cathead .ch-left{display:flex;align-items:center;gap:9px;min-width:0;flex:1}
+.cathead .ch-arrow{width:14px;height:14px;flex-shrink:0;color:var(--t3);transition:transform .25s}
+.catsec.open .cathead .ch-arrow{transform:rotate(90deg);color:var(--br)}
+.cathead .ch-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cathead .ch-summary{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.cathead .ch-count{font:700 .7rem 'JetBrains Mono';padding:2px 8px;border-radius:99px;background:var(--mb);color:var(--t2)}
+.cathead .ch-pct{font:700 .68rem 'JetBrains Mono';padding:2px 8px;border-radius:99px;background:var(--inb);color:var(--in);border:1px solid var(--inr)}
+.catsec.open .cathead{border-bottom:1px solid var(--b)}
+.catbody{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(.32,.72,0,1)}
+.catsec.open .catbody{max-height:2000px}
+.catlist{display:flex;flex-direction:column;gap:6px;padding:10px 12px 12px}
+.cr{display:grid;grid-template-columns:minmax(0,1fr) 70px auto;gap:9px;align-items:center;padding:8px 10px;background:var(--s2);border:1px solid var(--b);border-radius:8px;font-size:.76rem;transition:background .15s}
+.cr:hover{background:var(--s);border-color:var(--b2)}
 .cr .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:var(--t2)}
-.cr .bar{height:5px;background:var(--mb);border-radius:99px;overflow:hidden}.cr .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .35s}
-.cr .cnt2{font:700 .68rem 'JetBrains Mono';color:var(--bt);text-align:right;white-space:nowrap}
-@media(max-width:520px){.cr{grid-template-columns:1fr 60px auto;font-size:.72rem;gap:6px}.catlist{max-height:220px}}
+.cr .bar{height:6px;background:var(--mb);border-radius:99px;overflow:hidden;position:relative}
+.cr .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .35s}
+.cr .right{display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
+.cr .cnt2{font:700 .68rem 'JetBrains Mono';color:var(--bt);white-space:nowrap}
+.cr .pc2{font:700 .64rem 'JetBrains Mono';padding:1px 6px;border-radius:99px;background:var(--bs);color:var(--bt);white-space:nowrap}
+.cr.full .bar i{background:linear-gradient(90deg,var(--ok),#34d399)}
+.cr.full .pc2{background:var(--okb);color:var(--ok)}
+.cr.empty .bar i{background:var(--mb)}
+.cr.empty .pc2{background:var(--mb);color:var(--t3)}
+@media(max-width:640px){
+ .cr{grid-template-columns:minmax(0,1fr) 60px auto;font-size:.72rem;gap:7px;padding:7px 8px}
+ .cr .pc2{font-size:.6rem;padding:1px 5px}
+}
+@media(max-width:400px){
+ .cathead{padding:11px 12px}
+ .cathead .ch-title{font-size:.62rem}
+ .cr{grid-template-columns:minmax(0,1fr) 50px auto;font-size:.7rem}
+ .cr .pc2{display:none}
+}
+
 .tabs2{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px;background:var(--s);border:1px solid var(--b);border-radius:11px;margin-bottom:12px}
 .tabs2 button{padding:9px 3px;background:0;border:0;border-radius:8px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;flex-direction:column;align-items:center;gap:1px}
 .tabs2 button small{font:.58rem 'JetBrains Mono';color:var(--t3);font-weight:700}
@@ -264,10 +295,10 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.4",NAME:"My Notes",
+const C={VER:"v3.5",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
-PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme"}};
+PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1"}};
 const $=id=>document.getElementById(id),K=C.K,p2=n=>String(n).padStart(2,"0");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const IC={pen:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/>',
@@ -281,6 +312,7 @@ ref:'<path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/>',
 chart:'<path d="M3 3v18h18M7 15l4-4 3 3 5-7"/>',
 eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
 arrow:'<polyline points="9 18 15 12 9 6"/>',
+chev:'<polyline points="9 18 15 12 9 6"/>',
 thumbUp:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
 thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/>'};
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
@@ -314,6 +346,7 @@ let REACT=lj(K.react,{});
 let F=Object.assign({q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default"},lj(K.filt,{}));
 if(!Array.isArray(F.reference))F.reference=[];
 if(!Array.isArray(F.reaction))F.reaction=[];
+let CATS_OPEN=lj(K.cats,false);
 let NOSAVE=false,MC,MP,MS,MR,MX;
 
 const off=()=>(C.PKT+new Date().getTimezoneOffset())*6e4;
@@ -671,13 +704,38 @@ function renderR(){
   <div class="sc dislike" data-tab="disliked"><span class="pc">${dislikePct}%</span><span class="lbl">Disliked</span><span class="num">${dislikedCount}</span><span class="sub">of all cards</span></div>
  </div>`;
 
+ /* ==================== COLLAPSIBLE CATEGORY COVERAGE ==================== */
  const allCatCounts=catCounts(),catKeys=Object.keys(allCatCounts).sort((a,b)=>a.localeCompare(b));
- const mx=catKeys.length?Math.max(...catKeys.map(k=>allCatCounts[k])):1;
  const catReads={};ALL.forEach(r=>{if(READ[key(r)]){const c=String(r.category||"").trim()||"Uncategorized";catReads[c]=(catReads[c]||0)+1}});
- const catSec=`<div class="catsec"><h4><span>Categories Coverage</span><span class="cnt">${catsStarted}/${catsTotal}</span></h4><div class="catlist">
-  ${catKeys.map(c=>{const tot=allCatCounts[c],rd=catReads[c]||0,pct=Math.round(rd/tot*100);
-   return`<div class="cr"><span class="nm" title="${esc(c)}">${esc(c)}</span><span class="bar"><i style="width:${pct}%"></i></span><span class="cnt2">${rd}/${tot} · ${pct}%</span></div>`}).join("")}
- </div></div>`;
+
+ const catRows=catKeys.map(c=>{
+  const tot=allCatCounts[c],rd=catReads[c]||0,pct=tot?Math.round(rd*100/tot):0;
+  const cls=rd===tot&&tot>0?"full":rd===0?"empty":"";
+  return `<div class="cr ${cls}" title="${esc(c)} — ${rd} of ${tot} read (${pct}%)">
+    <span class="nm">${esc(c)}</span>
+    <span class="bar"><i style="width:${pct}%"></i></span>
+    <span class="right">
+      <span class="cnt2">${rd}/${tot}</span>
+      <span class="pc2">${pct}%</span>
+    </span>
+  </div>`;
+ }).join("");
+
+ const catSec=`<div class="catsec ${CATS_OPEN?'open':''}" id="catsec">
+  <div class="cathead" id="cathead" role="button" tabindex="0" aria-expanded="${CATS_OPEN?'true':'false'}" aria-controls="catbody">
+   <div class="ch-left">
+    <span class="ch-arrow">${ico("chev",2.6)}</span>
+    <span class="ch-title">Categories Coverage</span>
+   </div>
+   <div class="ch-summary">
+    <span class="ch-count">${catsStarted}/${catsTotal}</span>
+    <span class="ch-pct">${catsPct}%</span>
+   </div>
+  </div>
+  <div class="catbody" id="catbody">
+   <div class="catlist">${catRows||'<div class="empty"><b>No categories</b>No cards loaded yet.</div>'}</div>
+  </div>
+ </div>`;
 
  const tabCounts={
   all:{c:totalCards,l:"All"},
@@ -694,6 +752,18 @@ function renderR(){
  $("rperiod").onchange=e=>{RPT.period=e.target.value;renderR()};
  rb.querySelectorAll(".sc").forEach(sc=>sc.onclick=()=>{RPT.tab=sc.dataset.tab||"read";renderR()});
  rb.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>{RPT.tab=b.dataset.tab;renderTab();rb.querySelectorAll(".tabs2 button").forEach(x=>x.classList.toggle("on",x.dataset.tab===RPT.tab))});
+
+ /* Category section toggle */
+ const head=$("cathead"),sec=$("catsec");
+ const toggleCats=()=>{
+  CATS_OPEN=!CATS_OPEN;
+  sec.classList.toggle("open",CATS_OPEN);
+  head.setAttribute("aria-expanded",CATS_OPEN?"true":"false");
+  sj(K.cats,CATS_OPEN);
+ };
+ head.onclick=toggleCats;
+ head.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggleCats()}};
+
  renderTab();
  const pl=PERIODS.find(p=>p.v===RPT.period);$("rsub").textContent=pl?pl.l:"";
 }
@@ -706,7 +776,6 @@ function tabCards(tab){
  return ALL;
 }
 
-/* build CSV of cards from `list` — used by both per-tab export and full backup */
 function buildCSVFor(list){
  const rows=[["#","row","reference","category","memory","status","read_count","first_read_pkt","last_read_pkt","reaction","reaction_time_pkt"]];
  list.forEach((r,i)=>{
@@ -748,7 +817,6 @@ function exportTabCSV(tab){
  downloadCSV(rowsToCSV(rows),`my-notes-${tab}-${stamp}.csv`,`Exported ${list.length} card${list.length===1?"":"s"} (${tab}).`);
 }
 
-/* NEW: Full backup — export every card with current state */
 function exportFullBackup(){
  if(!ALL.length){toast("No cards loaded yet.","err");return}
  const rows=buildCSVFor(ALL);
@@ -778,7 +846,7 @@ function renderTab(){
 $("rbackup").onclick=exportFullBackup;
 
 $("cn").onclick=()=>$("cf").classList.remove("show");
-$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
+$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
 
 $("rimp").onclick=()=>$("file").click();
 $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();
