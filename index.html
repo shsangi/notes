@@ -99,23 +99,19 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .pct{padding:1px 6px;margin-left:6px;border-radius:99px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-weight:700;font-size:.64rem}
 .pct.z{background:var(--mb);border-color:var(--mr);color:var(--t3)}
 
-.qmenu{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;margin-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative}
-.qmenu::-webkit-scrollbar{display:none}
-.qmenu .qtab{flex:0 0 auto;padding:8px 14px;border-radius:10px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;font-family:inherit;font-size:.76rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:.15s;white-space:nowrap;position:relative}
-.qmenu .qtab:hover{color:var(--t);border-color:var(--b2);background:var(--s2)}
-.qmenu .qtab.on{background:var(--br);border-color:var(--br);color:#fff;box-shadow:0 4px 12px -4px var(--brand-shadow)}
-.qmenu .qtab .qico{width:14px;height:14px;flex-shrink:0;opacity:.9}
-.qmenu .qtab .qc{font:700 .6rem 'JetBrains Mono';padding:1px 6px;border-radius:99px;background:var(--mb);color:var(--t3)}
-.qmenu .qtab.on .qc{background:rgba(255,255,255,.22);color:#fff}
-.qwrap{position:relative;margin:0 -2px}
-.qwrap::after{content:"";position:absolute;right:0;top:0;bottom:8px;width:22px;pointer-events:none;background:linear-gradient(90deg,transparent,var(--bg));opacity:.85}
-@media(max-width:520px){.qwrap::after{opacity:.7}}
-.qmenu-hint{display:flex;align-items:center;justify-content:space-between;font-size:.66rem;color:var(--t3);padding:0 2px 6px;font-weight:500}
-.qmenu-hint .h-l{display:inline-flex;align-items:center;gap:5px}
-.qmenu-hint .h-l svg{width:11px;height:11px}
-.qmenu-hint .h-r{opacity:.75;display:inline-flex;align-items:center;gap:4px}
-.qmenu-hint .h-r svg{width:11px;height:11px;animation:swipe 1.6s ease-in-out infinite}
-@keyframes swipe{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(3px);opacity:1}}
+/* ==================== NOTES TAB MENU — same as Progress screen ==================== */
+.ntabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px;background:var(--s);border:1px solid var(--b);border-radius:11px;margin:12px 0 12px}
+.ntabs button{padding:9px 4px;background:0;border:0;border-radius:8px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.1}
+.ntabs button span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.ntabs button small{font:.58rem 'JetBrains Mono';color:var(--t3);font-weight:700;line-height:1}
+.ntabs button:hover{color:var(--t);background:var(--s2)}
+.ntabs button.on{background:var(--br);color:#fff;box-shadow:0 2px 8px -2px var(--brand-shadow)}
+.ntabs button.on small{color:rgba(255,255,255,.72)}
+@media(max-width:640px){
+ .ntabs{gap:2px;padding:3px}
+ .ntabs button{font-size:.62rem;padding:8px 2px}
+ .ntabs button small{font-size:.54rem}
+}
 
 .list{display:flex;flex-direction:column;gap:8px}
 .more{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0 8px;font-size:.72rem;color:var(--t3);text-align:center}
@@ -315,7 +311,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
 
- <!-- ============ SEARCH BAR + FILTER TOGGLE ============ -->
+ <!-- SEARCH + FILTER TOGGLE -->
  <div class="filterbar">
   <div class="search-wrap">
    <span id="si"></span>
@@ -327,7 +323,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
   </button>
  </div>
 
- <!-- ============ COLLAPSIBLE FILTER PANEL ============ -->
+ <!-- COLLAPSIBLE FILTER PANEL -->
  <div class="filters-panel" id="fpanel">
   <div class="fp-inner">
    <div class="row2">
@@ -347,19 +343,8 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
   </div>
  </div>
 
- <div class="qmenu-hint" id="qmHint" style="margin-top:12px">
-  <span class="h-l">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-   Tap a tab to filter
-  </span>
-  <span class="h-r">
-   Swipe
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-  </span>
- </div>
- <div class="qwrap">
-  <div class="qmenu" id="qmenu" role="tablist" aria-label="Notes filter tabs"></div>
- </div>
+ <!-- NOTES TAB MENU — same layout as Progress screen -->
+ <div class="ntabs" id="qmenu" role="tablist" aria-label="Notes filter tabs"></div>
 
  <div class="infobar"><div class="ib" id="ibL">Loading…</div><div class="ib" id="ibR"></div></div>
  <div class="list" id="out"><div class="state">Fetching memory cards…</div></div>
@@ -382,7 +367,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.1",NAME:"My Notes",
+const C={VER:"v4.2",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -401,11 +386,6 @@ eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy=
 arrow:'<polyline points="9 18 15 12 9 6"/>',
 chev:'<polyline points="9 18 15 12 9 6"/>',
 filter:'<path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>',
-all:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
-liked:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
-read:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
-unread:'<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
-disliked:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/>',
 thumbUp:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
 thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/>'};
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
@@ -543,7 +523,6 @@ function setFPanel(open,save=true){
  b.classList.toggle("on",open);
  b.setAttribute("aria-expanded",open?"true":"false");
  if(save)sj(K.fpanel,open);
- // when opening, refresh cascading options
  if(open)refreshSelectOptions();
 }
 function refreshBadge(){
@@ -551,7 +530,6 @@ function refreshBadge(){
  const el=$("ftCount");
  el.textContent=n;
  el.classList.toggle("show",n>0);
- // Also highlight button if there are active filters even when closed
  const b=$("ftBtn");
  b.classList.toggle("on",FPANEL_OPEN||n>0);
 }
@@ -659,20 +637,14 @@ function refreshSelectOptions(){
  if(MR){MR.opts=getAvailable("reference");MR.rt()}
 }
 
-function notesTabCards(tab){
- if(tab==="liked")return ALL.filter(r=>REACT[key(r)]&&REACT[key(r)].type==="like");
- if(tab==="disliked")return ALL.filter(r=>REACT[key(r)]&&REACT[key(r)].type==="dislike");
- if(tab==="read")return ALL.filter(r=>READ[key(r)]);
- if(tab==="unread")return ALL.filter(r=>!READ[key(r)]);
- return ALL;
-}
+/* ==================== NOTES TAB MENU — same style as Progress ==================== */
 function renderNotesTabs(){
  const tabs=[
-  {v:"all",l:"All",ic:"all"},
-  {v:"read",l:"Read",ic:"read"},
-  {v:"unread",l:"Unread",ic:"unread"},
-  {v:"liked",l:"Liked",ic:"liked"},
-  {v:"disliked",l:"Disliked",ic:"disliked"}
+  {v:"all",l:"All"},
+  {v:"read",l:"Read"},
+  {v:"unread",l:"Unread"},
+  {v:"liked",l:"Liked"},
+  {v:"disliked",l:"Disliked"}
  ];
  const counts={
   all:ALL.length,
@@ -682,17 +654,15 @@ function renderNotesTabs(){
   disliked:Object.values(REACT).filter(r=>r&&r.type==="dislike").length
  };
  const el=$("qmenu");
- el.innerHTML=tabs.map(t=>`<button class="qtab ${NOTES_TAB===t.v?"on":""}" data-v="${t.v}" role="tab" aria-selected="${NOTES_TAB===t.v}">
-  <span class="qico">${ico(t.ic,2.2)}</span>
+ el.innerHTML=tabs.map(t=>`<button class="${NOTES_TAB===t.v?"on":""}" data-v="${t.v}" role="tab" aria-selected="${NOTES_TAB===t.v}">
   <span>${t.l}</span>
-  <span class="qc">${counts[t.v]}</span>
+  <small>${counts[t.v]}</small>
  </button>`).join("");
- el.querySelectorAll(".qtab").forEach(b=>{
+ el.querySelectorAll("button").forEach(b=>{
   b.onclick=()=>{
    NOTES_TAB=b.dataset.v;
    sj(K.qtab,NOTES_TAB);
-   el.querySelectorAll(".qtab").forEach(x=>x.classList.toggle("on",x.dataset.v===NOTES_TAB));
-   b.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
+   el.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.v===NOTES_TAB));
    LOADED=0;
    apply();
   };
