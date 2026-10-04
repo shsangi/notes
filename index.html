@@ -62,13 +62,17 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ms-l::-webkit-scrollbar{width:6px}.ms-l::-webkit-scrollbar-thumb{background:var(--b2);border-radius:6px}
 .opt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:.84rem;color:var(--t2);user-select:none;transition:.12s}
 .opt:hover,.opt:active{background:var(--s2);color:var(--t)}.opt.on{background:var(--bs);color:var(--bt)}
+.opt.disabled{opacity:.4;cursor:not-allowed}
+.opt.disabled:hover{background:transparent;color:var(--t2)}
 .ck{width:16px;height:16px;border-radius:5px;border:1.5px solid var(--b2);display:grid;place-items:center;font-size:10px;color:#fff;transition:.15s;flex-shrink:0}
 .opt.on .ck{background:var(--br);border-color:var(--br)}
 .opt span:nth-child(2){flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cnt{font:.7rem 'JetBrains Mono';color:var(--t3);padding:1px 6px;background:var(--mb);border-radius:99px;flex-shrink:0}
+.cnt.zero{opacity:.4}
 .ms-a{display:flex;gap:6px;padding-top:6px;border-top:1px solid var(--b);margin-top:4px;flex-shrink:0}
 .ms-a button{flex:1;padding:7px;background:var(--s);border:1px solid var(--b);border-radius:7px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit}
 .ms-a button:hover{background:var(--s2);color:var(--t)}
+.ms-empty-mini{padding:14px;text-align:center;color:var(--t3);font-size:.76rem}
 .af{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:8px;border-top:1px dashed var(--b);font-size:.72rem;color:var(--t3);min-height:32px}
 .af>b{color:var(--t2);font-weight:600}
 .af .tag2{display:inline-flex;align-items:center;gap:4px;padding:3px 8px 3px 10px;border-radius:7px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-size:.68rem;font-weight:600;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
@@ -81,7 +85,6 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .pct{padding:1px 6px;margin-left:6px;border-radius:99px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-weight:700;font-size:.64rem}
 .pct.z{background:var(--mb);border-color:var(--mr);color:var(--t3)}
 
-/* ==================== NOTES SCREEN TAB MENU ==================== */
 .qmenu{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;margin-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:relative}
 .qmenu::-webkit-scrollbar{display:none}
 .qmenu .qtab{flex:0 0 auto;padding:8px 14px;border-radius:10px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;font-family:inherit;font-size:.76rem;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:.15s;white-space:nowrap;position:relative}
@@ -90,11 +93,9 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .qmenu .qtab .qico{width:14px;height:14px;flex-shrink:0;opacity:.9}
 .qmenu .qtab .qc{font:700 .6rem 'JetBrains Mono';padding:1px 6px;border-radius:99px;background:var(--mb);color:var(--t3)}
 .qmenu .qtab.on .qc{background:rgba(255,255,255,.22);color:#fff}
-/* Fade hint on right edge to show scrollability */
 .qwrap{position:relative;margin:0 -2px}
 .qwrap::after{content:"";position:absolute;right:0;top:0;bottom:8px;width:22px;pointer-events:none;background:linear-gradient(90deg,transparent,var(--bg));opacity:.85}
 @media(max-width:520px){.qwrap::after{opacity:.7}}
-/* Small "swipe" hint shown once */
 .qmenu-hint{display:flex;align-items:center;justify-content:space-between;font-size:.66rem;color:var(--t3);padding:0 2px 6px;font-weight:500}
 .qmenu-hint .h-l{display:inline-flex;align-items:center;gap:5px}
 .qmenu-hint .h-l svg{width:11px;height:11px}
@@ -307,7 +308,6 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
   <div class="af" id="af"></div>
  </div>
 
- <!-- ============ NOTES SCREEN TAB MENU ============ -->
  <div class="qmenu-hint" id="qmHint">
   <span class="h-l">
    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
@@ -343,7 +343,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.8",NAME:"My Notes",
+const C={VER:"v3.9",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1"}};
@@ -486,28 +486,142 @@ function setReact(k, val){
  if(changed)sj(K.react,REACT);
 })();
 
-class MSel{constructor(id,o){Object.assign(this,{el:$(id),ph:"Select…",sp:"Search…",opts:[],sel:[],on(){}},o);this.el.className="ms";
- this.el.innerHTML=`<button type="button" class="ms-t"></button><div class="ms-m"><div class="ms-s"><input type="text" placeholder="${esc(this.sp)}"></div><div class="ms-l"></div><div class="ms-a"><button type="button" data-a="all">Select all</button><button type="button" data-a="clr">Clear</button></div></div>`;
- this.t=this.el.firstChild;this.si=this.el.querySelector("input");this.l=this.el.querySelector(".ms-l");this.rt();this.rl();
- this.t.onclick=e=>{e.stopPropagation();const o=this.el.classList.contains("open");closeMS();if(!o){this.el.classList.add("open");this.si.value="";this.rl();setTimeout(()=>this.si.focus(),30)}};
- this.si.oninput=()=>this.rl();this.el.querySelector(".ms-m").onclick=e=>e.stopPropagation();
- this.el.querySelector('[data-a=all]').onclick=()=>{const q=this.si.value.toLowerCase();this.sel=[...new Set([...this.sel,...this.opts.filter(o=>o.label.toLowerCase().includes(q)).map(o=>o.value)])];this.ch()};
- this.el.querySelector('[data-a=clr]').onclick=()=>{this.sel=[];this.ch()}}
+/* ============================================================
+   CASCADING MULTI-SELECT
+   Each dropdown, when opened, asks `getOptions()` for the current
+   set of values that are actually available given the OTHER filters.
+   Counts also reflect the filtered subset, not the full dataset.
+   ============================================================ */
+class MSel{
+ constructor(id,o){
+  Object.assign(this,{el:$(id),ph:"Select…",sp:"Search…",opts:[],sel:[],on(){},getOptions:null},o);
+  this.el.className="ms";
+  this.el.innerHTML=`<button type="button" class="ms-t"></button><div class="ms-m"><div class="ms-s"><input type="text" placeholder="${esc(this.sp)}"></div><div class="ms-l"></div><div class="ms-a"><button type="button" data-a="all">Select all</button><button type="button" data-a="clr">Clear</button></div></div>`;
+  this.t=this.el.firstChild;this.si=this.el.querySelector("input");this.l=this.el.querySelector(".ms-l");
+  this.rt();this.rl();
+  this.t.onclick=e=>{
+   e.stopPropagation();
+   const o=this.el.classList.contains("open");
+   closeMS();
+   if(!o){
+    if(this.getOptions)this.opts=this.getOptions();
+    this.el.classList.add("open");
+    this.si.value="";
+    this.rl();
+    setTimeout(()=>this.si.focus(),30);
+   }
+  };
+  this.si.oninput=()=>this.rl();
+  this.el.querySelector(".ms-m").onclick=e=>e.stopPropagation();
+  this.el.querySelector('[data-a=all]').onclick=()=>{
+   const q=this.si.value.toLowerCase();
+   // Select all that are visible AND available (count > 0)
+   const addable=this.opts.filter(o=>(typeof o.count!=="number"||o.count>0) && o.label.toLowerCase().includes(q)).map(o=>o.value);
+   this.sel=[...new Set([...this.sel,...addable])];
+   this.ch();
+  };
+  this.el.querySelector('[data-a=clr]').onclick=()=>{this.sel=[];this.ch()};
+ }
  ch(){this.rt();this.rl();this.on(this.sel.slice())}
  setOptions(o){this.opts=o;const v=new Set(o.map(x=>x.value));this.sel=this.sel.filter(x=>v.has(x));this.rt();this.rl()}
  setSelected(v){this.sel=v.slice();this.rt();this.rl()}
  tog(v){const i=this.sel.indexOf(v);i>=0?this.sel.splice(i,1):this.sel.push(v);this.ch()}
- rt(){this.t.classList.toggle("has",!!this.sel.length);
+ rt(){
+  this.t.classList.toggle("has",!!this.sel.length);
   if(!this.sel.length){this.t.innerHTML=`<span class="ph">${esc(this.ph)}</span>`;return}
-  const rest=this.sel.length-2;this.t.innerHTML=this.sel.slice(0,2).map(v=>{const o=this.opts.find(x=>x.value===v);return`<span class="pill">${esc(o?o.label:v)}<b data-v="${esc(v)}">✕</b></span>`}).join("")+(rest>0?`<span class="pill">+${rest}</span>`:"");
-  this.t.querySelectorAll("b").forEach(b=>b.onclick=e=>{e.stopPropagation();this.tog(b.dataset.v)})}
- rl(){const q=this.si.value.trim().toLowerCase(),f=this.opts.filter(o=>!q||o.label.toLowerCase().includes(q));
-  this.l.innerHTML=f.length?f.map(o=>`<div class="opt ${this.sel.includes(o.value)?"on":""}" data-v="${esc(o.value)}"><span class="ck">✓</span><span>${esc(o.label)}</span>${typeof o.count=="number"?`<span class="cnt">${o.count}</span>`:""}</div>`).join(""):'<div class="empty">No matches</div>';
-  this.l.querySelectorAll(".opt").forEach(e=>e.onclick=ev=>{ev.stopPropagation();this.tog(e.dataset.v)})}}
+  const rest=this.sel.length-2;
+  this.t.innerHTML=this.sel.slice(0,2).map(v=>{const o=this.opts.find(x=>x.value===v);return`<span class="pill">${esc(o?o.label:v)}<b data-v="${esc(v)}">✕</b></span>`}).join("")+(rest>0?`<span class="pill">+${rest}</span>`:"");
+  this.t.querySelectorAll("b").forEach(b=>b.onclick=e=>{e.stopPropagation();this.tog(b.dataset.v)});
+ }
+ rl(){
+  const q=this.si.value.trim().toLowerCase();
+  const f=this.opts.filter(o=>!q||o.label.toLowerCase().includes(q));
+  if(!f.length){
+   this.l.innerHTML='<div class="ms-empty-mini">No matches</div>';
+   return;
+  }
+  this.l.innerHTML=f.map(o=>{
+   const on=this.sel.includes(o.value);
+   const zero=typeof o.count==="number"&&o.count===0&&!on;
+   return`<div class="opt ${on?"on":""} ${zero?"disabled":""}" data-v="${esc(o.value)}">
+    <span class="ck">✓</span>
+    <span>${esc(o.label)}</span>
+    ${typeof o.count==="number"?`<span class="cnt ${zero?"zero":""}">${o.count}</span>`:""}
+   </div>`;
+  }).join("");
+  this.l.querySelectorAll(".opt").forEach(e=>{
+   e.onclick=ev=>{
+    ev.stopPropagation();
+    if(e.classList.contains("disabled"))return;
+    this.tog(e.dataset.v);
+   };
+  });
+ }
+}
 const closeMS=()=>document.querySelectorAll(".ms.open").forEach(m=>m.classList.remove("open"));
 document.addEventListener("click",closeMS);
 
-/* ==================== NOTES SCREEN TABS ==================== */
+/* ============================================================
+   AVAILABLE VALUES COMPUTED FROM CURRENT FILTERS
+   Given a set of "ignore" keys, filter ALL by every filter EXCEPT
+   the ignored ones, then return unique values + counts.
+   ============================================================ */
+function passes(r,ignore){
+ if(F.status.length && !ignore.includes("status") && !F.status.includes(String(r.status||"").trim())) return false;
+ if(F.category.length && !ignore.includes("category") && !F.category.includes(String(r.category||"").trim())) return false;
+ if(F.reference.length && !ignore.includes("reference") && !F.reference.includes(String(r.reference||"").trim())) return false;
+ if(F.reaction.length && !ignore.includes("reaction")){
+  const rx=REACT[key(r)];const rt=rx?rx.type:"";
+  if(!F.reaction.includes(rt)) return false;
+ }
+ if(F.read && !ignore.includes("read")){
+  if(F.read==="read" && !READ[key(r)]) return false;
+  if(F.read==="unread" && READ[key(r)]) return false;
+ }
+ if(NOTES_TAB!=="all" && !ignore.includes("ntab")){
+  if(NOTES_TAB==="liked" && !(REACT[key(r)]&&REACT[key(r)].type==="like")) return false;
+  if(NOTES_TAB==="disliked" && !(REACT[key(r)]&&REACT[key(r)].type==="dislike")) return false;
+  if(NOTES_TAB==="read" && !READ[key(r)]) return false;
+  if(NOTES_TAB==="unread" && READ[key(r)]) return false;
+ }
+ // search box also narrows the pool for other dropdowns? Usually not — keep search out of dropdown pool
+ return true;
+}
+function getAvailable(field){
+ // field: "category" | "status" | "reference" | "reaction"
+ const counts={};
+ ALL.forEach(r=>{
+  // ignore the field we're computing options for
+  if(!passes(r,[field]))return;
+  let v;
+  if(field==="category")v=String(r.category||"").trim()||"Uncategorized";
+  else if(field==="status")v=String(r.status||"").trim()||"Other";
+  else if(field==="reference")v=String(r.reference||"").trim();
+  else if(field==="reaction"){const rx=REACT[key(r)];v=rx?rx.type:"none"}
+  if(v||field==="reaction")counts[v]=(counts[v]||0)+1;
+ });
+ // Also include currently-selected values even if count is 0 (so user can un-select)
+ if(field==="category")F.category.forEach(c=>{if(!(c in counts))counts[c]=0});
+ if(field==="status")F.status.forEach(c=>{if(!(c in counts))counts[c]=0});
+ if(field==="reference")F.reference.forEach(c=>{if(!(c in counts))counts[c]=0});
+ if(field==="reaction"){
+  const rxOpts=["like","dislike","none"];
+  rxOpts.forEach(v=>{if(!(v in counts))counts[v]=0});
+ }
+ const keys=Object.keys(counts);
+ if(field==="status"){
+  const ord=["V.Imp","Imp","Note"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
+  keys.sort((a,b)=>ix(a)-ix(b)||a.localeCompare(b));
+ } else if(field==="reaction"){
+  const ord=["like","dislike","none"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
+  keys.sort((a,b)=>ix(a)-ix(b));
+ } else {
+  keys.sort((a,b)=>a.localeCompare(b));
+ }
+ const labels={like:"👍 Liked",dislike:"👎 Disliked",none:"— None"};
+ return keys.map(k=>({value:k,label:field==="reaction"?labels[k]:k,count:counts[k]}));
+}
+
 function notesTabCards(tab){
  if(tab==="liked")return ALL.filter(r=>REACT[key(r)]&&REACT[key(r)].type==="like");
  if(tab==="disliked")return ALL.filter(r=>REACT[key(r)]&&REACT[key(r)].type==="dislike");
@@ -540,12 +654,9 @@ function renderNotesTabs(){
   b.onclick=()=>{
    NOTES_TAB=b.dataset.v;
    sj(K.qtab,NOTES_TAB);
-   // Sync with main filters so VIEW reflects
+   F.ntab=NOTES_TAB;
    F.read = (NOTES_TAB==="read"?"read":NOTES_TAB==="unread"?"unread":"");
-   // reaction filter: liked/disliked handled separately by applying tab in apply()
-   F.ntab = NOTES_TAB;
    el.querySelectorAll(".qtab").forEach(x=>x.classList.toggle("on",x.dataset.v===NOTES_TAB));
-   // scroll active tab into view
    b.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
    LOADED=0;
    apply();
@@ -559,18 +670,15 @@ function apply(skip){
   if(F.status.length&&!F.status.includes(String(r.status||"").trim()))return false;
   if(F.category.length&&!F.category.includes(String(r.category||"").trim()))return false;
   if(F.reference.length&&!F.reference.includes(String(r.reference||"").trim()))return false;
-  // Reaction filter from main dropdown (multi-select)
   if(F.reaction.length){
    const rx=REACT[key(r)];
    const rt=rx?rx.type:"";
    if(!F.reaction.includes(rt))return false;
   }
-  // Notes tab filter (mutually exclusive with main filter reaction? No—if both set, tab wins for liked/disliked)
   if(NOTES_TAB==="liked" && !(REACT[key(r)]&&REACT[key(r)].type==="like"))return false;
   if(NOTES_TAB==="disliked" && !(REACT[key(r)]&&REACT[key(r)].type==="dislike"))return false;
   if(NOTES_TAB==="read" && !READ[key(r)])return false;
   if(NOTES_TAB==="unread" && READ[key(r)])return false;
-  // Legacy `F.read` from filters must still work if no notes tab
   if(NOTES_TAB==="all"){
    if(F.read==="read"&&!READ[key(r)])return false;
    if(F.read==="unread"&&READ[key(r)])return false;
@@ -582,7 +690,24 @@ function apply(skip){
  else if(F.sort==="most")VIEW.sort((a,b)=>cnt(b)-cnt(a));
  LOADED=Math.min(C.PAGE,VIEW.length);
  if(!VIEW.length){$("out").innerHTML='<div class="state"><h3>No cards found</h3><p>Try a different search or clear the filters.</p></div>';$("more").innerHTML=""}else renderPage();
- info();activeF();renderNotesTabs();if(!skip)sj(K.filt,F)}
+ info();activeF();renderNotesTabs();
+ // Refresh cached options so next open shows updated availability
+ refreshSelectOptions();
+ if(!skip)sj(K.filt,F)}
+
+function refreshSelectOptions(){
+ // Do NOT re-render open dropdowns aggressively; only update cached opts
+ const sets={
+  category:getAvailable("category"),
+  status:getAvailable("status"),
+  reference:getAvailable("reference"),
+  reaction:getAvailable("reaction")
+ };
+ if(MC){MC.opts=sets.category;MC.rt()}
+ if(MP){MP.opts=sets.status;MP.rt()}
+ if(MR){MR.opts=sets.reference;MR.rt()}
+ if(MX){MX.opts=sets.reaction;MX.rt()}
+}
 
 function card(r,i,idx,tot){
  const m=sm(r.status),k=key(r),rec=READ[k],n=rec?rec.count:0;
@@ -653,8 +778,8 @@ function bind(container){
   setReact(k,"like");
   updReact(b.closest(".card"),k);
   upd(b.closest(".card"),k);
-  buildReactionSelect();
   renderNotesTabs();
+  refreshSelectOptions();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
@@ -663,8 +788,8 @@ function bind(container){
   setReact(k,"dislike");
   updReact(b.closest(".card"),k);
   upd(b.closest(".card"),k);
-  buildReactionSelect();
   renderNotesTabs();
+  refreshSelectOptions();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll(".det").forEach(d=>d.onclick=e=>e.stopPropagation());
@@ -721,21 +846,16 @@ function activeF(){const el=$("af"),T=[];
  $("rst").onclick=()=>{F={q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default",ntab:NOTES_TAB};$("q").value="";$("sort").value="default";[MC,MP,MS,MR,MX].forEach(m=>m&&m.setSelected([]));clearScroll();apply()}}
 
 function buildSelects(){
- const cc={},pc={},rc={};
- ALL.forEach(r=>{
-  const c=String(r.category||"").trim();if(c)cc[c]=(cc[c]||0)+1;
-  const k=String(r.status||"").trim()||"Other";pc[k]=(pc[k]||0)+1;
-  const ref=String(r.reference||"").trim();if(ref)rc[ref]=(rc[ref]||0)+1;
- });
- const co=Object.keys(cc).sort((a,b)=>a.localeCompare(b)).map(c=>({value:c,label:c,count:cc[c]}));
- const ord=["V.Imp","Imp","Note"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
- const po=Object.keys(pc).sort((a,b)=>ix(a)-ix(b)||a.localeCompare(b)).map(k=>({value:k,label:k,count:pc[k]}));
- const ro=Object.keys(rc).sort((a,b)=>a.localeCompare(b)).map(c=>({value:c,label:c,count:rc[c]}));
- const rd=ALL.filter(r=>READ[key(r)]).length,so=[{value:"read",label:"Read",count:rd},{value:"unread",label:"Unread",count:ALL.length-rd}];
+ // Initial full-options (before any filter applied). getOptions callback refreshes on open.
+ const rd=ALL.filter(r=>READ[key(r)]).length;
+ const so=[{value:"read",label:"Read",count:rd},{value:"unread",label:"Unread",count:ALL.length-rd}];
 
- if(MC)MC.setOptions(co);else MC=new MSel("msC",{ph:"All Categories",sp:"Search categories…",opts:co,sel:F.category.slice(),on:v=>{F.category=v;apply()}});
- if(MP)MP.setOptions(po);else MP=new MSel("msP",{ph:"All Priority",sp:"Search priority…",opts:po,sel:F.status.slice(),on:v=>{F.status=v;apply()}});
- if(MR)MR.setOptions(ro);else MR=new MSel("msR",{ph:"All References",sp:"Search references…",opts:ro,sel:F.reference.slice(),on:v=>{F.reference=v;apply()}});
+ if(MC){MC.setOptions(getAvailable("category"))}
+ else MC=new MSel("msC",{ph:"All Categories",sp:"Search categories…",getOptions:()=>getAvailable("category"),on:v=>{F.category=v;apply()}});
+ if(MP){MP.setOptions(getAvailable("status"))}
+ else MP=new MSel("msP",{ph:"All Priority",sp:"Search priority…",getOptions:()=>getAvailable("status"),on:v=>{F.status=v;apply()}});
+ if(MR){MR.setOptions(getAvailable("reference"))}
+ else MR=new MSel("msR",{ph:"All References",sp:"Search references…",getOptions:()=>getAvailable("reference"),on:v=>{F.reference=v;apply()}});
  if(MS){MS.setOptions(so);MS.setSelected(F.read?[F.read]:[])}
  else MS=new MSel("msS",{ph:"All Status",sp:"Search status…",opts:so,sel:F.read?[F.read]:[],on:v=>{if(v.length>1){v=[v[v.length-1]];MS.setSelected(v)}F.read=v[0]||"";apply()}});
  buildReactionSelect();
@@ -743,14 +863,7 @@ function buildSelects(){
 }
 
 function buildReactionSelect(){
- const likeCount=Object.values(REACT).filter(r=>r&&r.type==="like").length;
- const dislikeCount=Object.values(REACT).filter(r=>r&&r.type==="dislike").length;
- const noneCount=ALL.length-likeCount-dislikeCount;
- const xo=[
-  {value:"like",label:"👍 Liked",count:likeCount},
-  {value:"dislike",label:"👎 Disliked",count:dislikeCount},
-  {value:"none",label:"— None",count:noneCount}
- ];
+ const xo=getAvailable("reaction");
  const valid=new Set(xo.map(o=>o.value));
  const clean=F.reaction.filter(v=>valid.has(v));
  if(clean.length!==F.reaction.length){
@@ -759,7 +872,7 @@ function buildReactionSelect(){
   sj(K.filt,F);
  }
  if(MX)MX.setOptions(xo);
- else MX=new MSel("msX",{ph:"All Reactions",sp:"Search reactions…",opts:xo,sel:F.reaction.slice(),on:v=>{F.reaction=v;apply()}});
+ else MX=new MSel("msX",{ph:"All Reactions",sp:"Search reactions…",getOptions:()=>getAvailable("reaction"),on:v=>{F.reaction=v;apply()}});
  MX.rt();
 }
 
@@ -773,14 +886,8 @@ $("brand").onclick=openR;$("rx").onclick=closeR;rm.onclick=e=>e.target===rm&&clo
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMS();closeR()}});
 
 const PERIODS=[
- {v:"all",l:"All time"},
- {v:"last",l:"Last read"},
- {v:"daily",l:"Today"},
- {v:"weekly",l:"This week"},
- {v:"monthly",l:"This month"},
- {v:"year",l:"This year"},
- {v:"lastyear",l:"Last year"},
- {v:"last12",l:"Last 12 months"}
+ {v:"all",l:"All time"},{v:"last",l:"Last read"},{v:"daily",l:"Today"},{v:"weekly",l:"This week"},
+ {v:"monthly",l:"This month"},{v:"year",l:"This year"},{v:"lastyear",l:"Last year"},{v:"last12",l:"Last 12 months"}
 ];
 function periodRange(p){
  const now=Date.now(),d=new Date(now);
@@ -837,46 +944,22 @@ function renderR(){
 
  const catSec=`<div class="catsec ${CATS_OPEN?'open':''}" id="catsec">
   <div class="cathead" id="cathead" role="button" tabindex="0" aria-expanded="${CATS_OPEN?'true':'false'}">
-   <div class="ch-left">
-    <span class="ch-arrow">${ico("chev",2.6)}</span>
-    <span class="ch-title">Categories Coverage</span>
-   </div>
-   <div class="ch-summary">
-    <span class="ch-count">${catsStarted}/${catsTotal}</span>
-    <span class="ch-pct">${catsPct}%</span>
-   </div>
+   <div class="ch-left"><span class="ch-arrow">${ico("chev",2.6)}</span><span class="ch-title">Categories Coverage</span></div>
+   <div class="ch-summary"><span class="ch-count">${catsStarted}/${catsTotal}</span><span class="ch-pct">${catsPct}%</span></div>
   </div>
-  <div class="catbody" id="catbody">
-   <div class="catlist">${catRows||'<div class="empty"><b>No categories</b>No cards loaded yet.</div>'}</div>
-  </div>
+  <div class="catbody" id="catbody"><div class="catlist">${catRows||'<div class="empty"><b>No categories</b>No cards loaded yet.</div>'}</div></div>
  </div>`;
 
- const tabCounts={
-  all:{c:totalCards,l:"All"},
-  liked:{c:likedCount,l:"Liked"},
-  read:{c:Object.keys(READ).length,l:"Read"},
-  unread:{c:totalCards-Object.keys(READ).length,l:"Unread"},
-  disliked:{c:dislikedCount,l:"Disliked"}
- };
- const tabs=`<div class="tabs2">
-  ${Object.entries(tabCounts).map(([k,o])=>`<button data-tab="${k}" class="${RPT.tab===k?"on":""}"><span>${o.l}</span><small>${o.c}</small></button>`).join("")}
- </div>`;
+ const tabCounts={all:{c:totalCards,l:"All"},liked:{c:likedCount,l:"Liked"},read:{c:Object.keys(READ).length,l:"Read"},unread:{c:totalCards-Object.keys(READ).length,l:"Unread"},disliked:{c:dislikedCount,l:"Disliked"}};
+ const tabs=`<div class="tabs2">${Object.entries(tabCounts).map(([k,o])=>`<button data-tab="${k}" class="${RPT.tab===k?"on":""}"><span>${o.l}</span><small>${o.c}</small></button>`).join("")}</div>`;
 
  rb.innerHTML=pf+scores+catSec+tabs+`<div id="rtabsBody"></div>`;
  $("rperiod").onchange=e=>{RPT.period=e.target.value;renderR()};
  rb.querySelectorAll(".sc").forEach(sc=>sc.onclick=()=>{RPT.tab=sc.dataset.tab||"read";renderR()});
  rb.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>{RPT.tab=b.dataset.tab;renderTab();rb.querySelectorAll(".tabs2 button").forEach(x=>x.classList.toggle("on",x.dataset.tab===RPT.tab))});
-
  const head=$("cathead"),sec=$("catsec");
- const toggleCats=()=>{
-  CATS_OPEN=!CATS_OPEN;
-  sec.classList.toggle("open",CATS_OPEN);
-  head.setAttribute("aria-expanded",CATS_OPEN?"true":"false");
-  sj(K.cats,CATS_OPEN);
- };
- head.onclick=toggleCats;
- head.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggleCats()}};
-
+ const toggleCats=()=>{CATS_OPEN=!CATS_OPEN;sec.classList.toggle("open",CATS_OPEN);head.setAttribute("aria-expanded",CATS_OPEN?"true":"false");sj(K.cats,CATS_OPEN)};
+ head.onclick=toggleCats;head.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggleCats()}};
  renderTab();
  const pl=PERIODS.find(p=>p.v===RPT.period);$("rsub").textContent=pl?pl.l:"";
 }
@@ -888,63 +971,34 @@ function tabCards(tab){
  if(tab==="unread")return ALL.filter(r=>!READ[key(r)]);
  return ALL;
 }
-
 function buildCSVFor(list){
  const rows=[["#","row","reference","category","memory","status","read_count","first_read_pkt","last_read_pkt","reaction","reaction_time_pkt"]];
- list.forEach((r,i)=>{
-  const k=key(r),rec=READ[k],rx=REACT[k];
-  rows.push([
-   i+1,
-   r.row||"",
-   r.reference||"",
-   r.category||"",
-   r.memory||"",
-   r.status||"",
-   rec?rec.count:0,
-   rec&&rec.first?fmtPKT(rec.first):"",
-   rec&&rec.last?fmtPKT(rec.last):"",
-   rx?rx.type:"",
-   rx&&rx.ts?fmtPKT(rx.ts):""
-  ]);
- });
+ list.forEach((r,i)=>{const k=key(r),rec=READ[k],rx=REACT[k];
+  rows.push([i+1,r.row||"",r.reference||"",r.category||"",r.memory||"",r.status||"",rec?rec.count:0,rec&&rec.first?fmtPKT(rec.first):"",rec&&rec.last?fmtPKT(rec.last):"",rx?rx.type:"",rx&&rx.ts?fmtPKT(rx.ts):""])});
  return rows;
 }
-function rowsToCSV(rows){
- return rows.map(row=>row.map(f=>{const s=String(f??"");return/[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(",")).join("\n");
-}
+function rowsToCSV(rows){return rows.map(row=>row.map(f=>{const s=String(f??"");return/[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(",")).join("\n")}
 function downloadCSV(csv,filename,msgOk){
  const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
- const a=document.createElement("a");
- a.href=URL.createObjectURL(blob);
- a.download=filename;
- document.body.appendChild(a);a.click();a.remove();
- URL.revokeObjectURL(a.href);
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=filename;
+ document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(a.href);
  if(msgOk)toast(msgOk,"ok");
 }
-
 function exportTabCSV(tab){
- const list=tabCards(tab);
- if(!list.length){toast("Nothing to export in this tab.","err");return}
- const rows=buildCSVFor(list);
- const stamp=new Date().toISOString().slice(0,10);
+ const list=tabCards(tab);if(!list.length){toast("Nothing to export in this tab.","err");return}
+ const rows=buildCSVFor(list);const stamp=new Date().toISOString().slice(0,10);
  downloadCSV(rowsToCSV(rows),`my-notes-${tab}-${stamp}.csv`,`Exported ${list.length} card${list.length===1?"":"s"} (${tab}).`);
 }
-
 function exportFullBackup(){
  if(!ALL.length){toast("No cards loaded yet.","err");return}
- const rows=buildCSVFor(ALL);
- const stamp=new Date().toISOString().slice(0,10);
+ const rows=buildCSVFor(ALL);const stamp=new Date().toISOString().slice(0,10);
  downloadCSV(rowsToCSV(rows),`my-notes-backup-${stamp}.csv`,`Full backup: ${ALL.length} card${ALL.length===1?"":"s"}.`);
 }
-
 function renderTab(){
  const el=$("rtabsBody");if(!el)return;
  const list=tabCards(RPT.tab);
  const tabLabels={all:"All Cards",liked:"Liked",read:"Read",unread:"Unread",disliked:"Disliked"};
- const hdr=`<div class="tabhdr">
-  <div class="ttl">${tabLabels[RPT.tab]||"Cards"} <small>· ${list.length} total</small></div>
-  <button class="texp" id="texp" ${list.length?"":"disabled"}>${ico("dl",2.4)}<span>Export CSV</span></button>
- </div>`;
+ const hdr=`<div class="tabhdr"><div class="ttl">${tabLabels[RPT.tab]||"Cards"} <small>· ${list.length} total</small></div><button class="texp" id="texp" ${list.length?"":"disabled"}>${ico("dl",2.4)}<span>Export CSV</span></button></div>`;
  if(!list.length){
   el.innerHTML=hdr+'<div class="empty"><b>Nothing here yet</b>No cards match this tab.</div>';
   const b=$("texp");if(b)b.onclick=()=>exportTabCSV(RPT.tab);
@@ -955,42 +1009,31 @@ function renderTab(){
  const b=$("texp");if(b)b.onclick=()=>exportTabCSV(RPT.tab);
  bind(el);
 }
-
 $("rbackup").onclick=exportFullBackup;
-
 $("cn").onclick=()=>$("cf").classList.remove("show");
 $("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats,K.qtab].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
-
 $("rimp").onclick=()=>$("file").click();
 $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();
  rd.onload=ev=>{try{const R=parseCSV(String(ev.target.result||""));if(R.length<2)throw Error("Empty CSV");
   const H=R[0].map(h=>h.trim().toLowerCase());
   const idx=(...names)=>{for(const n of names){const i=H.indexOf(n);if(i>=0)return i}return -1};
-  const iR=idx("reference"),iC=idx("category"),iN=idx("read_count","count"),
-        iF=idx("first_read_pkt","first_read","first"),iL=idx("last_read_pkt","last_read_iso","last"),
-        iRx=idx("reaction"),iRxT=idx("reaction_time_pkt","reaction_time");
+  const iR=idx("reference"),iC=idx("category"),iN=idx("read_count","count"),iF=idx("first_read_pkt","first_read","first"),iL=idx("last_read_pkt","last_read_iso","last"),iRx=idx("reaction"),iRxT=idx("reaction_time_pkt","reaction_time");
   if(iR<0&&iC<0)throw Error("Missing reference/category columns");let add=0;
   const parseTS=s=>{const raw=(s||"").trim();if(!raw)return 0;const p=Date.parse(raw);return isNaN(p)?0:p};
   R.slice(1).forEach(r=>{
    const k=(iC>=0?r[iC]||"":"").trim()+"||"+(iR>=0?r[iR]||"":"").trim();
    const cnt=iN>=0?parseInt(r[iN]||"0",10)||0:1;
-   const first=iF>=0?parseTS(r[iF]):0;
-   const last=iL>=0?parseTS(r[iL]):0;
-   const pv=READ[k];
+   const first=iF>=0?parseTS(r[iF]):0,last=iL>=0?parseTS(r[iL]):0,pv=READ[k];
    if(!pv||cnt>pv.count){
     const keepFirst=pv&&pv.first?pv.first:(first||last||Date.now());
     READ[k]={count:cnt,first:keepFirst,last:Math.max(last,pv?pv.last:0),lastDay:last?dk(last):(pv?pv.lastDay:"")};
     add++;
    }
    const rxType=iRx>=0?String(r[iRx]||"").trim().toLowerCase():"";
-   if(rxType==="like"||rxType==="dislike"){
-    const rxTs=iRxT>=0?parseTS(r[iRxT]):0;
-    REACT[k]={type:rxType,ts:rxTs||Date.now()};
-   }
+   if(rxType==="like"||rxType==="dislike"){const rxTs=iRxT>=0?parseTS(r[iRxT]):0;REACT[k]={type:rxType,ts:rxTs||Date.now()}}
   });
   sj(K.read,READ);sj(K.react,REACT);buildSelects();apply();toast(`Loaded ${add} record${add==1?"":"s"}.`,"ok");if(rm.classList.contains("show"))renderR()}
   catch(err){toast("Could not read file: "+err.message,"err")}e.target.value=""};rd.readAsText(f)};
-
 let busy=false;
 async function fetchData(show){if(busy)return;busy=true;
  try{const res=await fetch(C.CSV+"&_="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error("HTTP "+res.status);
