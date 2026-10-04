@@ -254,6 +254,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 
 <div class="mb" id="rm"><div class="modal"><div class="mh">
  <div class="mark" id="rmk"></div><div class="ti"><b>Progress</b><small id="rsub"></small></div>
+ <button class="ibtn g" id="rbackup" title="Download full backup CSV"></button>
  <button class="ibtn w" id="rimp" title="Import progress CSV"></button>
  <a class="ibtn p hx" id="rsheet" target="_blank" rel="noopener" title="Sheet"></a>
  <button class="ibtn" id="rref" title="Refresh data"></button>
@@ -263,7 +264,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.3",NAME:"My Notes",
+const C={VER:"v3.4",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme"}};
@@ -285,7 +286,7 @@ thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
 const eye=ico("eye");
 $("mk").innerHTML=ico("pen");$("rmk").innerHTML=ico("chart");$("si").innerHTML=ico("search");
-$("rimp").innerHTML=ico("ul");
+$("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
 
@@ -311,7 +312,6 @@ let READ=lj(K.read,{});
 let HIST=lj(K.hist,[]);
 let REACT=lj(K.react,{});
 let F=Object.assign({q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default"},lj(K.filt,{}));
-/* legacy filters had no `reference` / `reaction` arrays → ensure they exist */
 if(!Array.isArray(F.reference))F.reference=[];
 if(!Array.isArray(F.reaction))F.reaction=[];
 let NOSAVE=false,MC,MP,MS,MR,MX;
@@ -366,16 +366,14 @@ function sm(raw){const l=String(raw||"").trim().toLowerCase().replace(/\s+/g,"")
 const key=r=>String(r.category||"").trim()+"||"+String(r.reference||"").trim();
 const gsearch=(...a)=>"https://www.google.com/search?q="+encodeURIComponent(a.filter(Boolean).map(x=>String(x).trim()).join(" "));
 
-/* ============ FIXED: first is write-once, never touched again ============ */
 function markRead(r){
  const k=key(r),d=today(),n=Date.now();
  let rec=READ[k];
  if(!rec){
-  rec={count:0,first:n,last:n,lastDay:d};
-  rec.count=1;
+  rec={count:1,first:n,last:n,lastDay:d};
  }else{
   if(rec.lastDay!==d){rec.count=(rec.count||0)+1;rec.lastDay=d}
-  if(!rec.first)rec.first=n;    // legacy backfill — one-time only
+  if(!rec.first)rec.first=n;
   rec.last=n;
  }
  READ[k]=rec;
@@ -493,7 +491,6 @@ function bind(container){
   const r=ALL.find(x=>key(x)===a.dataset.key);
   if(r){markRead(r);upd(a.closest(".card"),a.dataset.key);info()}
  });
- /* FIX: clicking "Full detail" also counts as read */
  container.querySelectorAll('[data-act=expand]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();
   const cardEl=b.closest(".card");
@@ -513,7 +510,7 @@ function bind(container){
   setReact(k,"like");
   updReact(b.closest(".card"),k);
   upd(b.closest(".card"),k);
-  buildReactionSelect(); // refresh filter counts
+  buildReactionSelect();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
@@ -579,7 +576,6 @@ function activeF(){const el=$("af"),T=[];
  $("rst").onclick=()=>{F={q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default"};$("q").value="";$("sort").value="default";[MC,MP,MS,MR,MX].forEach(m=>m&&m.setSelected([]));clearScroll();apply()}}
 
 function buildSelects(){
- /* category */
  const cc={},pc={},rc={};
  ALL.forEach(r=>{
   const c=String(r.category||"").trim();if(c)cc[c]=(cc[c]||0)+1;
@@ -610,7 +606,6 @@ function buildReactionSelect(){
   {value:"dislike",label:"👎 Disliked",count:dislikeCount},
   {value:"none",label:"— None",count:noneCount}
  ];
- /* valid set: filter out any stale selections that no longer exist as an option value */
  const valid=new Set(xo.map(o=>o.value));
  const clean=F.reaction.filter(v=>valid.has(v));
  if(clean.length!==F.reaction.length){
@@ -711,9 +706,8 @@ function tabCards(tab){
  return ALL;
 }
 
-function exportTabCSV(tab){
- const list=tabCards(tab);
- if(!list.length){toast("Nothing to export in this tab.","err");return}
+/* build CSV of cards from `list` — used by both per-tab export and full backup */
+function buildCSVFor(list){
  const rows=[["#","row","reference","category","memory","status","read_count","first_read_pkt","last_read_pkt","reaction","reaction_time_pkt"]];
  list.forEach((r,i)=>{
   const k=key(r),rec=READ[k],rx=REACT[k];
@@ -731,15 +725,35 @@ function exportTabCSV(tab){
    rx&&rx.ts?fmtPKT(rx.ts):""
   ]);
  });
- const csv=rows.map(row=>row.map(f=>{const s=String(f??"");return/[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(",")).join("\n");
+ return rows;
+}
+function rowsToCSV(rows){
+ return rows.map(row=>row.map(f=>{const s=String(f??"");return/[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(",")).join("\n");
+}
+function downloadCSV(csv,filename,msgOk){
  const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
  const a=document.createElement("a");
  a.href=URL.createObjectURL(blob);
- const stamp=new Date().toISOString().slice(0,10);
- a.download=`my-notes-${tab}-${stamp}.csv`;
+ a.download=filename;
  document.body.appendChild(a);a.click();a.remove();
  URL.revokeObjectURL(a.href);
- toast(`Exported ${list.length} card${list.length===1?"":"s"} (${tab}).`,"ok");
+ if(msgOk)toast(msgOk,"ok");
+}
+
+function exportTabCSV(tab){
+ const list=tabCards(tab);
+ if(!list.length){toast("Nothing to export in this tab.","err");return}
+ const rows=buildCSVFor(list);
+ const stamp=new Date().toISOString().slice(0,10);
+ downloadCSV(rowsToCSV(rows),`my-notes-${tab}-${stamp}.csv`,`Exported ${list.length} card${list.length===1?"":"s"} (${tab}).`);
+}
+
+/* NEW: Full backup — export every card with current state */
+function exportFullBackup(){
+ if(!ALL.length){toast("No cards loaded yet.","err");return}
+ const rows=buildCSVFor(ALL);
+ const stamp=new Date().toISOString().slice(0,10);
+ downloadCSV(rowsToCSV(rows),`my-notes-backup-${stamp}.csv`,`Full backup: ${ALL.length} card${ALL.length===1?"":"s"}.`);
 }
 
 function renderTab(){
@@ -761,6 +775,8 @@ function renderTab(){
  bind(el);
 }
 
+$("rbackup").onclick=exportFullBackup;
+
 $("cn").onclick=()=>$("cf").classList.remove("show");
 $("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
 
@@ -781,7 +797,6 @@ $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new Fil
    const last=iL>=0?parseTS(r[iL]):0;
    const pv=READ[k];
    if(!pv||cnt>pv.count){
-    /* FIX: preserve existing first if it was set; else use imported first; else fall back to last/now */
     const keepFirst=pv&&pv.first?pv.first:(first||last||Date.now());
     READ[k]={count:cnt,first:keepFirst,last:Math.max(last,pv?pv.last:0),lastDay:last?dk(last):(pv?pv.lastDay:"")};
     add++;
