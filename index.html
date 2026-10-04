@@ -77,7 +77,6 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .more{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0 8px;font-size:.72rem;color:var(--t3);text-align:center}
 .more button{padding:11px 22px;background:var(--br);border:0;color:#fff;border-radius:10px;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 5px 14px -5px rgba(99,102,241,.5)}
 .more button:hover{background:var(--br2)}
-
 .card{background:var(--s);border:1px solid var(--b);border-radius:11px;padding:12px 14px 10px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;transition:border-color .15s,background .15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
 .card:hover{border-color:var(--b2)}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--mr)}
@@ -107,11 +106,11 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .det{display:none;padding-top:10px;border-top:1px solid var(--b);animation:fade .2s}
 @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 .card.open .det{display:block}
-.dr{display:grid;grid-template-columns:90px 1fr;gap:12px;padding:6px 0;font-size:.8rem;color:var(--t2);line-height:1.6}
+.dr{display:grid;grid-template-columns:100px 1fr;gap:12px;padding:6px 0;font-size:.8rem;color:var(--t2);line-height:1.6}
 .dr+.dr{border-top:1px solid var(--b)}
 .dr small{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);padding-top:3px}
 .dr strong{color:var(--t);font-weight:600}
-@media(max-width:640px){.dr{grid-template-columns:80px 1fr;gap:10px;font-size:.78rem}}
+@media(max-width:640px){.dr{grid-template-columns:90px 1fr;gap:10px;font-size:.78rem}}
 .react{display:flex;gap:8px;padding:8px 0 4px;border-top:1px solid var(--b);margin-top:6px}
 .rbtn2{flex:1;padding:10px 12px;border-radius:9px;border:1px solid var(--b);background:var(--s2);color:var(--t2);cursor:pointer;font-family:inherit;font-size:.78rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
 .rbtn2:hover{border-color:var(--b2);color:var(--t)}
@@ -205,21 +204,13 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .tabs2 button.on{background:var(--br);color:#fff}
 .tabs2 button.on small{color:rgba(255,255,255,.7)}
 @media(max-width:640px){.tabs2{gap:2px}.tabs2 button{font-size:.62rem;padding:8px 2px}.tabs2 button small{font-size:.54rem}}
-.rtabs-body{display:flex;flex-direction:column;gap:8px}
-/* NEW: tab header with export button */
 .tabhdr{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;padding:8px 4px;border-bottom:1px solid var(--b)}
 .tabhdr .ttl{font-size:.74rem;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px;min-width:0}
 .tabhdr .ttl small{color:var(--t3);font-weight:600;font-size:.68rem;letter-spacing:0;text-transform:none}
-.tabhdr .cnt2{font:700 .68rem 'JetBrains Mono';padding:2px 8px;border-radius:99px;background:var(--mb);color:var(--t3)}
 .texp{padding:7px 12px;border-radius:8px;background:var(--okb);border:1px solid var(--okr);color:var(--ok);cursor:pointer;font-family:inherit;font-size:.72rem;font-weight:700;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;transition:.15s}
 .texp:hover{background:var(--ok);color:#fff}
 .texp:disabled{opacity:.5;cursor:not-allowed}
 .texp svg{width:13px;height:13px}
-.sec{margin-top:16px}
-.sec>h4{font-size:.64rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:9px;display:flex;justify-content:space-between;gap:8px;align-items:center}
-.srow{display:grid;grid-template-columns:1fr auto;gap:9px;padding:7px 10px;background:var(--s);border:1px solid var(--b);border-radius:8px;margin-bottom:5px;font:700 .7rem 'JetBrains Mono';align-items:center}
-.srow>div{min-width:0;overflow:hidden}
-.srow small{display:block;font:.64rem Inter;color:var(--t3);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .empty{padding:36px 20px;text-align:center;color:var(--t3);font-size:.8rem;line-height:1.6}
 .empty b{display:block;color:var(--t2);margin-bottom:4px;font-weight:600}
 .clr{width:100%;padding:12px;margin-top:12px;border-radius:11px;background:var(--erb);border:1px solid var(--err);color:var(--er);font-weight:700;cursor:pointer;font-family:inherit;font-size:.82rem;transition:.18s}
@@ -268,7 +259,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.1",NAME:"My Notes",
+const C={VER:"v3.2",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme"}};
@@ -312,9 +303,9 @@ const n=e.request.mode==='navigate';e.respondWith((n?fetch(e.request):caches.mat
 const lj=(k,d)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):d}catch{return d}};
 const sj=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 let ALL=[],VIEW=[],LOADED=0;
-let READ=lj(K.read,{});
+let READ=lj(K.read,{});       // {key:{count, first, last, lastDay}}
 let HIST=lj(K.hist,[]);
-let REACT=lj(K.react,{});
+let REACT=lj(K.react,{});     // {key:{type:"like"|"dislike", ts:ms}}
 let F=Object.assign({q:"",status:[],category:[],read:"",sort:"default"},lj(K.filt,{}));
 let NOSAVE=false,MC,MP,MS;
 
@@ -322,6 +313,26 @@ const off=()=>(C.PKT+new Date().getTimezoneOffset())*6e4;
 const nowP=()=>new Date(Date.now()+off());
 const dk=ms=>{const d=new Date(ms+off());return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`};
 const today=()=>dk(Date.now());
+
+/* ============ NEW: PKT TIMESTAMP FORMAT ============ */
+/* Fri, Oct 22, 2026, 10:15:45 PM */
+const MON3=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function fmtPKT(ms, withTime=true){
+ if(!ms)return"";
+ const d=new Date(ms+off());
+ let h=d.getHours(); const ampm=h>=12?"PM":"AM"; h=h%12||12;
+ const base=`${DOW[d.getDay()]}, ${MON3[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+ if(!withTime)return base;
+ return `${base}, ${p2(h)}:${p2(d.getMinutes())}:${p2(d.getSeconds())} ${ampm}`;
+}
+function fmtPKTShort(ms){ /* 22 Oct, 10:15:45 PM */
+ if(!ms)return"";
+ const d=new Date(ms+off());
+ let h=d.getHours(); const ampm=h>=12?"PM":"AM"; h=h%12||12;
+ return `${d.getDate()} ${MON3[d.getMonth()]}, ${p2(h)}:${p2(d.getMinutes())}:${p2(d.getSeconds())} ${ampm}`;
+}
+
 (function tick(){const p=nowP(),h=p.getHours();$("clock").textContent=`${p2(h%12||12)}:${p2(p.getMinutes())} ${h>=12?"PM":"AM"}`;setTimeout(tick,15000)})();
 
 const setTc=()=>{const l=document.documentElement.dataset.theme==="light";$("tc").content=l?"#f6f7fb":"#0a0b0f";$("theme").innerHTML=ico(l?"sun":"moon")};setTc();
@@ -350,27 +361,38 @@ function sm(raw){const l=String(raw||"").trim().toLowerCase().replace(/\s+/g,"")
 const key=r=>String(r.category||"").trim()+"||"+String(r.reference||"").trim();
 const gsearch=(...a)=>"https://www.google.com/search?q="+encodeURIComponent(a.filter(Boolean).map(x=>String(x).trim()).join(" "));
 
-function markRead(r){const k=key(r),d=today(),n=Date.now(),rec=READ[k]||{count:0,last:0,lastDay:""},counted=rec.lastDay!==d;
- if(counted){rec.count++;rec.lastDay=d}rec.last=n;READ[k]=rec;
+/* Read / History: track first + last timestamps */
+function markRead(r){
+ const k=key(r),d=today(),n=Date.now();
+ const rec=READ[k]||{count:0,first:0,last:0,lastDay:""};
+ const counted=rec.lastDay!==d;
+ if(counted){rec.count++;rec.lastDay=d}
+ if(!rec.first)rec.first=n;
+ rec.last=n;
+ READ[k]=rec;
  HIST.push({ts:n,key:k,ref:r.reference||"",cat:r.category||"",mem:String(r.memory||"").slice(0,220),counted});
- if(HIST.length>5000)HIST=HIST.slice(-5000);sj(K.read,READ);sj(K.hist,HIST)}
+ if(HIST.length>5000)HIST=HIST.slice(-5000);
+ sj(K.read,READ);sj(K.hist,HIST);
+}
 
+/* Reaction: store type + ts */
 function setReact(k, val){
- if(REACT[k]===val){delete REACT[k]}
- else{REACT[k]=val}
+ const cur=REACT[k];
+ if(cur && cur.type===val){delete REACT[k]}
+ else{REACT[k]={type:val, ts:Date.now()}}
  sj(K.react,REACT);
- return REACT[k]||null}
+ return REACT[k]?REACT[k].type:null;
+}
 
-function lastReadText(rec){
- if(!rec||!rec.last)return"";
- const diff=Date.now()-rec.last,d=Math.floor(diff/864e5);
- const t=new Date(rec.last).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
- if(rec.lastDay===today())return"today at "+t;
- if(d===1)return"yesterday at "+t;
- if(d>1&&d<7)return d+" days ago at "+t;
- const dt=new Date(rec.last).toLocaleDateString(undefined,{day:"numeric",month:"short"});
- const yr=new Date(rec.last).getFullYear()!==new Date().getFullYear()?" "+new Date(rec.last).getFullYear():"";
- return dt+yr+" at "+t}
+/* Migrate old reaction format (string → object) */
+(function migrate(){
+ let changed=false;
+ Object.keys(REACT).forEach(k=>{
+  const v=REACT[k];
+  if(typeof v==="string"){REACT[k]={type:v, ts:0};changed=true}
+ });
+ if(changed)sj(K.react,REACT);
+})();
 
 class MSel{constructor(id,o){Object.assign(this,{el:$(id),ph:"Select…",sp:"Search…",opts:[],sel:[],on(){}},o);this.el.className="ms";
  this.el.innerHTML=`<button type="button" class="ms-t"></button><div class="ms-m"><div class="ms-s"><input type="text" placeholder="${esc(this.sp)}"></div><div class="ms-l"></div><div class="ms-a"><button type="button" data-a="all">Select all</button><button type="button" data-a="clr">Clear</button></div></div>`;
@@ -408,16 +430,17 @@ function apply(skip){
  if(!VIEW.length){$("out").innerHTML='<div class="state"><h3>No cards found</h3><p>Try a different search or clear the filters.</p></div>';$("more").innerHTML=""}else renderPage();
  info();activeF();if(!skip)sj(K.filt,F)}
 
-function card(r,i,idx,tot,opts={}){
+function card(r,i,idx,tot){
  const m=sm(r.status),k=key(r),rec=READ[k],n=rec?rec.count:0;
  const isToday=rec&&rec.lastDay===today();
- const lastTxt=rec?lastReadText(rec):"";
- const react=REACT[k];
+ const lastTxt=rec&&rec.last?fmtPKTShort(rec.last):"";
+ const rx=REACT[k];
+ const reactType=rx?rx.type:"";
  let statusHTML;
  if(!rec||!rec.count)statusHTML='<span class="st" style="opacity:.7">○ Unread</span>';
  else if(isToday)statusHTML='<span class="st" style="color:var(--ok)">● Read today</span>';
- else statusHTML=`<span class="st" style="color:var(--ok);opacity:.85" title="Last read: ${esc(lastTxt)}">● Read · ${esc(lastTxt)}</span>`;
- const likeCls=react==="like"?"on":"", dislikeCls=react==="dislike"?"on":"";
+ else statusHTML=`<span class="st" style="color:var(--ok);opacity:.85" title="Last read: ${esc(fmtPKT(rec.last))}">● Read · ${esc(lastTxt)}</span>`;
+ const likeCls=reactType==="like"?"on":"", dislikeCls=reactType==="dislike"?"on":"";
  return`<article class="card ${m.c} ${n?"rd":""}" data-key="${esc(k)}">
  <div class="ctop"><span class="cnum">${idx} / ${tot}</span><span class="badge ${m.c}">${esc(m.l)}</span></div>
  <span class="ref">${esc(r.reference||"—")}</span>
@@ -431,7 +454,19 @@ function card(r,i,idx,tot,opts={}){
   <button type="button" class="fr" data-act="expand" aria-label="Toggle full detail"><span>Full detail</span>${ico("arrow",2.6)}</button>
  </div>
  <div class="det">
-  ${[["Position",`${idx} of ${tot}`],["Row",r.row],["Category",r.category],["Reference",r.reference],["Memory",r.memory,1],["Status",r.status],["Read days",n+(rec?` · last ${lastTxt}`:"")]].map(([l,v,p])=>`<div class="dr"><small>${l}</small><div>${p?esc(v||""):`<strong>${esc(v||"—")}</strong>`}</div></div>`).join("")}
+  ${[
+    ["Position",`${idx} of ${tot}`],
+    ["Row",r.row],
+    ["Category",r.category],
+    ["Reference",r.reference],
+    ["Memory",r.memory,1],
+    ["Status",r.status],
+    ["Read count",rec?`${rec.count} day${rec.count===1?"":"s"}`:"0"],
+    ["First read",rec&&rec.first?fmtPKT(rec.first):"—"],
+    ["Last read",rec&&rec.last?fmtPKT(rec.last):"—"],
+    ["Reaction",rx?(rx.type==="like"?"👍 Liked":rx.type==="dislike"?"👎 Disliked":"—"):"—"],
+    ["Reacted at",rx&&rx.ts?fmtPKT(rx.ts):"—"]
+  ].map(([l,v,p])=>`<div class="dr"><small>${l}</small><div>${p?esc(v||""):`<strong>${esc(v||"—")}</strong>`}</div></div>`).join("")}
   <div class="react">
    <button type="button" class="rbtn2 like ${likeCls}" data-act="like" data-key="${esc(k)}">${ico("thumbUp",2)}<span>Like</span></button>
    <button type="button" class="rbtn2 dislike ${dislikeCls}" data-act="dislike" data-key="${esc(k)}">${ico("thumbDown",2)}<span>Dislike</span></button>
@@ -459,18 +494,16 @@ function bind(container){
   const k=b.dataset.key;
   setReact(k,"like");
   updReact(b.closest(".card"),k);
-  if(rm.classList.contains("show")){
-   const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab();
-  }
+  upd(b.closest(".card"),k);
+  if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();
   const k=b.dataset.key;
   setReact(k,"dislike");
   updReact(b.closest(".card"),k);
-  if(rm.classList.contains("show")){
-   const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab();
-  }
+  upd(b.closest(".card"),k);
+  if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll(".det").forEach(d=>d.onclick=e=>e.stopPropagation());
 }
@@ -479,18 +512,26 @@ function upd(el,k){
  const rec=READ[k];if(!rec)return;
  el.classList.add("rd");
  const rc=el.querySelector(".rc");if(rc){rc.innerHTML=eye+rec.count+"×";rc.classList.add("h")}
- const st=el.querySelector(".st");if(!st)return;
- const isToday=rec.lastDay===today(),lastTxt=lastReadText(rec);
- if(isToday){st.style.cssText="color:var(--ok)";st.textContent="● Read today";st.removeAttribute("title")}
- else{st.style.cssText="color:var(--ok);opacity:.85";st.textContent="● Read · "+lastTxt;st.title="Last read: "+lastTxt}
- const detRows=el.querySelectorAll(".det .dr");
- if(detRows.length>=7){
-  detRows[6].innerHTML=`<small>Read days</small><div><strong>${rec.count}</strong> · last ${esc(lastTxt)}</div>`;
+ const st=el.querySelector(".st");
+ if(st){
+  const isToday=rec.lastDay===today(),lastTxt=fmtPKTShort(rec.last);
+  if(isToday){st.style.cssText="color:var(--ok)";st.textContent="● Read today";st.title="Last read: "+fmtPKT(rec.last)}
+  else{st.style.cssText="color:var(--ok);opacity:.85";st.textContent="● Read · "+lastTxt;st.title="Last read: "+fmtPKT(rec.last)}
+ }
+ // Update detail rows (read count, first read, last read, reaction, reacted at)
+ const rows=el.querySelectorAll(".det .dr");
+ const rx=REACT[k];
+ if(rows.length>=11){
+  rows[6].innerHTML=`<small>Read count</small><div><strong>${rec.count} day${rec.count===1?"":"s"}</strong></div>`;
+  rows[7].innerHTML=`<small>First read</small><div><strong>${esc(rec.first?fmtPKT(rec.first):"—")}</strong></div>`;
+  rows[8].innerHTML=`<small>Last read</small><div><strong>${esc(rec.last?fmtPKT(rec.last):"—")}</strong></div>`;
+  rows[9].innerHTML=`<small>Reaction</small><div><strong>${rx?(rx.type==="like"?"👍 Liked":"👎 Disliked"):"—"}</strong></div>`;
+  rows[10].innerHTML=`<small>Reacted at</small><div><strong>${esc(rx&&rx.ts?fmtPKT(rx.ts):"—")}</strong></div>`;
  }
 }
 function updReact(el,k){
  if(!el)return;
- const react=REACT[k];
+ const rx=REACT[k];const react=rx?rx.type:"";
  const lb=el.querySelector('[data-act=like]'),db=el.querySelector('[data-act=dislike]');
  if(lb)lb.classList.toggle("on",react==="like");
  if(db)db.classList.toggle("on",react==="dislike");
@@ -529,7 +570,6 @@ function buildSelects(){
  MC.rt();MP.rt();MS.rt()}
 $("q").oninput=e=>{F.q=e.target.value;apply()};$("sort").onchange=e=>{F.sort=e.target.value;apply()};
 
-/* ============ PROGRESS ============ */
 const RPT={period:"all",tab:"all"};
 const rm=$("rm"),rb=$("rb");
 const openR=()=>{renderR();rm.classList.add("show");document.body.style.overflow="hidden"};
@@ -569,8 +609,8 @@ function renderR(){
  const totalCards=ALL.length,readInPeriod=readKeys.size,remainingRead=totalCards-readInPeriod,readPct=totalCards?Math.round(readInPeriod*100/totalCards):0;
  const startedCats=new Set();ALL.forEach(r=>{if(READ[key(r)]){const c=String(r.category||"").trim()||"Uncategorized";startedCats.add(c)}});
  const allCats=Object.keys(catCounts()),catsTotal=allCats.length,catsStarted=startedCats.size,catsPct=catsTotal?Math.round(catsStarted*100/catsTotal):0;
- const likedCount=Object.keys(REACT).filter(k=>REACT[k]==="like").length;
- const dislikedCount=Object.keys(REACT).filter(k=>REACT[k]==="dislike").length;
+ const likedCount=Object.values(REACT).filter(r=>r&&r.type==="like").length;
+ const dislikedCount=Object.values(REACT).filter(r=>r&&r.type==="dislike").length;
  const likePct=totalCards?Math.round(likedCount*100/totalCards):0;
  const dislikePct=totalCards?Math.round(dislikedCount*100/totalCards):0;
 
@@ -609,20 +649,20 @@ function renderR(){
 }
 
 function tabCards(tab){
- if(tab==="liked")return ALL.filter(r=>REACT[key(r)]==="like");
- if(tab==="disliked")return ALL.filter(r=>REACT[key(r)]==="dislike");
+ if(tab==="liked")return ALL.filter(r=>REACT[key(r)]&&REACT[key(r)].type==="like");
+ if(tab==="disliked")return ALL.filter(r=>REACT[key(r)]&&REACT[key(r)].type==="dislike");
  if(tab==="read")return ALL.filter(r=>READ[key(r)]);
  if(tab==="unread")return ALL.filter(r=>!READ[key(r)]);
  return ALL;
 }
 
-/* NEW: full-detail CSV export for the current tab */
+/* ============ NEW CSV EXPORT WITH FULL COLUMNS ============ */
 function exportTabCSV(tab){
  const list=tabCards(tab);
  if(!list.length){toast("Nothing to export in this tab.","err");return}
- const rows=[["#","row","reference","category","memory","status","read_count","last_read_iso","last_read_day","last_read_friendly","reaction"]];
+ const rows=[["#","row","reference","category","memory","status","read_count","first_read_pkt","last_read_pkt","reaction","reaction_time_pkt"]];
  list.forEach((r,i)=>{
-  const k=key(r),rec=READ[k],rx=REACT[k]||"";
+  const k=key(r),rec=READ[k],rx=REACT[k];
   rows.push([
    i+1,
    r.row||"",
@@ -631,10 +671,10 @@ function exportTabCSV(tab){
    r.memory||"",
    r.status||"",
    rec?rec.count:0,
-   rec&&rec.last?new Date(rec.last).toISOString():"",
-   rec?rec.lastDay||"":"",
-   rec?lastReadText(rec):"",
-   rx
+   rec&&rec.first?fmtPKT(rec.first):"",
+   rec&&rec.last?fmtPKT(rec.last):"",
+   rx?rx.type:"",
+   rx&&rx.ts?fmtPKT(rx.ts):""
   ]);
  });
  const csv=rows.map(row=>row.map(f=>{const s=String(f??"");return/[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}).join(",")).join("\n");
@@ -670,17 +710,32 @@ function renderTab(){
 $("cn").onclick=()=>$("cf").classList.remove("show");
 $("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
 
-/* import (topbar modal icon) */
+/* Import */
 $("rimp").onclick=()=>$("file").click();
 $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();
  rd.onload=ev=>{try{const R=parseCSV(String(ev.target.result||""));if(R.length<2)throw Error("Empty CSV");
-  const H=R[0].map(h=>h.trim().toLowerCase()),ix=n=>H.indexOf(n),iR=ix("reference"),iC=ix("category"),iN=ix("read_count")>=0?ix("read_count"):ix("count"),iL=ix("last_read_iso")>=0?ix("last_read_iso"):ix("last"),iD=ix("last_read_day")>=0?ix("last_read_day"):ix("lastday"),iRx=ix("reaction");
+  const H=R[0].map(h=>h.trim().toLowerCase());
+  const idx=(...names)=>{for(const n of names){const i=H.indexOf(n);if(i>=0)return i}return -1};
+  const iR=idx("reference"),iC=idx("category"),iN=idx("read_count","count"),
+        iF=idx("first_read_pkt","first_read","first"),iL=idx("last_read_pkt","last_read_iso","last"),
+        iRx=idx("reaction"),iRxT=idx("reaction_time_pkt","reaction_time");
   if(iR<0&&iC<0)throw Error("Missing reference/category columns");let add=0;
-  R.slice(1).forEach(r=>{const k=(iC>=0?r[iC]||"":"").trim()+"||"+(iR>=0?r[iR]||"":"").trim(),
-   cnt=iN>=0?parseInt(r[iN]||"0",10)||0:1,last=iL>=0?(Date.parse(r[iL])||Date.now()):Date.now(),day=iD>=0?(r[iD]||"").trim():"",pv=READ[k];
-   if(!pv||cnt>pv.count){READ[k]={count:cnt,last:Math.max(last,pv?pv.last:0),lastDay:day||(pv?pv.lastDay:"")};add++}
-   const rx=iRx>=0?String(r[iRx]||"").trim().toLowerCase():"";
-   if(rx==="like"||rx==="dislike")REACT[k]=rx;
+  const parseTS=s=>{const raw=(s||"").trim();if(!raw)return 0;const p=Date.parse(raw);return isNaN(p)?0:p};
+  R.slice(1).forEach(r=>{
+   const k=(iC>=0?r[iC]||"":"").trim()+"||"+(iR>=0?r[iR]||"":"").trim();
+   const cnt=iN>=0?parseInt(r[iN]||"0",10)||0:1;
+   const first=iF>=0?parseTS(r[iF]):0;
+   const last=iL>=0?parseTS(r[iL]):0;
+   const pv=READ[k];
+   if(!pv||cnt>pv.count){
+    READ[k]={count:cnt,first:first||(pv?pv.first:0)||last,last:Math.max(last,pv?pv.last:0),lastDay:last?dk(last):(pv?pv.lastDay:"")};
+    add++;
+   }
+   const rxType=iRx>=0?String(r[iRx]||"").trim().toLowerCase():"";
+   if(rxType==="like"||rxType==="dislike"){
+    const rxTs=iRxT>=0?parseTS(r[iRxT]):0;
+    REACT[k]={type:rxType,ts:rxTs||Date.now()};
+   }
   });
   sj(K.read,READ);sj(K.react,REACT);buildSelects();apply();toast(`Loaded ${add} record${add==1?"":"s"}.`,"ok");if(rm.classList.contains("show"))renderR()}
   catch(err){toast("Could not read file: "+err.message,"err")}e.target.value=""};rd.readAsText(f)};
