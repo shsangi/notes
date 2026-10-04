@@ -32,9 +32,10 @@ button,select,input{font-family:inherit}
 .ibtn.g{background:var(--okb);border-color:var(--okr);color:var(--ok)}.ibtn.w{background:var(--wab);border-color:var(--war);color:var(--wa)}.ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 .filters{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:12px;margin:14px 0 10px;display:flex;flex-direction:column;gap:10px}
 .row3{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:8px}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+@media(max-width:900px){.row4{grid-template-columns:1fr 1fr}}
 @media(max-width:780px){.row3{grid-template-columns:1fr 1fr}.row3>.full{grid-column:1/-1}}
-@media(max-width:520px){.row3{grid-template-columns:1fr}}
+@media(max-width:520px){.row3{grid-template-columns:1fr}.row4{grid-template-columns:1fr}}
 .field{position:relative}.field svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3)}
 input[type=search],select,.ms-s input{width:100%;padding:11px 12px;background:var(--el);border:1px solid var(--b);border-radius:10px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
 input[type=search]{padding-left:36px}
@@ -234,7 +235,10 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="shell">
  <div class="filters">
   <div class="row3"><div class="field full"><span id="si"></span><input id="q" type="search" placeholder="Search rules, sections, memory…"></div><div id="msC"></div><div id="msP"></div></div>
-  <div class="row2"><div id="msS"></div>
+  <div class="row4">
+   <div id="msR"></div>
+   <div id="msS"></div>
+   <div id="msX"></div>
    <select id="sort"><option value="default">Default order</option><option value="priority">Priority first</option><option value="unread">Unread first</option><option value="most">Most read first</option></select>
   </div>
   <div class="af" id="af"></div>
@@ -259,7 +263,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.2",NAME:"My Notes",
+const C={VER:"v3.3",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme"}};
@@ -303,22 +307,23 @@ const n=e.request.mode==='navigate';e.respondWith((n?fetch(e.request):caches.mat
 const lj=(k,d)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):d}catch{return d}};
 const sj=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 let ALL=[],VIEW=[],LOADED=0;
-let READ=lj(K.read,{});       // {key:{count, first, last, lastDay}}
+let READ=lj(K.read,{});
 let HIST=lj(K.hist,[]);
-let REACT=lj(K.react,{});     // {key:{type:"like"|"dislike", ts:ms}}
-let F=Object.assign({q:"",status:[],category:[],read:"",sort:"default"},lj(K.filt,{}));
-let NOSAVE=false,MC,MP,MS;
+let REACT=lj(K.react,{});
+let F=Object.assign({q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default"},lj(K.filt,{}));
+/* legacy filters had no `reference` / `reaction` arrays → ensure they exist */
+if(!Array.isArray(F.reference))F.reference=[];
+if(!Array.isArray(F.reaction))F.reaction=[];
+let NOSAVE=false,MC,MP,MS,MR,MX;
 
 const off=()=>(C.PKT+new Date().getTimezoneOffset())*6e4;
 const nowP=()=>new Date(Date.now()+off());
 const dk=ms=>{const d=new Date(ms+off());return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`};
 const today=()=>dk(Date.now());
 
-/* ============ NEW: PKT TIMESTAMP FORMAT ============ */
-/* Fri, Oct 22, 2026, 10:15:45 PM */
 const MON3=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-function fmtPKT(ms, withTime=true){
+function fmtPKT(ms,withTime=true){
  if(!ms)return"";
  const d=new Date(ms+off());
  let h=d.getHours(); const ampm=h>=12?"PM":"AM"; h=h%12||12;
@@ -326,11 +331,11 @@ function fmtPKT(ms, withTime=true){
  if(!withTime)return base;
  return `${base}, ${p2(h)}:${p2(d.getMinutes())}:${p2(d.getSeconds())} ${ampm}`;
 }
-function fmtPKTShort(ms){ /* 22 Oct, 10:15:45 PM */
+function fmtPKTShort(ms){
  if(!ms)return"";
  const d=new Date(ms+off());
  let h=d.getHours(); const ampm=h>=12?"PM":"AM"; h=h%12||12;
- return `${d.getDate()} ${MON3[d.getMonth()]}, ${p2(h)}:${p2(d.getMinutes())}:${p2(d.getSeconds())} ${ampm}`;
+ return `${d.getDate()} ${MON3[d.getMonth()]}, ${p2(h)}:${p2(d.getMinutes())} ${ampm}`;
 }
 
 (function tick(){const p=nowP(),h=p.getHours();$("clock").textContent=`${p2(h%12||12)}:${p2(p.getMinutes())} ${h>=12?"PM":"AM"}`;setTimeout(tick,15000)})();
@@ -361,21 +366,24 @@ function sm(raw){const l=String(raw||"").trim().toLowerCase().replace(/\s+/g,"")
 const key=r=>String(r.category||"").trim()+"||"+String(r.reference||"").trim();
 const gsearch=(...a)=>"https://www.google.com/search?q="+encodeURIComponent(a.filter(Boolean).map(x=>String(x).trim()).join(" "));
 
-/* Read / History: track first + last timestamps */
+/* ============ FIXED: first is write-once, never touched again ============ */
 function markRead(r){
  const k=key(r),d=today(),n=Date.now();
- const rec=READ[k]||{count:0,first:0,last:0,lastDay:""};
- const counted=rec.lastDay!==d;
- if(counted){rec.count++;rec.lastDay=d}
- if(!rec.first)rec.first=n;
- rec.last=n;
+ let rec=READ[k];
+ if(!rec){
+  rec={count:0,first:n,last:n,lastDay:d};
+  rec.count=1;
+ }else{
+  if(rec.lastDay!==d){rec.count=(rec.count||0)+1;rec.lastDay=d}
+  if(!rec.first)rec.first=n;    // legacy backfill — one-time only
+  rec.last=n;
+ }
  READ[k]=rec;
- HIST.push({ts:n,key:k,ref:r.reference||"",cat:r.category||"",mem:String(r.memory||"").slice(0,220),counted});
+ HIST.push({ts:n,key:k,ref:r.reference||"",cat:r.category||"",mem:String(r.memory||"").slice(0,220),counted:rec.lastDay===d});
  if(HIST.length>5000)HIST=HIST.slice(-5000);
  sj(K.read,READ);sj(K.hist,HIST);
 }
 
-/* Reaction: store type + ts */
 function setReact(k, val){
  const cur=REACT[k];
  if(cur && cur.type===val){delete REACT[k]}
@@ -384,7 +392,6 @@ function setReact(k, val){
  return REACT[k]?REACT[k].type:null;
 }
 
-/* Migrate old reaction format (string → object) */
 (function migrate(){
  let changed=false;
  Object.keys(REACT).forEach(k=>{
@@ -420,6 +427,12 @@ function apply(skip){
  VIEW=ALL.filter(r=>{
   if(F.status.length&&!F.status.includes(String(r.status||"").trim()))return false;
   if(F.category.length&&!F.category.includes(String(r.category||"").trim()))return false;
+  if(F.reference.length&&!F.reference.includes(String(r.reference||"").trim()))return false;
+  if(F.reaction.length){
+   const rx=REACT[key(r)];
+   const rt=rx?rx.type:"";
+   if(!F.reaction.includes(rt))return false;
+  }
   if(F.read==="read"&&!READ[key(r)])return false;if(F.read==="unread"&&READ[key(r)])return false;
   return!s||[r.category,r.reference,r.memory,r.status,r.row].join(" ").toLowerCase().includes(s)});
  const cnt=r=>(READ[key(r)]||{}).count||0;
@@ -480,9 +493,14 @@ function bind(container){
   const r=ALL.find(x=>key(x)===a.dataset.key);
   if(r){markRead(r);upd(a.closest(".card"),a.dataset.key);info()}
  });
+ /* FIX: clicking "Full detail" also counts as read */
  container.querySelectorAll('[data-act=expand]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();
-  b.closest(".card").classList.toggle("open");
+  const cardEl=b.closest(".card");
+  const k=cardEl.dataset.key;
+  const r=ALL.find(x=>key(x)===k);
+  if(r){markRead(r);upd(cardEl,k);info()}
+  cardEl.classList.toggle("open");
  });
  container.querySelectorAll(".card").forEach(el=>el.onclick=e=>{
   if(e.target.closest(".mem")||e.target.closest("[data-act=expand]")||e.target.closest(".det"))return;
@@ -495,6 +513,7 @@ function bind(container){
   setReact(k,"like");
   updReact(b.closest(".card"),k);
   upd(b.closest(".card"),k);
+  buildReactionSelect(); // refresh filter counts
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
@@ -503,6 +522,7 @@ function bind(container){
   setReact(k,"dislike");
   updReact(b.closest(".card"),k);
   upd(b.closest(".card"),k);
+  buildReactionSelect();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll(".det").forEach(d=>d.onclick=e=>e.stopPropagation());
@@ -518,7 +538,6 @@ function upd(el,k){
   if(isToday){st.style.cssText="color:var(--ok)";st.textContent="● Read today";st.title="Last read: "+fmtPKT(rec.last)}
   else{st.style.cssText="color:var(--ok);opacity:.85";st.textContent="● Read · "+lastTxt;st.title="Last read: "+fmtPKT(rec.last)}
  }
- // Update detail rows (read count, first read, last read, reaction, reacted at)
  const rows=el.querySelectorAll(".det .dr");
  const rx=REACT[k];
  if(rows.length>=11){
@@ -550,24 +569,60 @@ function activeF(){const el=$("af"),T=[];
  if(F.q)T.push(["Search: "+F.q,()=>{F.q="";$("q").value=""}]);
  F.category.forEach(c=>T.push(["Category: "+c,()=>{F.category=F.category.filter(x=>x!==c);MC.setSelected(F.category)}]));
  F.status.forEach(s=>T.push(["Priority: "+s,()=>{F.status=F.status.filter(x=>x!==s);MP.setSelected(F.status)}]));
+ F.reference.forEach(rr=>T.push(["Ref: "+rr,()=>{F.reference=F.reference.filter(x=>x!==rr);MR.setSelected(F.reference)}]));
+ F.reaction.forEach(rx=>T.push(["Reaction: "+(rx||"none"),()=>{F.reaction=F.reaction.filter(x=>x!==rx);MX.setSelected(F.reaction)}]));
  if(F.read)T.push([F.read==="read"?"Read only":"Unread only",()=>{F.read="";MS.setSelected([])}]);
  if(F.sort!=="default")T.push(["Sort: "+$("sort").selectedOptions[0].textContent,()=>{F.sort="default";$("sort").value="default"}]);
  if(!T.length){el.innerHTML="✓ No active filters";return}
  el.innerHTML="<b>Active filters:</b>"+T.map((t,i)=>`<span class="tag2">${esc(t[0])}<b data-i="${i}">✕</b></span>`).join("")+'<button class="rst" id="rst">Reset all</button>';
  el.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{T[+b.dataset.i][1]();apply()});
- $("rst").onclick=()=>{F={q:"",status:[],category:[],read:"",sort:"default"};$("q").value="";$("sort").value="default";[MC,MP,MS].forEach(m=>m&&m.setSelected([]));clearScroll();apply()}}
+ $("rst").onclick=()=>{F={q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default"};$("q").value="";$("sort").value="default";[MC,MP,MS,MR,MX].forEach(m=>m&&m.setSelected([]));clearScroll();apply()}}
 
 function buildSelects(){
- const cc={},pc={};ALL.forEach(r=>{const c=String(r.category||"").trim();if(c)cc[c]=(cc[c]||0)+1;const k=String(r.status||"").trim()||"Other";pc[k]=(pc[k]||0)+1});
+ /* category */
+ const cc={},pc={},rc={};
+ ALL.forEach(r=>{
+  const c=String(r.category||"").trim();if(c)cc[c]=(cc[c]||0)+1;
+  const k=String(r.status||"").trim()||"Other";pc[k]=(pc[k]||0)+1;
+  const ref=String(r.reference||"").trim();if(ref)rc[ref]=(rc[ref]||0)+1;
+ });
  const co=Object.keys(cc).sort((a,b)=>a.localeCompare(b)).map(c=>({value:c,label:c,count:cc[c]}));
  const ord=["V.Imp","Imp","Note"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
  const po=Object.keys(pc).sort((a,b)=>ix(a)-ix(b)||a.localeCompare(b)).map(k=>({value:k,label:k,count:pc[k]}));
+ const ro=Object.keys(rc).sort((a,b)=>a.localeCompare(b)).map(c=>({value:c,label:c,count:rc[c]}));
  const rd=ALL.filter(r=>READ[key(r)]).length,so=[{value:"read",label:"Read",count:rd},{value:"unread",label:"Unread",count:ALL.length-rd}];
+
  if(MC)MC.setOptions(co);else MC=new MSel("msC",{ph:"All Categories",sp:"Search categories…",opts:co,sel:F.category.slice(),on:v=>{F.category=v;apply()}});
  if(MP)MP.setOptions(po);else MP=new MSel("msP",{ph:"All Priority",sp:"Search priority…",opts:po,sel:F.status.slice(),on:v=>{F.status=v;apply()}});
+ if(MR)MR.setOptions(ro);else MR=new MSel("msR",{ph:"All References",sp:"Search references…",opts:ro,sel:F.reference.slice(),on:v=>{F.reference=v;apply()}});
  if(MS){MS.setOptions(so);MS.setSelected(F.read?[F.read]:[])}
  else MS=new MSel("msS",{ph:"All Status",sp:"Search status…",opts:so,sel:F.read?[F.read]:[],on:v=>{if(v.length>1){v=[v[v.length-1]];MS.setSelected(v)}F.read=v[0]||"";apply()}});
- MC.rt();MP.rt();MS.rt()}
+ buildReactionSelect();
+ MC.rt();MP.rt();MR.rt();MS.rt();
+}
+
+function buildReactionSelect(){
+ const likeCount=Object.values(REACT).filter(r=>r&&r.type==="like").length;
+ const dislikeCount=Object.values(REACT).filter(r=>r&&r.type==="dislike").length;
+ const noneCount=ALL.length-likeCount-dislikeCount;
+ const xo=[
+  {value:"like",label:"👍 Liked",count:likeCount},
+  {value:"dislike",label:"👎 Disliked",count:dislikeCount},
+  {value:"none",label:"— None",count:noneCount}
+ ];
+ /* valid set: filter out any stale selections that no longer exist as an option value */
+ const valid=new Set(xo.map(o=>o.value));
+ const clean=F.reaction.filter(v=>valid.has(v));
+ if(clean.length!==F.reaction.length){
+  F.reaction=clean;
+  if(MX)MX.setSelected(clean);
+  sj(K.filt,F);
+ }
+ if(MX)MX.setOptions(xo);
+ else MX=new MSel("msX",{ph:"All Reactions",sp:"Search reactions…",opts:xo,sel:F.reaction.slice(),on:v=>{F.reaction=v;apply()}});
+ MX.rt();
+}
+
 $("q").oninput=e=>{F.q=e.target.value;apply()};$("sort").onchange=e=>{F.sort=e.target.value;apply()};
 
 const RPT={period:"all",tab:"all"};
@@ -656,7 +711,6 @@ function tabCards(tab){
  return ALL;
 }
 
-/* ============ NEW CSV EXPORT WITH FULL COLUMNS ============ */
 function exportTabCSV(tab){
  const list=tabCards(tab);
  if(!list.length){toast("Nothing to export in this tab.","err");return}
@@ -710,7 +764,6 @@ function renderTab(){
 $("cn").onclick=()=>$("cf").classList.remove("show");
 $("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
 
-/* Import */
 $("rimp").onclick=()=>$("file").click();
 $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();
  rd.onload=ev=>{try{const R=parseCSV(String(ev.target.result||""));if(R.length<2)throw Error("Empty CSV");
@@ -728,7 +781,9 @@ $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new Fil
    const last=iL>=0?parseTS(r[iL]):0;
    const pv=READ[k];
    if(!pv||cnt>pv.count){
-    READ[k]={count:cnt,first:first||(pv?pv.first:0)||last,last:Math.max(last,pv?pv.last:0),lastDay:last?dk(last):(pv?pv.lastDay:"")};
+    /* FIX: preserve existing first if it was set; else use imported first; else fall back to last/now */
+    const keepFirst=pv&&pv.first?pv.first:(first||last||Date.now());
+    READ[k]={count:cnt,first:keepFirst,last:Math.max(last,pv?pv.last:0),lastDay:last?dk(last):(pv?pv.lastDay:"")};
     add++;
    }
    const rxType=iRx>=0?String(r[iRx]||"").trim().toLowerCase():"";
