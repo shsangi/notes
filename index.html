@@ -8,11 +8,11 @@
 :root,[data-theme=dark]{--bg:#0a0b0f;--el:#111319;--s:#16181f;--s2:#1c1f28;--b:#252832;--b2:#333847;--t:#eceef3;--t2:#9498a5;--t3:#6a6f7e;
   --br:#0ea5e9;--br2:#38bdf8;--bs:rgba(14,165,233,.14);--bb:rgba(14,165,233,.32);--bt:#7dd3fc;--brand-shadow:rgba(14,165,233,.5);
   --ok:#22c55e;--okb:rgba(34,197,94,.11);--okr:rgba(34,197,94,.32);--er:#ef4444;--erb:rgba(239,68,68,.11);--err:rgba(239,68,68,.32);--wa:#f59e0b;--wab:rgba(245,158,11,.11);--war:rgba(245,158,11,.32);--in:#38bdf8;--inb:rgba(56,189,248,.11);--inr:rgba(56,189,248,.32);
-  --mb:rgba(148,152,165,.09);--mr:rgba(148,152,165,.22);--sh:0 20px 40px -12px rgba(0,0,0,.55);--logo-blue:#38bdf8;--logo-yellow:#facc15;--logo-black:#0a0a0a}
+  --mb:rgba(148,152,165,.09);--mr:rgba(148,152,165,.22);--sh:0 20px 40px -12px rgba(0,0,0,.55);--logo-yellow:#facc15}
 [data-theme=light]{--bg:#f5f8fc;--el:#fff;--s:#fff;--s2:#eef4fb;--b:#dde6f1;--b2:#c3d2e3;--t:#0a1520;--t2:#4a5b6e;--t3:#7a8b9e;
   --br:#0284c7;--br2:#0ea5e9;--bs:rgba(2,132,199,.09);--bb:rgba(2,132,199,.24);--bt:#0284c7;--brand-shadow:rgba(2,132,199,.3);
   --ok:#16a34a;--okb:rgba(22,163,74,.09);--okr:rgba(22,163,74,.28);--er:#dc2626;--erb:rgba(220,38,38,.09);--err:rgba(220,38,38,.28);--wa:#d97706;--wab:rgba(217,119,6,.09);--war:rgba(217,119,6,.28);--in:#0284c7;--inb:rgba(2,132,199,.09);--inr:rgba(2,132,199,.28);
-  --mb:rgba(90,95,110,.08);--mr:rgba(90,95,110,.2);--sh:0 20px 40px -12px rgba(15,23,42,.25);--logo-blue:#0ea5e9;--logo-yellow:#eab308;--logo-black:#0a0a0a}
+  --mb:rgba(90,95,110,.08);--mr:rgba(90,95,110,.2);--sh:0 20px 40px -12px rgba(15,23,42,.25);--logo-yellow:#eab308}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{overflow-x:hidden;max-width:100vw}
 body{font-family:Inter,-apple-system,sans-serif;background:var(--bg);color:var(--t);min-height:100vh;line-height:1.55;padding-bottom:env(safe-area-inset-bottom,0)}
@@ -35,16 +35,30 @@ button,select,input{font-family:inherit}
 .ibtn{width:34px;height:34px;border-radius:9px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;font-size:15px;text-decoration:none;flex-shrink:0;transition:.15s}
 .ibtn:hover{color:var(--t);border-color:var(--b2)}
 .ibtn:active{transform:scale(.94)}
-.ibtn.g{background:var(--okb);border-color:var(--okr);color:var(--ok)}.ibtn.w{background:var(--wab);border-color:var(--war);color:var(--wa)}.ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
-.filters{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:12px;margin:14px 0 10px;display:flex;flex-direction:column;gap:10px}
-.row3{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:8px}
-.row4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
-@media(max-width:900px){.row4{grid-template-columns:1fr 1fr}}
-@media(max-width:780px){.row3{grid-template-columns:1fr 1fr}.row3>.full{grid-column:1/-1}}
-@media(max-width:520px){.row3{grid-template-columns:1fr}.row4{grid-template-columns:1fr}}
-.field{position:relative}.field svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3)}
+.ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
+
+/* ==================== SEARCH + FILTER TOGGLE BAR ==================== */
+.filterbar{display:flex;gap:8px;align-items:stretch;margin:14px 0 0}
+.filterbar .search-wrap{flex:1;position:relative;min-width:0}
+.filterbar .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none}
+.filterbar input[type=search]{width:100%;padding:11px 12px 11px 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
+.filterbar input[type=search]:focus{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
+.filterbar .filter-toggle{position:relative;width:44px;min-height:44px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit}
+.filterbar .filter-toggle:hover{color:var(--t);border-color:var(--b2)}
+.filterbar .filter-toggle.on{background:var(--br);border-color:var(--br);color:#fff;box-shadow:0 6px 14px -6px var(--brand-shadow)}
+.filterbar .filter-toggle svg{width:17px;height:17px}
+.filterbar .filter-toggle .badge-count{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--br);color:#fff;font:700 .62rem 'JetBrains Mono';display:none;place-items:center;border:2px solid var(--bg)}
+.filterbar .filter-toggle .badge-count.show{display:grid}
+
+/* ==================== COLLAPSIBLE FILTER PANEL ==================== */
+.filters-panel{margin:8px 0 10px;background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden;display:none}
+.filters-panel.show{display:block;animation:slideDown .28s cubic-bezier(.32,.72,0,1)}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.filters-panel .fp-inner{padding:12px;display:flex;flex-direction:column;gap:10px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:520px){.row2{grid-template-columns:1fr}}
+.field{position:relative}
 input[type=search],select,.ms-s input{width:100%;padding:11px 12px;background:var(--el);border:1px solid var(--b);border-radius:10px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
-input[type=search]{padding-left:36px}
 input:focus,select:focus{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
 select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236a6f7e' stroke-width='2.5' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:10px;padding-right:32px}
 .ms{position:relative}
@@ -175,7 +189,10 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .clock i{width:5px;height:5px}
  .ibtn{width:32px;height:32px;font-size:14px;border-radius:8px}
  .tin{gap:4px;padding:9px 12px}
- .filters{padding:11px;gap:9px;margin:12px 0 9px}
+ .filterbar{margin:12px 0 0}
+ .filterbar input[type=search]{padding:10px 10px 10px 34px;font-size:.82rem}
+ .filterbar .filter-toggle{width:42px;min-height:42px}
+ .filters-panel .fp-inner{padding:11px;gap:9px}
  .card{padding:11px 12px 9px;gap:6px}
  .mem{font-size:.85rem;padding:6px 8px}
  .mh{padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0))}
@@ -297,18 +314,40 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 </div></div>
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
- <div class="filters">
-  <div class="row3"><div class="field full"><span id="si"></span><input id="q" type="search" placeholder="Search rules, sections, memory…"></div><div id="msC"></div><div id="msP"></div></div>
-  <div class="row4">
-   <div id="msR"></div>
-   <div id="msS"></div>
-   <div id="msX"></div>
-   <select id="sort"><option value="default">Default order</option><option value="priority">Priority first</option><option value="unread">Unread first</option><option value="most">Most read first</option></select>
+
+ <!-- ============ SEARCH BAR + FILTER TOGGLE ============ -->
+ <div class="filterbar">
+  <div class="search-wrap">
+   <span id="si"></span>
+   <input id="q" type="search" placeholder="Search rules, sections, memory…">
   </div>
-  <div class="af" id="af"></div>
+  <button class="filter-toggle" id="ftBtn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false">
+   <span id="ftIco"></span>
+   <span class="badge-count" id="ftCount">0</span>
+  </button>
  </div>
 
- <div class="qmenu-hint" id="qmHint">
+ <!-- ============ COLLAPSIBLE FILTER PANEL ============ -->
+ <div class="filters-panel" id="fpanel">
+  <div class="fp-inner">
+   <div class="row2">
+    <div id="msC"></div>
+    <div id="msP"></div>
+   </div>
+   <div class="row2">
+    <div id="msR"></div>
+    <select id="sort">
+     <option value="default">Default order</option>
+     <option value="priority">Priority first</option>
+     <option value="unread">Unread first</option>
+     <option value="most">Most read first</option>
+    </select>
+   </div>
+   <div class="af" id="af"></div>
+  </div>
+ </div>
+
+ <div class="qmenu-hint" id="qmHint" style="margin-top:12px">
   <span class="h-l">
    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
    Tap a tab to filter
@@ -343,10 +382,10 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.9",NAME:"My Notes",
+const C={VER:"v4.1",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
-PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1"}};
+PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
 const $=id=>document.getElementById(id),K=C.K,p2=n=>String(n).padStart(2,"0");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const IC={pen:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/>',
@@ -361,6 +400,7 @@ chart:'<path d="M3 3v18h18M7 15l4-4 3 3 5-7"/>',
 eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
 arrow:'<polyline points="9 18 15 12 9 6"/>',
 chev:'<polyline points="9 18 15 12 9 6"/>',
+filter:'<path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>',
 all:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
 liked:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
 read:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
@@ -371,6 +411,7 @@ thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
 const eye=ico("eye");
 $("mk").innerHTML=ico("pen");$("rmk").innerHTML=ico("chart");$("si").innerHTML=ico("search");
+$("ftIco").innerHTML=ico("filter",2.4);
 $("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
@@ -396,13 +437,13 @@ let ALL=[],VIEW=[],LOADED=0;
 let READ=lj(K.read,{});
 let HIST=lj(K.hist,[]);
 let REACT=lj(K.react,{});
-let F=Object.assign({q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default",ntab:"all"},lj(K.filt,{}));
+let F=Object.assign({q:"",status:[],category:[],reference:[],sort:"default"},lj(K.filt,{}));
 if(!Array.isArray(F.reference))F.reference=[];
-if(!Array.isArray(F.reaction))F.reaction=[];
-if(!F.ntab)F.ntab="all";
+delete F.reaction; delete F.read;
 let CATS_OPEN=lj(K.cats,false);
 let NOTES_TAB=lj(K.qtab,"all");
-let NOSAVE=false,MC,MP,MS,MR,MX;
+let FPANEL_OPEN=lj(K.fpanel,false);
+let NOSAVE=false,MC,MP,MR;
 
 const off=()=>(C.PKT+new Date().getTimezoneOffset())*6e4;
 const nowP=()=>new Date(Date.now()+off());
@@ -486,12 +527,38 @@ function setReact(k, val){
  if(changed)sj(K.react,REACT);
 })();
 
-/* ============================================================
-   CASCADING MULTI-SELECT
-   Each dropdown, when opened, asks `getOptions()` for the current
-   set of values that are actually available given the OTHER filters.
-   Counts also reflect the filtered subset, not the full dataset.
-   ============================================================ */
+/* ==================== FILTER PANEL TOGGLE ==================== */
+function activeFilterCount(){
+ let n=0;
+ if(F.category.length)n+=F.category.length;
+ if(F.status.length)n+=F.status.length;
+ if(F.reference.length)n+=F.reference.length;
+ if(F.sort!=="default")n++;
+ return n;
+}
+function setFPanel(open,save=true){
+ FPANEL_OPEN=open;
+ const p=$("fpanel"),b=$("ftBtn");
+ p.classList.toggle("show",open);
+ b.classList.toggle("on",open);
+ b.setAttribute("aria-expanded",open?"true":"false");
+ if(save)sj(K.fpanel,open);
+ // when opening, refresh cascading options
+ if(open)refreshSelectOptions();
+}
+function refreshBadge(){
+ const n=activeFilterCount();
+ const el=$("ftCount");
+ el.textContent=n;
+ el.classList.toggle("show",n>0);
+ // Also highlight button if there are active filters even when closed
+ const b=$("ftBtn");
+ b.classList.toggle("on",FPANEL_OPEN||n>0);
+}
+$("ftBtn").onclick=()=>setFPanel(!FPANEL_OPEN);
+setFPanel(FPANEL_OPEN,false);
+
+/* ==================== MULTI-SELECT ==================== */
 class MSel{
  constructor(id,o){
   Object.assign(this,{el:$(id),ph:"Select…",sp:"Search…",opts:[],sel:[],on(){},getOptions:null},o);
@@ -515,7 +582,6 @@ class MSel{
   this.el.querySelector(".ms-m").onclick=e=>e.stopPropagation();
   this.el.querySelector('[data-a=all]').onclick=()=>{
    const q=this.si.value.toLowerCase();
-   // Select all that are visible AND available (count > 0)
    const addable=this.opts.filter(o=>(typeof o.count!=="number"||o.count>0) && o.label.toLowerCase().includes(q)).map(o=>o.value);
    this.sel=[...new Set([...this.sel,...addable])];
    this.ch();
@@ -536,10 +602,7 @@ class MSel{
  rl(){
   const q=this.si.value.trim().toLowerCase();
   const f=this.opts.filter(o=>!q||o.label.toLowerCase().includes(q));
-  if(!f.length){
-   this.l.innerHTML='<div class="ms-empty-mini">No matches</div>';
-   return;
-  }
+  if(!f.length){this.l.innerHTML='<div class="ms-empty-mini">No matches</div>';return}
   this.l.innerHTML=f.map(o=>{
    const on=this.sel.includes(o.value);
    const zero=typeof o.count==="number"&&o.count===0&&!on;
@@ -550,76 +613,50 @@ class MSel{
    </div>`;
   }).join("");
   this.l.querySelectorAll(".opt").forEach(e=>{
-   e.onclick=ev=>{
-    ev.stopPropagation();
-    if(e.classList.contains("disabled"))return;
-    this.tog(e.dataset.v);
-   };
+   e.onclick=ev=>{ev.stopPropagation();if(e.classList.contains("disabled"))return;this.tog(e.dataset.v)};
   });
  }
 }
 const closeMS=()=>document.querySelectorAll(".ms.open").forEach(m=>m.classList.remove("open"));
 document.addEventListener("click",closeMS);
 
-/* ============================================================
-   AVAILABLE VALUES COMPUTED FROM CURRENT FILTERS
-   Given a set of "ignore" keys, filter ALL by every filter EXCEPT
-   the ignored ones, then return unique values + counts.
-   ============================================================ */
+/* ==================== CASCADING OPTIONS ==================== */
 function passes(r,ignore){
  if(F.status.length && !ignore.includes("status") && !F.status.includes(String(r.status||"").trim())) return false;
  if(F.category.length && !ignore.includes("category") && !F.category.includes(String(r.category||"").trim())) return false;
  if(F.reference.length && !ignore.includes("reference") && !F.reference.includes(String(r.reference||"").trim())) return false;
- if(F.reaction.length && !ignore.includes("reaction")){
-  const rx=REACT[key(r)];const rt=rx?rx.type:"";
-  if(!F.reaction.includes(rt)) return false;
- }
- if(F.read && !ignore.includes("read")){
-  if(F.read==="read" && !READ[key(r)]) return false;
-  if(F.read==="unread" && READ[key(r)]) return false;
- }
  if(NOTES_TAB!=="all" && !ignore.includes("ntab")){
   if(NOTES_TAB==="liked" && !(REACT[key(r)]&&REACT[key(r)].type==="like")) return false;
   if(NOTES_TAB==="disliked" && !(REACT[key(r)]&&REACT[key(r)].type==="dislike")) return false;
   if(NOTES_TAB==="read" && !READ[key(r)]) return false;
   if(NOTES_TAB==="unread" && READ[key(r)]) return false;
  }
- // search box also narrows the pool for other dropdowns? Usually not — keep search out of dropdown pool
  return true;
 }
 function getAvailable(field){
- // field: "category" | "status" | "reference" | "reaction"
  const counts={};
  ALL.forEach(r=>{
-  // ignore the field we're computing options for
   if(!passes(r,[field]))return;
   let v;
   if(field==="category")v=String(r.category||"").trim()||"Uncategorized";
   else if(field==="status")v=String(r.status||"").trim()||"Other";
   else if(field==="reference")v=String(r.reference||"").trim();
-  else if(field==="reaction"){const rx=REACT[key(r)];v=rx?rx.type:"none"}
-  if(v||field==="reaction")counts[v]=(counts[v]||0)+1;
+  if(v)counts[v]=(counts[v]||0)+1;
  });
- // Also include currently-selected values even if count is 0 (so user can un-select)
  if(field==="category")F.category.forEach(c=>{if(!(c in counts))counts[c]=0});
  if(field==="status")F.status.forEach(c=>{if(!(c in counts))counts[c]=0});
  if(field==="reference")F.reference.forEach(c=>{if(!(c in counts))counts[c]=0});
- if(field==="reaction"){
-  const rxOpts=["like","dislike","none"];
-  rxOpts.forEach(v=>{if(!(v in counts))counts[v]=0});
- }
  const keys=Object.keys(counts);
  if(field==="status"){
   const ord=["V.Imp","Imp","Note"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
   keys.sort((a,b)=>ix(a)-ix(b)||a.localeCompare(b));
- } else if(field==="reaction"){
-  const ord=["like","dislike","none"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
-  keys.sort((a,b)=>ix(a)-ix(b));
- } else {
-  keys.sort((a,b)=>a.localeCompare(b));
- }
- const labels={like:"👍 Liked",dislike:"👎 Disliked",none:"— None"};
- return keys.map(k=>({value:k,label:field==="reaction"?labels[k]:k,count:counts[k]}));
+ } else keys.sort((a,b)=>a.localeCompare(b));
+ return keys.map(k=>({value:k,label:k,count:counts[k]}));
+}
+function refreshSelectOptions(){
+ if(MC){MC.opts=getAvailable("category");MC.rt()}
+ if(MP){MP.opts=getAvailable("status");MP.rt()}
+ if(MR){MR.opts=getAvailable("reference");MR.rt()}
 }
 
 function notesTabCards(tab){
@@ -654,8 +691,6 @@ function renderNotesTabs(){
   b.onclick=()=>{
    NOTES_TAB=b.dataset.v;
    sj(K.qtab,NOTES_TAB);
-   F.ntab=NOTES_TAB;
-   F.read = (NOTES_TAB==="read"?"read":NOTES_TAB==="unread"?"unread":"");
    el.querySelectorAll(".qtab").forEach(x=>x.classList.toggle("on",x.dataset.v===NOTES_TAB));
    b.scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});
    LOADED=0;
@@ -670,19 +705,10 @@ function apply(skip){
   if(F.status.length&&!F.status.includes(String(r.status||"").trim()))return false;
   if(F.category.length&&!F.category.includes(String(r.category||"").trim()))return false;
   if(F.reference.length&&!F.reference.includes(String(r.reference||"").trim()))return false;
-  if(F.reaction.length){
-   const rx=REACT[key(r)];
-   const rt=rx?rx.type:"";
-   if(!F.reaction.includes(rt))return false;
-  }
   if(NOTES_TAB==="liked" && !(REACT[key(r)]&&REACT[key(r)].type==="like"))return false;
   if(NOTES_TAB==="disliked" && !(REACT[key(r)]&&REACT[key(r)].type==="dislike"))return false;
   if(NOTES_TAB==="read" && !READ[key(r)])return false;
   if(NOTES_TAB==="unread" && READ[key(r)])return false;
-  if(NOTES_TAB==="all"){
-   if(F.read==="read"&&!READ[key(r)])return false;
-   if(F.read==="unread"&&READ[key(r)])return false;
-  }
   return!s||[r.category,r.reference,r.memory,r.status,r.row].join(" ").toLowerCase().includes(s)});
  const cnt=r=>(READ[key(r)]||{}).count||0;
  if(F.sort==="priority")VIEW.sort((a,b)=>sm(a.status).r-sm(b.status).r);
@@ -690,24 +716,9 @@ function apply(skip){
  else if(F.sort==="most")VIEW.sort((a,b)=>cnt(b)-cnt(a));
  LOADED=Math.min(C.PAGE,VIEW.length);
  if(!VIEW.length){$("out").innerHTML='<div class="state"><h3>No cards found</h3><p>Try a different search or clear the filters.</p></div>';$("more").innerHTML=""}else renderPage();
- info();activeF();renderNotesTabs();
- // Refresh cached options so next open shows updated availability
+ info();activeF();renderNotesTabs();refreshBadge();
  refreshSelectOptions();
  if(!skip)sj(K.filt,F)}
-
-function refreshSelectOptions(){
- // Do NOT re-render open dropdowns aggressively; only update cached opts
- const sets={
-  category:getAvailable("category"),
-  status:getAvailable("status"),
-  reference:getAvailable("reference"),
-  reaction:getAvailable("reaction")
- };
- if(MC){MC.opts=sets.category;MC.rt()}
- if(MP){MP.opts=sets.status;MP.rt()}
- if(MR){MR.opts=sets.reference;MR.rt()}
- if(MX){MX.opts=sets.reaction;MX.rt()}
-}
 
 function card(r,i,idx,tot){
  const m=sm(r.status),k=key(r),rec=READ[k],n=rec?rec.count:0;
@@ -780,6 +791,7 @@ function bind(container){
   upd(b.closest(".card"),k);
   renderNotesTabs();
   refreshSelectOptions();
+  refreshBadge();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
@@ -790,6 +802,7 @@ function bind(container){
   upd(b.closest(".card"),k);
   renderNotesTabs();
   refreshSelectOptions();
+  refreshBadge();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll(".det").forEach(d=>d.onclick=e=>e.stopPropagation());
@@ -837,43 +850,26 @@ function activeF(){const el=$("af"),T=[];
  F.category.forEach(c=>T.push(["Category: "+c,()=>{F.category=F.category.filter(x=>x!==c);MC.setSelected(F.category)}]));
  F.status.forEach(s=>T.push(["Priority: "+s,()=>{F.status=F.status.filter(x=>x!==s);MP.setSelected(F.status)}]));
  F.reference.forEach(rr=>T.push(["Ref: "+rr,()=>{F.reference=F.reference.filter(x=>x!==rr);MR.setSelected(F.reference)}]));
- F.reaction.forEach(rx=>T.push(["Reaction: "+(rx||"none"),()=>{F.reaction=F.reaction.filter(x=>x!==rx);MX.setSelected(F.reaction)}]));
- if(F.read && NOTES_TAB==="all")T.push([F.read==="read"?"Read only":"Unread only",()=>{F.read="";MS.setSelected([])}]);
  if(F.sort!=="default")T.push(["Sort: "+$("sort").selectedOptions[0].textContent,()=>{F.sort="default";$("sort").value="default"}]);
  if(!T.length){el.innerHTML="✓ No active filters";return}
  el.innerHTML="<b>Active filters:</b>"+T.map((t,i)=>`<span class="tag2">${esc(t[0])}<b data-i="${i}">✕</b></span>`).join("")+'<button class="rst" id="rst">Reset all</button>';
  el.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{T[+b.dataset.i][1]();apply()});
- $("rst").onclick=()=>{F={q:"",status:[],category:[],reference:[],reaction:[],read:"",sort:"default",ntab:NOTES_TAB};$("q").value="";$("sort").value="default";[MC,MP,MS,MR,MX].forEach(m=>m&&m.setSelected([]));clearScroll();apply()}}
+ $("rst").onclick=()=>{
+  F={q:"",status:[],category:[],reference:[],sort:"default"};
+  $("q").value="";$("sort").value="default";
+  [MC,MP,MR].forEach(m=>m&&m.setSelected([]));
+  clearScroll();apply();
+ };
+}
 
 function buildSelects(){
- // Initial full-options (before any filter applied). getOptions callback refreshes on open.
- const rd=ALL.filter(r=>READ[key(r)]).length;
- const so=[{value:"read",label:"Read",count:rd},{value:"unread",label:"Unread",count:ALL.length-rd}];
-
  if(MC){MC.setOptions(getAvailable("category"))}
  else MC=new MSel("msC",{ph:"All Categories",sp:"Search categories…",getOptions:()=>getAvailable("category"),on:v=>{F.category=v;apply()}});
  if(MP){MP.setOptions(getAvailable("status"))}
  else MP=new MSel("msP",{ph:"All Priority",sp:"Search priority…",getOptions:()=>getAvailable("status"),on:v=>{F.status=v;apply()}});
  if(MR){MR.setOptions(getAvailable("reference"))}
  else MR=new MSel("msR",{ph:"All References",sp:"Search references…",getOptions:()=>getAvailable("reference"),on:v=>{F.reference=v;apply()}});
- if(MS){MS.setOptions(so);MS.setSelected(F.read?[F.read]:[])}
- else MS=new MSel("msS",{ph:"All Status",sp:"Search status…",opts:so,sel:F.read?[F.read]:[],on:v=>{if(v.length>1){v=[v[v.length-1]];MS.setSelected(v)}F.read=v[0]||"";apply()}});
- buildReactionSelect();
- MC.rt();MP.rt();MR.rt();MS.rt();
-}
-
-function buildReactionSelect(){
- const xo=getAvailable("reaction");
- const valid=new Set(xo.map(o=>o.value));
- const clean=F.reaction.filter(v=>valid.has(v));
- if(clean.length!==F.reaction.length){
-  F.reaction=clean;
-  if(MX)MX.setSelected(clean);
-  sj(K.filt,F);
- }
- if(MX)MX.setOptions(xo);
- else MX=new MSel("msX",{ph:"All Reactions",sp:"Search reactions…",getOptions:()=>getAvailable("reaction"),on:v=>{F.reaction=v;apply()}});
- MX.rt();
+ MC.rt();MP.rt();MR.rt();
 }
 
 $("q").oninput=e=>{F.q=e.target.value;apply()};$("sort").onchange=e=>{F.sort=e.target.value;apply()};
@@ -1011,7 +1007,7 @@ function renderTab(){
 }
 $("rbackup").onclick=exportFullBackup;
 $("cn").onclick=()=>$("cf").classList.remove("show");
-$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats,K.qtab].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
+$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats,K.qtab,K.fpanel].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
 $("rimp").onclick=()=>$("file").click();
 $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();
  rd.onload=ev=>{try{const R=parseCSV(String(ev.target.result||""));if(R.length<2)throw Error("Empty CSV");
