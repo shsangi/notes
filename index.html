@@ -37,18 +37,19 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
-/* ==================== SEARCH + FILTER TOGGLE BAR ==================== */
-.filterbar{display:flex;gap:8px;align-items:stretch;margin:14px 0 0}
-.filterbar .search-wrap{flex:1;position:relative;min-width:0}
-.filterbar .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none}
-.filterbar input[type=search]{width:100%;padding:11px 12px 11px 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
+/* ==================== SEARCH BAR + MATCHING FILTER TOGGLE ==================== */
+.filterbar{display:grid;grid-template-columns:1fr 46px;gap:8px;margin:14px 0 0;align-items:stretch}
+.filterbar .search-wrap{position:relative;min-width:0}
+.filterbar .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;width:15px;height:15px}
+.filterbar input[type=search]{width:100%;height:46px;padding:0 12px 0 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
 .filterbar input[type=search]:focus{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
-.filterbar .filter-toggle{position:relative;width:44px;min-height:44px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit}
+.filterbar .filter-toggle{position:relative;width:46px;height:46px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0}
 .filterbar .filter-toggle:hover{color:var(--t);border-color:var(--b2)}
 .filterbar .filter-toggle.on{background:var(--br);border-color:var(--br);color:#fff;box-shadow:0 6px 14px -6px var(--brand-shadow)}
 .filterbar .filter-toggle svg{width:17px;height:17px}
 .filterbar .filter-toggle .badge-count{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--br);color:#fff;font:700 .62rem 'JetBrains Mono';display:none;place-items:center;border:2px solid var(--bg)}
 .filterbar .filter-toggle .badge-count.show{display:grid}
+.filterbar .filter-toggle.on .badge-count{background:#fff;color:var(--br);border-color:var(--br)}
 
 /* ==================== COLLAPSIBLE FILTER PANEL ==================== */
 .filters-panel{margin:8px 0 10px;background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden;display:none}
@@ -93,25 +94,27 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .af .tag2 b{cursor:pointer;opacity:.7;font-style:normal}.af .tag2 b:hover{opacity:1}
 .af .rst{margin-left:auto;padding:5px 10px;background:var(--erb);border:1px solid var(--err);color:var(--er);border-radius:8px;font-size:.68rem;font-weight:600;cursor:pointer;font-family:inherit}
 .af .rst:hover{background:var(--er);color:#fff}
+
+/* Notes tabs INSIDE filter panel */
+.fp-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px;background:var(--el);border:1px solid var(--b);border-radius:11px}
+.fp-tabs button{padding:9px 4px;background:0;border:0;border-radius:8px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.1}
+.fp-tabs button span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.fp-tabs button small{font:.58rem 'JetBrains Mono';color:var(--t3);font-weight:700;line-height:1}
+.fp-tabs button:hover{color:var(--t);background:var(--s2)}
+.fp-tabs button.on{background:var(--br);color:#fff;box-shadow:0 2px 8px -2px var(--brand-shadow)}
+.fp-tabs button.on small{color:rgba(255,255,255,.72)}
+@media(max-width:640px){
+ .fp-tabs{gap:2px}
+ .fp-tabs button{font-size:.62rem;padding:8px 2px}
+ .fp-tabs button small{font-size:.54rem}
+}
+.fp-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;padding:0 2px;margin-bottom:-4px}
+
 .infobar{display:flex;justify-content:space-between;gap:8px;padding:0 4px 10px;color:var(--t3);font-size:.7rem;flex-wrap:wrap}
 .ib{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;white-space:nowrap}
 .ib b{color:var(--t2);font-weight:600}.ib b.rd{color:var(--br);font-weight:700}
 .pct{padding:1px 6px;margin-left:6px;border-radius:99px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-weight:700;font-size:.64rem}
 .pct.z{background:var(--mb);border-color:var(--mr);color:var(--t3)}
-
-/* ==================== NOTES TAB MENU — same as Progress screen ==================== */
-.ntabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px;background:var(--s);border:1px solid var(--b);border-radius:11px;margin:12px 0 12px}
-.ntabs button{padding:9px 4px;background:0;border:0;border-radius:8px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.1}
-.ntabs button span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
-.ntabs button small{font:.58rem 'JetBrains Mono';color:var(--t3);font-weight:700;line-height:1}
-.ntabs button:hover{color:var(--t);background:var(--s2)}
-.ntabs button.on{background:var(--br);color:#fff;box-shadow:0 2px 8px -2px var(--brand-shadow)}
-.ntabs button.on small{color:rgba(255,255,255,.72)}
-@media(max-width:640px){
- .ntabs{gap:2px;padding:3px}
- .ntabs button{font-size:.62rem;padding:8px 2px}
- .ntabs button small{font-size:.54rem}
-}
 
 .list{display:flex;flex-direction:column;gap:8px}
 .more{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0 8px;font-size:.72rem;color:var(--t3);text-align:center}
@@ -185,9 +188,10 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .clock i{width:5px;height:5px}
  .ibtn{width:32px;height:32px;font-size:14px;border-radius:8px}
  .tin{gap:4px;padding:9px 12px}
- .filterbar{margin:12px 0 0}
- .filterbar input[type=search]{padding:10px 10px 10px 34px;font-size:.82rem}
- .filterbar .filter-toggle{width:42px;min-height:42px}
+ .filterbar{margin:12px 0 0;grid-template-columns:1fr 44px}
+ .filterbar input[type=search]{height:44px;padding:0 10px 0 34px;font-size:.82rem}
+ .filterbar .search-wrap svg{left:10px;width:14px;height:14px}
+ .filterbar .filter-toggle{width:44px;height:44px}
  .filters-panel .fp-inner{padding:11px;gap:9px}
  .card{padding:11px 12px 9px;gap:6px}
  .mem{font-size:.85rem;padding:6px 8px}
@@ -311,7 +315,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
 
- <!-- SEARCH + FILTER TOGGLE -->
+ <!-- SEARCH + FILTER TOGGLE (filter icon matches search height exactly) -->
  <div class="filterbar">
   <div class="search-wrap">
    <span id="si"></span>
@@ -323,7 +327,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
   </button>
  </div>
 
- <!-- COLLAPSIBLE FILTER PANEL -->
+ <!-- COLLAPSIBLE FILTER PANEL (contains tabs at bottom) -->
  <div class="filters-panel" id="fpanel">
   <div class="fp-inner">
    <div class="row2">
@@ -340,11 +344,12 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
     </select>
    </div>
    <div class="af" id="af"></div>
+
+   <!-- Notes tabs live INSIDE the filter panel -->
+   <div class="fp-lbl">Show</div>
+   <div class="fp-tabs" id="qmenu" role="tablist" aria-label="Notes filter tabs"></div>
   </div>
  </div>
-
- <!-- NOTES TAB MENU — same layout as Progress screen -->
- <div class="ntabs" id="qmenu" role="tablist" aria-label="Notes filter tabs"></div>
 
  <div class="infobar"><div class="ib" id="ibL">Loading…</div><div class="ib" id="ibR"></div></div>
  <div class="list" id="out"><div class="state">Fetching memory cards…</div></div>
@@ -367,7 +372,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.2",NAME:"My Notes",
+const C={VER:"v4.3",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -637,7 +642,7 @@ function refreshSelectOptions(){
  if(MR){MR.opts=getAvailable("reference");MR.rt()}
 }
 
-/* ==================== NOTES TAB MENU — same style as Progress ==================== */
+/* ==================== NOTES TABS (inside filter panel) ==================== */
 function renderNotesTabs(){
  const tabs=[
   {v:"all",l:"All"},
