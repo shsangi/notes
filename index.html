@@ -190,7 +190,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .sc.like .pc{background:var(--okb);color:var(--ok)}
 .sc.dislike .pc{background:var(--erb);color:var(--er)}
 
-/* ==================== COLLAPSIBLE CATEGORY COVERAGE ==================== */
+/* ==================== COLLAPSIBLE CATEGORY COVERAGE (v3.6) ==================== */
 .catsec{margin-bottom:16px;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;transition:border-color .15s}
 .catsec:hover{border-color:var(--b2)}
 .cathead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:background .15s}
@@ -204,29 +204,36 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .cathead .ch-pct{font:700 .68rem 'JetBrains Mono';padding:2px 8px;border-radius:99px;background:var(--inb);color:var(--in);border:1px solid var(--inr)}
 .catsec.open .cathead{border-bottom:1px solid var(--b)}
 .catbody{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(.32,.72,0,1)}
-.catsec.open .catbody{max-height:2000px}
-.catlist{display:flex;flex-direction:column;gap:6px;padding:10px 12px 12px}
-.cr{display:grid;grid-template-columns:minmax(0,1fr) 70px auto;gap:9px;align-items:center;padding:8px 10px;background:var(--s2);border:1px solid var(--b);border-radius:8px;font-size:.76rem;transition:background .15s}
+.catsec.open .catbody{max-height:4000px}
+.catlist{display:flex;flex-direction:column;gap:8px;padding:10px 12px 12px}
+
+/* NEW 2-line layout: name on top, bar + counts below */
+.cr{padding:10px 12px;background:var(--s2);border:1px solid var(--b);border-radius:9px;transition:background .15s;display:flex;flex-direction:column;gap:7px}
 .cr:hover{background:var(--s);border-color:var(--b2)}
-.cr .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:var(--t2)}
-.cr .bar{height:6px;background:var(--mb);border-radius:99px;overflow:hidden;position:relative}
+.cr .nm{font-size:.8rem;font-weight:700;color:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;letter-spacing:-.005em}
+.cr .meta{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;min-width:0}
+.cr .bar{height:7px;background:var(--mb);border-radius:99px;overflow:hidden;position:relative;min-width:0}
 .cr .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .35s}
-.cr .right{display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
-.cr .cnt2{font:700 .68rem 'JetBrains Mono';color:var(--bt);white-space:nowrap}
-.cr .pc2{font:700 .64rem 'JetBrains Mono';padding:1px 6px;border-radius:99px;background:var(--bs);color:var(--bt);white-space:nowrap}
+.cr .right{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:'JetBrains Mono',monospace}
+.cr .cnt2{font-weight:700;font-size:.72rem;color:var(--t2);white-space:nowrap}
+.cr .sep2{color:var(--t3);opacity:.5;font-size:.7rem}
+.cr .pc2{font-weight:700;font-size:.7rem;padding:2px 7px;border-radius:99px;background:var(--bs);color:var(--bt);white-space:nowrap}
 .cr.full .bar i{background:linear-gradient(90deg,var(--ok),#34d399)}
 .cr.full .pc2{background:var(--okb);color:var(--ok)}
 .cr.empty .bar i{background:var(--mb)}
 .cr.empty .pc2{background:var(--mb);color:var(--t3)}
 @media(max-width:640px){
- .cr{grid-template-columns:minmax(0,1fr) 60px auto;font-size:.72rem;gap:7px;padding:7px 8px}
- .cr .pc2{font-size:.6rem;padding:1px 5px}
+ .cr{padding:9px 10px;gap:6px}
+ .cr .nm{font-size:.76rem}
+ .cr .cnt2{font-size:.68rem}
+ .cr .pc2{font-size:.66rem;padding:1px 6px}
 }
 @media(max-width:400px){
  .cathead{padding:11px 12px}
  .cathead .ch-title{font-size:.62rem}
- .cr{grid-template-columns:minmax(0,1fr) 50px auto;font-size:.7rem}
- .cr .pc2{display:none}
+ .cr .nm{font-size:.72rem}
+ .cr .cnt2{font-size:.64rem}
+ .cr .pc2{font-size:.62rem}
 }
 
 .tabs2{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px;background:var(--s);border:1px solid var(--b);border-radius:11px;margin-bottom:12px}
@@ -295,7 +302,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v3.5",NAME:"My Notes",
+const C={VER:"v3.6",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1"}};
@@ -704,20 +711,23 @@ function renderR(){
   <div class="sc dislike" data-tab="disliked"><span class="pc">${dislikePct}%</span><span class="lbl">Disliked</span><span class="num">${dislikedCount}</span><span class="sub">of all cards</span></div>
  </div>`;
 
- /* ==================== COLLAPSIBLE CATEGORY COVERAGE ==================== */
+ /* ==================== CATEGORY COVERAGE (2-line layout, collapsible) ==================== */
  const allCatCounts=catCounts(),catKeys=Object.keys(allCatCounts).sort((a,b)=>a.localeCompare(b));
  const catReads={};ALL.forEach(r=>{if(READ[key(r)]){const c=String(r.category||"").trim()||"Uncategorized";catReads[c]=(catReads[c]||0)+1}});
 
  const catRows=catKeys.map(c=>{
   const tot=allCatCounts[c],rd=catReads[c]||0,pct=tot?Math.round(rd*100/tot):0;
   const cls=rd===tot&&tot>0?"full":rd===0?"empty":"";
-  return `<div class="cr ${cls}" title="${esc(c)} — ${rd} of ${tot} read (${pct}%)">
-    <span class="nm">${esc(c)}</span>
-    <span class="bar"><i style="width:${pct}%"></i></span>
-    <span class="right">
-      <span class="cnt2">${rd}/${tot}</span>
-      <span class="pc2">${pct}%</span>
-    </span>
+  return `<div class="cr ${cls}">
+    <span class="nm" title="${esc(c)}">${esc(c)}</span>
+    <div class="meta">
+      <span class="bar"><i style="width:${pct}%"></i></span>
+      <span class="right">
+        <span class="cnt2">${rd}/${tot}</span>
+        <span class="sep2">·</span>
+        <span class="pc2">${pct}%</span>
+      </span>
+    </div>
   </div>`;
  }).join("");
 
@@ -753,7 +763,6 @@ function renderR(){
  rb.querySelectorAll(".sc").forEach(sc=>sc.onclick=()=>{RPT.tab=sc.dataset.tab||"read";renderR()});
  rb.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>{RPT.tab=b.dataset.tab;renderTab();rb.querySelectorAll(".tabs2 button").forEach(x=>x.classList.toggle("on",x.dataset.tab===RPT.tab))});
 
- /* Category section toggle */
  const head=$("cathead"),sec=$("catsec");
  const toggleCats=()=>{
   CATS_OPEN=!CATS_OPEN;
