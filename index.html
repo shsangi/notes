@@ -37,24 +37,43 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
-/* =============== SEARCH BAR — FINAL FIX =============== */
-/* Use a label wrapping the input. The whole label is the clickable area. */
+/* =============== NEW CLEAN SEARCH BAR (v4.9) =============== */
 .filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
-.search-wrap{position:relative;min-width:0;height:48px;background:var(--s);border:1px solid var(--b);border-radius:12px;display:flex;align-items:center;transition:.15s;cursor:text}
-.search-wrap:focus-within{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
-.search-wrap .s-ico{width:15px;height:15px;margin-left:12px;margin-right:8px;color:var(--t3);flex-shrink:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.search-wrap .s-ico svg{width:15px;height:15px;pointer-events:none;display:block}
-.search-wrap input{
-  flex:1;min-width:0;height:100%;
-  padding:0 12px 0 0;
-  background:transparent;border:0;outline:0;
-  color:var(--t);font-size:.86rem;
-  cursor:text;-webkit-appearance:none;appearance:none;
-}
-.search-wrap input::placeholder{color:var(--t3)}
-.search-wrap input::-webkit-search-cancel-button{-webkit-appearance:none}
 
-.filterbar .filter-toggle{position:relative;width:48px;height:48px;min-height:48px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0;touch-action:manipulation}
+/* Full-width tappable wrapper styled like an input, with a real input inside */
+.search-box{
+  display:flex;align-items:center;gap:0;
+  background:var(--s);
+  border:1.5px solid var(--b);
+  border-radius:14px;
+  height:48px;
+  padding:0 14px;
+  transition:border-color .15s,box-shadow .15s,background .15s;
+  cursor:text;
+  overflow:hidden;
+  min-width:0;
+}
+.search-box:hover{border-color:var(--b2)}
+.search-box:focus-within{border-color:var(--br);background:var(--el);box-shadow:0 0 0 3px var(--bs)}
+.search-box .s-ico{width:18px;height:18px;color:var(--t3);flex-shrink:0;display:grid;place-items:center;pointer-events:none;transition:color .15s}
+.search-box:focus-within .s-ico{color:var(--br)}
+.search-box .s-ico svg{width:18px;height:18px;display:block}
+.search-box input{
+  flex:1;min-width:0;height:100%;
+  padding:0 0 0 10px;
+  background:transparent;border:0;outline:0;
+  color:var(--t);
+  font-size:.9rem;
+  font-family:inherit;
+  font-weight:450;
+  letter-spacing:-.005em;
+  cursor:text;
+  -webkit-appearance:none;appearance:none;
+}
+.search-box input::placeholder{color:var(--t3)}
+.search-box input::-webkit-search-cancel-button{-webkit-appearance:none;height:16px;width:16px;background:transparent}
+
+.filterbar .filter-toggle{position:relative;width:48px;height:48px;min-height:48px;border-radius:14px;background:var(--s);border:1.5px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0;touch-action:manipulation}
 .filterbar .filter-toggle:hover{color:var(--t);border-color:var(--b2)}
 .filterbar .filter-toggle:active{transform:scale(.96)}
 .filterbar .filter-toggle.on{background:var(--br);border-color:var(--br);color:#fff;box-shadow:0 6px 14px -6px var(--brand-shadow)}
@@ -89,7 +108,6 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ms-l::-webkit-scrollbar{width:8px}
 .ms-l::-webkit-scrollbar-track{background:transparent}
 .ms-l::-webkit-scrollbar-thumb{background:var(--b2);border-radius:8px}
-.ms-l::-webkit-scrollbar-thumb:hover{background:var(--t3)}
 .opt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:.84rem;color:var(--t2);user-select:none;transition:.12s}
 .opt:hover,.opt:active{background:var(--s2);color:var(--t)}.opt.on{background:var(--bs);color:var(--bt)}
 .opt.disabled{opacity:.4;cursor:not-allowed}
@@ -144,11 +162,14 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .more{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 0 8px;font-size:.72rem;color:var(--t3);text-align:center}
 .more button{padding:11px 22px;background:var(--br);border:0;color:#fff;border-radius:10px;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 5px 14px -5px var(--brand-shadow)}
 .more button:hover{background:var(--br2)}
-.card{background:var(--s);border:1px solid var(--b);border-radius:11px;padding:12px 14px 10px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;transition:border-color .15s,background .15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+
+/* =============== CARD =============== */
+.card{background:var(--s);border:1px solid var(--b);border-radius:11px;padding:12px 14px 10px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;transition:border-color .15s,background .15s;box-shadow:0 1px 2px rgba(0,0,0,.2);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .card:hover{border-color:var(--b2)}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--mr)}
 .card.vimp::before{background:var(--er)}.card.imp::before{background:var(--wa)}.card.note::before{background:var(--in)}
 .card.rd{background:color-mix(in srgb,var(--okb) 55%,var(--s));border-color:var(--okr)}.card.rd::before{background:var(--ok)}
+.card.open{border-color:var(--br);box-shadow:0 4px 14px -8px var(--brand-shadow)}
 .ctop{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .cnum{padding:0 6px;height:18px;line-height:16px;border-radius:6px;background:var(--mb);border:1px solid var(--mr);color:var(--t3);font-size:.6rem;font-weight:700;flex-shrink:0}
 .card:hover .cnum{background:var(--bs);border-color:var(--bb);color:var(--bt)}
@@ -161,30 +182,40 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .mem{display:-webkit-box;-webkit-line-clamp:20;-webkit-box-orient:vertical;overflow:hidden;font-size:.9rem;font-weight:500;color:var(--t);padding:7px 9px;margin:-2px -3px;border-radius:8px;text-decoration:none;position:relative;cursor:pointer;transition:background .15s;word-break:break-word;overflow-wrap:anywhere}
 .mem:hover{background:var(--bs)}
 
-/* =============== ALWAYS-VISIBLE LIKE/DISLIKE ROW =============== */
-.react-inline{display:flex;gap:6px;padding:0}
-.rbtn-inline{flex:1;padding:8px 10px;border-radius:8px;border:1px solid var(--b);background:var(--s2);color:var(--t2);cursor:pointer;font-family:inherit;font-size:.72rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:5px;transition:.15s;touch-action:manipulation}
-.rbtn-inline:hover{border-color:var(--b2);color:var(--t)}
-.rbtn-inline:active{transform:scale(.97)}
-.rbtn-inline.like.on{background:var(--okb);border-color:var(--okr);color:var(--ok)}
-.rbtn-inline.dislike.on{background:var(--erb);border-color:var(--err);color:var(--er)}
-.rbtn-inline svg{width:14px;height:14px;flex-shrink:0;pointer-events:none}
+/* =============== FOOTER: like/dislike icons + read status + hint =============== */
+.bot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:8px;border-top:1px dashed var(--b);min-height:32px}
+.bot .bot-left{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.bot .bot-right{display:flex;gap:6px;align-items:center;flex-shrink:0}
+
+/* icon-only like/dislike */
+.ric{width:32px;height:32px;border-radius:8px;border:1px solid var(--b);background:var(--s2);color:var(--t2);cursor:pointer;display:grid;place-items:center;transition:.15s;padding:0;flex-shrink:0;touch-action:manipulation;font-family:inherit}
+.ric:hover{border-color:var(--b2);color:var(--t)}
+.ric:active{transform:scale(.92)}
+.ric svg{width:16px;height:16px;pointer-events:none;display:block}
+.ric.like.on{background:var(--okb);border-color:var(--okr);color:var(--ok)}
+.ric.dislike.on{background:var(--erb);border-color:var(--err);color:var(--er)}
 @media(max-width:640px){
- .rbtn-inline{font-size:.7rem;padding:7px 8px;gap:4px}
- .rbtn-inline svg{width:13px;height:13px}
+ .ric{width:34px;height:34px;border-radius:9px}
+ .ric svg{width:17px;height:17px}
 }
 
-.bot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:6px;border-top:1px dashed var(--b);font-size:.64rem;font-weight:700;color:var(--t3);flex-wrap:wrap;min-height:22px}
-.bot>span:first-child{display:flex;gap:7px;align-items:center;flex-wrap:wrap;min-width:0}
-.rc{padding:2px 7px;border-radius:99px;background:var(--mb);font-size:.6rem;display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
+.rc{padding:2px 8px;border-radius:99px;background:var(--mb);font-size:.62rem;display:inline-flex;align-items:center;gap:4px;flex-shrink:0;color:var(--t3);font-weight:700;font-family:'JetBrains Mono',monospace}
 .rc.h{background:var(--okb);color:var(--ok);border:1px solid var(--okr)}
-.st{font-size:.62rem;white-space:nowrap}
-.fr{font-weight:600;padding:3px 8px;border-radius:6px;cursor:pointer;font-size:.64rem;color:var(--t3);transition:.15s;flex-shrink:0;background:transparent;border:0;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
-.fr:hover{color:var(--br);background:var(--bs)}
-.card.open .fr{color:var(--br);background:var(--bs)}
-.fr svg{transition:transform .2s;width:11px;height:11px}
-.card.open .fr svg{transform:rotate(90deg)}
-.det{display:none;padding-top:10px;border-top:1px solid var(--b);animation:fade .2s}
+.rc svg{width:11px;height:11px}
+
+.st{font-size:.64rem;white-space:nowrap;font-weight:600;color:var(--t3);display:inline-flex;align-items:center;gap:4px}
+.st.read{color:var(--ok)}
+
+/* Full detail chevron — expands on card body click */
+.expand-hint{width:32px;height:32px;border-radius:8px;background:transparent;border:0;color:var(--t3);cursor:pointer;display:grid;place-items:center;transition:.15s;padding:0;flex-shrink:0;font-family:inherit}
+.expand-hint:hover{color:var(--br);background:var(--bs)}
+.expand-hint svg{width:16px;height:16px;transition:transform .25s cubic-bezier(.32,.72,0,1);pointer-events:none;display:block}
+.card.open .expand-hint{color:var(--br);background:var(--bs)}
+.card.open .expand-hint svg{transform:rotate(180deg)}
+@media(max-width:640px){.expand-hint{width:34px;height:34px}}
+
+/* =============== DETAIL PANEL =============== */
+.det{display:none;padding-top:10px;border-top:1px solid var(--b);animation:fade .2s;margin-top:8px}
 @keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 .card.open .det{display:block}
 .dr{display:grid;grid-template-columns:100px 1fr;gap:12px;padding:6px 0;font-size:.8rem;color:var(--t2);line-height:1.6}
@@ -192,6 +223,7 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .dr small{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);padding-top:3px}
 .dr strong{color:var(--t);font-weight:600}
 @media(max-width:640px){.dr{grid-template-columns:90px 1fr;gap:10px;font-size:.78rem}}
+
 .state{padding:60px 20px;text-align:center;color:var(--t3);font-size:.85rem}
 .state h3{color:var(--t);margin-bottom:6px;font-size:1rem}
 footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-align:center;color:var(--t3);font-size:.74rem}
@@ -221,10 +253,10 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .ibtn{width:32px;height:32px;font-size:14px;border-radius:8px}
  .tin{gap:4px;padding:9px 12px}
  .filterbar{margin:12px 0 0;grid-template-columns:1fr 52px;gap:8px}
- .search-wrap{height:52px;border-radius:14px}
- .search-wrap .s-ico{width:16px;height:16px;margin-left:12px;margin-right:8px}
- .search-wrap .s-ico svg{width:16px;height:16px}
- .search-wrap input{font-size:.85rem}
+ .search-box{height:52px;border-radius:14px;padding:0 12px}
+ .search-box .s-ico{width:18px;height:18px}
+ .search-box .s-ico svg{width:18px;height:18px}
+ .search-box input{font-size:.88rem}
  .filterbar .filter-toggle{width:52px;height:52px;min-height:52px;border-radius:14px}
  .filterbar .filter-toggle svg{width:20px;height:20px}
  .filterbar .filter-toggle .badge-count{min-width:20px;height:20px;font-size:.66rem;border-width:2px}
@@ -236,10 +268,6 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .mb{padding:0}
  .modal{max-width:100%;height:100%;max-height:100dvh;border-radius:0;border:none}
  .hx{display:none}
- .bot{font-size:.6rem;padding-top:5px}
- .rc{font-size:.58rem;padding:2px 6px}
- .st{font-size:.58rem}
- .fr{font-size:.6rem;padding:2px 6px}
  .reset-all-btn{font-size:.8rem;padding:12px}
 }
 @media(max-width:400px){
@@ -249,7 +277,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .cnum{font-size:.56rem;height:17px;line-height:15px;padding:0 5px}
  .clock{display:none}
  .filterbar{grid-template-columns:1fr 48px}
- .search-wrap{height:48px;border-radius:12px}
+ .search-box{height:48px;border-radius:12px}
  .filterbar .filter-toggle{width:48px;height:48px;min-height:48px;border-radius:12px}
 }
 .pf{display:flex;gap:8px;align-items:center;margin-bottom:14px}
@@ -354,12 +382,11 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 </div></div>
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
- <!-- Search + Filter toggle -->
  <div class="filterbar">
-  <label class="search-wrap" for="q" id="searchWrap">
+  <div class="search-box" id="searchBox">
    <span class="s-ico" id="si"></span>
    <input id="q" type="search" placeholder="Search rules, sections, memory…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-  </label>
+  </div>
   <button class="filter-toggle" id="ftBtn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false" type="button">
    <span id="ftIco"></span>
    <span class="badge-count" id="ftCount">0</span>
@@ -416,7 +443,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.8",NAME:"My Notes",
+const C={VER:"v4.9",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -433,6 +460,7 @@ ref:'<path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/>',
 chart:'<path d="M3 3v18h18M7 15l4-4 3 3 5-7"/>',
 eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
 arrow:'<polyline points="9 18 15 12 9 6"/>',
+chevDown:'<polyline points="6 9 12 15 18 9"/>',
 chev:'<polyline points="9 18 15 12 9 6"/>',
 filter:'<path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>',
 reset:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><polyline points="3 3 3 8 8 8"/>',
@@ -447,11 +475,13 @@ $("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
 
-/* SEARCH: Label wrapping input handles focus natively; but if svg intercepts, ensure focus */
-$("searchWrap").addEventListener("click", e => {
-  const inp = $("q");
-  if(e.target !== inp) inp.focus();
+/* SEARCH: clicking anywhere inside .search-box focuses input */
+$("searchBox").addEventListener("mousedown", e => {
+  if(e.target.tagName !== "INPUT"){ e.preventDefault(); $("q").focus(); }
 });
+$("searchBox").addEventListener("touchstart", e => {
+  if(e.target.tagName !== "INPUT"){ $("q").focus(); }
+}, {passive:true});
 
 /* PWA */
 (function(){
@@ -484,6 +514,7 @@ let NOSAVE=false,MC,MP,MR;
 
 const off=()=>(C.PKT+new Date().getTimezoneOffset())*6e4;
 const nowP=()=>new Date(Date.now()+off());
+/* FIXED: day key computed consistently in PKT */
 const dk=ms=>{const d=new Date(ms+off());return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`};
 const today=()=>dk(Date.now());
 
@@ -532,17 +563,27 @@ function sm(raw){const l=String(raw||"").trim().toLowerCase().replace(/\s+/g,"")
 const key=r=>String(r.category||"").trim()+"||"+String(r.reference||"").trim();
 const gsearch=(...a)=>"https://www.google.com/search?q="+encodeURIComponent(a.filter(Boolean).map(x=>String(x).trim()).join(" "));
 
+/* =============== FIXED markRead ===============
+   Bug was: `counted` was set based on the NEW lastDay AFTER we already
+   changed it, so it always returned true. Now we check BEFORE assigning.
+   Also fixed the day-key calculation. */
 function markRead(r){
- const k=key(r),d=today(),n=Date.now();
+ const k=key(r),n=Date.now(),dNow=dk(n);
  let rec=READ[k];
- if(!rec){rec={count:1,first:n,last:n,lastDay:d}}
- else{
-  if(rec.lastDay!==d){rec.count=(rec.count||0)+1;rec.lastDay=d}
+ if(!rec){
+  rec={count:1,first:n,last:n,lastDay:dNow};
+ }else{
+  // Only increment if this is a DIFFERENT day (in PKT) than last recorded
+  if(rec.lastDay !== dNow){
+   rec.count=(rec.count||0)+1;
+   rec.lastDay=dNow;
+  }
   if(!rec.first)rec.first=n;
   rec.last=n;
  }
  READ[k]=rec;
- HIST.push({ts:n,key:k,ref:r.reference||"",cat:r.category||"",mem:String(r.memory||"").slice(0,220),counted:rec.lastDay===d});
+ const counted = rec.lastDay === dNow; // this reflects the fact we read today
+ HIST.push({ts:n,key:k,ref:r.reference||"",cat:r.category||"",mem:String(r.memory||"").slice(0,220),counted:true});
  if(HIST.length>5000)HIST=HIST.slice(-5000);
  sj(K.read,READ);sj(K.hist,HIST);
 }
@@ -762,6 +803,7 @@ function apply(skip){
  refreshSelectOptions();
  if(!skip)sj(K.filt,F)}
 
+/* =============== CARD (new layout) =============== */
 function card(r,i,idx,tot){
  const m=sm(r.status),k=key(r),rec=READ[k],n=rec?rec.count:0;
  const isToday=rec&&rec.lastDay===today();
@@ -769,9 +811,9 @@ function card(r,i,idx,tot){
  const rx=REACT[k];
  const reactType=rx?rx.type:"";
  let statusHTML;
- if(!rec||!rec.count)statusHTML='<span class="st" style="opacity:.7">○ Unread</span>';
- else if(isToday)statusHTML='<span class="st" style="color:var(--ok)">● Read today</span>';
- else statusHTML=`<span class="st" style="color:var(--ok);opacity:.85" title="Last read: ${esc(fmtPKT(rec.last))}">● Read · ${esc(lastTxt)}</span>`;
+ if(!rec||!rec.count)statusHTML='<span class="st">○ Unread</span>';
+ else if(isToday)statusHTML='<span class="st read">● Read today</span>';
+ else statusHTML=`<span class="st read" title="Last read: ${esc(fmtPKT(rec.last))}">● Read · ${esc(lastTxt)}</span>`;
  const likeCls=reactType==="like"?"on":"", dislikeCls=reactType==="dislike"?"on":"";
  return`<article class="card ${m.c} ${n?"rd":""}" data-key="${esc(k)}">
  <div class="ctop"><span class="cnum">${idx} / ${tot}</span><span class="badge ${m.c}">${esc(m.l)}</span></div>
@@ -779,18 +821,18 @@ function card(r,i,idx,tot){
  <span class="cat">${esc(r.category||"Uncategorized")}</span>
  <a class="mem" href="${gsearch(r.reference,r.memory,r.category)}" target="_blank" rel="noopener" data-key="${esc(k)}" title="Search on Google">${esc(r.memory||"")}</a>
 
- <div class="react-inline" onclick="event.stopPropagation()">
-  <button type="button" class="rbtn-inline like ${likeCls}" data-act="like" data-key="${esc(k)}" aria-label="Like">${ico("thumbUp",2.2)}<span>Like</span></button>
-  <button type="button" class="rbtn-inline dislike ${dislikeCls}" data-act="dislike" data-key="${esc(k)}" aria-label="Dislike">${ico("thumbDown",2.2)}<span>Dislike</span></button>
- </div>
-
  <div class="bot">
-  <span>
+  <div class="bot-left">
+   <button type="button" class="ric like ${likeCls}" data-act="like" data-key="${esc(k)}" aria-label="Like" title="Like">${ico("thumbUp",2.2)}</button>
+   <button type="button" class="ric dislike ${dislikeCls}" data-act="dislike" data-key="${esc(k)}" aria-label="Dislike" title="Dislike">${ico("thumbDown",2.2)}</button>
+  </div>
+  <div class="bot-right">
    <span class="rc ${n?"h":""}">${eye}${n}×</span>
    ${statusHTML}
-  </span>
-  <button type="button" class="fr" data-act="expand" aria-label="Toggle full detail"><span>Full detail</span>${ico("arrow",2.6)}</button>
+   <button type="button" class="expand-hint" data-act="expand" aria-label="Expand" title="Expand detail">${ico("chevDown",2.6)}</button>
+  </div>
  </div>
+
  <div class="det">
   ${[
     ["Position",`${idx} of ${tot}`],
@@ -809,11 +851,22 @@ function card(r,i,idx,tot){
  </article>`}
 
 function bind(container){
+ // Memory text click: search on Google + mark read
  container.querySelectorAll(".mem").forEach(a=>a.onclick=e=>{
   e.stopPropagation();
   const r=ALL.find(x=>key(x)===a.dataset.key);
   if(r){markRead(r);upd(a.closest(".card"),a.dataset.key);info()}
  });
+
+ // Card body click → toggle open (mark read as well)
+ container.querySelectorAll(".card").forEach(el=>el.onclick=e=>{
+  if(e.target.closest(".mem")||e.target.closest(".ric")||e.target.closest(".det")||e.target.closest(".expand-hint"))return;
+  const r=ALL.find(x=>key(x)===el.dataset.key);
+  if(r){markRead(r);upd(el,el.dataset.key);info()}
+  el.classList.toggle("open");
+ });
+
+ // Chevron also toggles open
  container.querySelectorAll('[data-act=expand]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();
   const cardEl=b.closest(".card");
@@ -822,11 +875,8 @@ function bind(container){
   if(r){markRead(r);upd(cardEl,k);info()}
   cardEl.classList.toggle("open");
  });
- container.querySelectorAll(".card").forEach(el=>el.onclick=e=>{
-  if(e.target.closest(".mem")||e.target.closest("[data-act=expand]")||e.target.closest(".det")||e.target.closest(".react-inline"))return;
-  const r=ALL.find(x=>key(x)===el.dataset.key);
-  if(r){markRead(r);upd(el,el.dataset.key);info()}
- });
+
+ // Icon-only like / dislike
  container.querySelectorAll('[data-act=like]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();e.preventDefault();
   const k=b.dataset.key;
@@ -849,6 +899,7 @@ function bind(container){
   refreshBadge();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
+
  container.querySelectorAll(".det").forEach(d=>d.onclick=e=>e.stopPropagation());
 }
 
@@ -859,8 +910,8 @@ function upd(el,k){
  const st=el.querySelector(".st");
  if(st){
   const isToday=rec.lastDay===today(),lastTxt=fmtPKTShort(rec.last);
-  if(isToday){st.style.cssText="color:var(--ok)";st.textContent="● Read today";st.title="Last read: "+fmtPKT(rec.last)}
-  else{st.style.cssText="color:var(--ok);opacity:.85";st.textContent="● Read · "+lastTxt;st.title="Last read: "+fmtPKT(rec.last)}
+  if(isToday){st.className="st read";st.textContent="● Read today";st.title="Last read: "+fmtPKT(rec.last)}
+  else{st.className="st read";st.textContent="● Read · "+lastTxt;st.title="Last read: "+fmtPKT(rec.last)}
  }
  const rows=el.querySelectorAll(".det .dr");
  const rx=REACT[k];
