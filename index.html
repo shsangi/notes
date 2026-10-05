@@ -37,13 +37,24 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
-/* ==================== SEARCH BAR + FILTER TOGGLE (FULLY TAPPABLE) ==================== */
+/* ==================== SEARCH BAR — FIXED POINTER EVENTS ==================== */
 .filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
 .filterbar .search-wrap{position:relative;min-width:0;cursor:text}
-.filterbar .search-wrap > span{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none!important;display:inline-flex;align-items:center;justify-content:center;color:var(--t3);z-index:1}
-.filterbar .search-wrap > span svg{pointer-events:none!important;width:15px;height:15px;display:block}
-.filterbar input[type=search]{width:100%;height:48px;padding:0 12px 0 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s;cursor:text;position:relative;z-index:2;display:block}
-.filterbar input[type=search]::-webkit-search-cancel-button{cursor:pointer}
+/* The decorative icon — spans and svg both MUST be pointer-transparent */
+.filterbar .search-wrap > span{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--t3);pointer-events:none;user-select:none;
+  display:flex;align-items:center;justify-content:center;
+  width:15px;height:15px;z-index:1;
+}
+.filterbar .search-wrap > span svg{width:15px;height:15px;pointer-events:none;display:block}
+.filterbar input[type=search]{
+  position:relative;z-index:2;
+  width:100%;height:48px;padding:0 12px 0 36px;
+  background:var(--s);border:1px solid var(--b);border-radius:12px;
+  color:var(--t);font-size:.86rem;outline:none;transition:.15s;
+  cursor:text;-webkit-appearance:none;appearance:none;
+}
 .filterbar input[type=search]:focus{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
 .filterbar .filter-toggle{position:relative;width:48px;height:48px;min-height:48px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0;touch-action:manipulation}
 .filterbar .filter-toggle:hover{color:var(--t);border-color:var(--b2)}
@@ -54,7 +65,6 @@ button,select,input{font-family:inherit}
 .filterbar .filter-toggle .badge-count.show{display:grid}
 .filterbar .filter-toggle.on .badge-count{background:#fff;color:var(--br);border-color:var(--br)}
 
-/* ==================== FILTER PANEL ==================== */
 .filters-panel{margin:8px 0 10px;background:var(--s);border:1px solid var(--b);border-radius:14px;display:none;position:relative}
 .filters-panel.show{display:block;animation:slideDown .28s cubic-bezier(.32,.72,0,1)}
 @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
@@ -206,7 +216,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .tin{gap:4px;padding:9px 12px}
  .filterbar{margin:12px 0 0;grid-template-columns:1fr 52px;gap:8px}
  .filterbar input[type=search]{height:52px;padding:0 12px 0 36px;font-size:.85rem;border-radius:14px}
- .filterbar .search-wrap > span{left:12px}
+ .filterbar .search-wrap > span{left:12px;width:16px;height:16px}
  .filterbar .search-wrap > span svg{width:16px;height:16px}
  .filterbar .filter-toggle{width:52px;height:52px;min-height:52px;border-radius:14px}
  .filterbar .filter-toggle svg{width:20px;height:20px}
@@ -337,9 +347,8 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 </div></div>
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
-
  <div class="filterbar">
-  <div class="search-wrap">
+  <div class="search-wrap" id="searchWrap">
    <span id="si"></span>
    <input id="q" type="search" placeholder="Search rules, sections, memory…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   </div>
@@ -429,6 +438,11 @@ $("resetIco").innerHTML=ico("reset",2.4);
 $("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
+
+/* === SEARCH: click anywhere inside wrapper → focus input === */
+$("searchWrap").addEventListener("click",e=>{
+ if(e.target.tagName !== "INPUT"){$("q").focus();}
+});
 
 /* PWA */
 (function(){
