@@ -71,10 +71,11 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ph{color:var(--t3)}
 .pill{display:inline-flex;align-items:center;gap:4px;padding:2px 5px 2px 8px;border-radius:6px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-size:.7rem;font-weight:600;white-space:nowrap;max-width:100%;overflow:hidden}
 .pill b{cursor:pointer;opacity:.7;font-style:normal}.pill b:hover{opacity:1}
+/* CRITICAL: dropdown menu is now absolutely positioned but anchored so it can scroll with viewport */
 .ms-m{display:none;position:absolute;top:calc(100% + 5px);left:0;right:0;z-index:100;background:var(--el);border:1px solid var(--b2);border-radius:12px;box-shadow:var(--sh);padding:5px;max-height:min(340px,60vh);flex-direction:column;overflow:hidden}
 .ms.open .ms-m{display:flex}
 .ms-s{padding:2px 2px 6px;flex-shrink:0}.ms-s input{padding:9px 10px;font-size:.82rem}
-.ms-l{overflow-y:auto;flex:1;min-height:0;padding:2px}
+.ms-l{overflow-y:auto;flex:1;min-height:0;padding:2px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .ms-l::-webkit-scrollbar{width:6px}.ms-l::-webkit-scrollbar-thumb{background:var(--b2);border-radius:6px}
 .opt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:.84rem;color:var(--t2);user-select:none;transition:.12s}
 .opt:hover,.opt:active{background:var(--s2);color:var(--t)}.opt.on{background:var(--bs);color:var(--bt)}
@@ -90,7 +91,7 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ms-a button:hover{background:var(--s2);color:var(--t)}
 .ms-empty-mini{padding:14px;text-align:center;color:var(--t3);font-size:.76rem}
 
-/* NEW: Big reset button below filters */
+/* Reset row */
 .reset-row{display:flex;justify-content:flex-end;padding-top:4px}
 .reset-all-btn{width:100%;padding:11px 14px;border-radius:10px;background:var(--erb);border:1px solid var(--err);color:var(--er);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
 .reset-all-btn:hover{background:var(--er);color:#fff;transform:translateY(-1px)}
@@ -107,7 +108,6 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .af .tag2{display:inline-flex;align-items:center;gap:4px;padding:3px 8px 3px 10px;border-radius:7px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-size:.68rem;font-weight:600;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .af .tag2 b{cursor:pointer;opacity:.7;font-style:normal}.af .tag2 b:hover{opacity:1}
 
-/* Notes tabs INSIDE filter panel */
 .fp-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:3px;background:var(--el);border:1px solid var(--b);border-radius:11px}
 .fp-tabs button{padding:9px 4px;background:0;border:0;border-radius:8px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.1}
 .fp-tabs button span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
@@ -333,7 +333,6 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
 
- <!-- SEARCH + FILTER TOGGLE (bigger tap target) -->
  <div class="filterbar">
   <div class="search-wrap">
    <span id="si"></span>
@@ -345,7 +344,6 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
   </button>
  </div>
 
- <!-- COLLAPSIBLE FILTER PANEL -->
  <div class="filters-panel" id="fpanel">
   <div class="fp-inner">
    <div class="row2">
@@ -364,14 +362,12 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 
    <div class="af" id="af"></div>
 
-   <!-- RESET ALL — always visible below filters -->
    <button class="reset-all-btn" id="resetAllBtn" type="button">
     <span id="resetIco"></span>
     <span>Reset all filters</span>
     <span class="rcount" id="resetCount">0</span>
    </button>
 
-   <!-- Notes tabs at the bottom -->
    <div class="fp-lbl">Show</div>
    <div class="fp-tabs" id="qmenu" role="tablist" aria-label="Notes filter tabs"></div>
   </div>
@@ -398,7 +394,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.4",NAME:"My Notes",
+const C={VER:"v4.5",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -543,34 +539,39 @@ function setReact(k, val){
 /* ==================== FILTER PANEL TOGGLE ==================== */
 function activeFilterCount(){
  let n=0;
- if(F.q)n++; /* include search in count for accuracy on reset button */
+ if(F.q)n++;
  if(F.category.length)n+=F.category.length;
  if(F.status.length)n+=F.status.length;
  if(F.reference.length)n+=F.reference.length;
  if(F.sort!=="default")n++;
  return n;
 }
+/* KEY FIX: filter button is only "on" when panel is OPEN or there are filters — never by default */
+function updateFilterButtonState(){
+ const n=activeFilterCount();
+ const b=$("ftBtn");
+ const shouldBeOn = FPANEL_OPEN || n>0;
+ b.classList.toggle("on", shouldBeOn);
+ b.setAttribute("aria-expanded", FPANEL_OPEN?"true":"false");
+ const el=$("ftCount");
+ el.textContent=n;
+ el.classList.toggle("show", n>0);
+}
 function setFPanel(open,save=true){
  FPANEL_OPEN=open;
- const p=$("fpanel"),b=$("ftBtn");
+ const p=$("fpanel");
  p.classList.toggle("show",open);
- b.classList.toggle("on",open);
- b.setAttribute("aria-expanded",open?"true":"false");
  if(save)sj(K.fpanel,open);
  if(open)refreshSelectOptions();
+ updateFilterButtonState();
 }
 function refreshBadge(){
  const n=activeFilterCount();
- const el=$("ftCount");
- el.textContent=n;
- el.classList.toggle("show",n>0);
- const b=$("ftBtn");
- b.classList.toggle("on",FPANEL_OPEN||n>0);
  const rc=$("resetCount");if(rc)rc.textContent=n;
  const rb=$("resetAllBtn");if(rb)rb.disabled=n===0;
+ updateFilterButtonState();
 }
 $("ftBtn").onclick=()=>setFPanel(!FPANEL_OPEN);
-setFPanel(FPANEL_OPEN,false);
 
 /* ==================== RESET ALL ==================== */
 $("resetAllBtn").onclick=()=>{
@@ -583,7 +584,7 @@ $("resetAllBtn").onclick=()=>{
  toast("Filters cleared.","ok");
 };
 
-/* ==================== MULTI-SELECT ==================== */
+/* ==================== MULTI-SELECT (with scroll-into-view) ==================== */
 class MSel{
  constructor(id,o){
   Object.assign(this,{el:$(id),ph:"Select…",sp:"Search…",opts:[],sel:[],on(){},getOptions:null},o);
@@ -600,7 +601,11 @@ class MSel{
     this.el.classList.add("open");
     this.si.value="";
     this.rl();
-    setTimeout(()=>this.si.focus(),30);
+    // KEY FIX: after opening, scroll the dropdown trigger into view so the menu is visible
+    setTimeout(()=>{
+     try{this.t.scrollIntoView({behavior:"smooth",block:"center"})}catch{}
+     try{this.si.focus({preventScroll:true})}catch{this.si.focus()}
+    },40);
    }
   };
   this.si.oninput=()=>this.rl();
