@@ -37,10 +37,13 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
+/* ==================== SEARCH BAR + FILTER TOGGLE (FULLY TAPPABLE) ==================== */
 .filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
-.filterbar .search-wrap{position:relative;min-width:0}
-.filterbar .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;width:15px;height:15px}
-.filterbar input[type=search]{width:100%;height:48px;padding:0 12px 0 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
+.filterbar .search-wrap{position:relative;min-width:0;cursor:text}
+.filterbar .search-wrap > span{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none!important;display:inline-flex;align-items:center;justify-content:center;color:var(--t3);z-index:1}
+.filterbar .search-wrap > span svg{pointer-events:none!important;width:15px;height:15px;display:block}
+.filterbar input[type=search]{width:100%;height:48px;padding:0 12px 0 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s;cursor:text;position:relative;z-index:2;display:block}
+.filterbar input[type=search]::-webkit-search-cancel-button{cursor:pointer}
 .filterbar input[type=search]:focus{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
 .filterbar .filter-toggle{position:relative;width:48px;height:48px;min-height:48px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0;touch-action:manipulation}
 .filterbar .filter-toggle:hover{color:var(--t);border-color:var(--b2)}
@@ -51,6 +54,7 @@ button,select,input{font-family:inherit}
 .filterbar .filter-toggle .badge-count.show{display:grid}
 .filterbar .filter-toggle.on .badge-count{background:#fff;color:var(--br);border-color:var(--br)}
 
+/* ==================== FILTER PANEL ==================== */
 .filters-panel{margin:8px 0 10px;background:var(--s);border:1px solid var(--b);border-radius:14px;display:none;position:relative}
 .filters-panel.show{display:block;animation:slideDown .28s cubic-bezier(.32,.72,0,1)}
 @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
@@ -202,7 +206,8 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .tin{gap:4px;padding:9px 12px}
  .filterbar{margin:12px 0 0;grid-template-columns:1fr 52px;gap:8px}
  .filterbar input[type=search]{height:52px;padding:0 12px 0 36px;font-size:.85rem;border-radius:14px}
- .filterbar .search-wrap svg{left:12px;width:16px;height:16px}
+ .filterbar .search-wrap > span{left:12px}
+ .filterbar .search-wrap > span svg{width:16px;height:16px}
  .filterbar .filter-toggle{width:52px;height:52px;min-height:52px;border-radius:14px}
  .filterbar .filter-toggle svg{width:20px;height:20px}
  .filterbar .filter-toggle .badge-count{min-width:20px;height:20px;font-size:.66rem;border-width:2px}
@@ -332,10 +337,11 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 </div></div>
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
+
  <div class="filterbar">
   <div class="search-wrap">
    <span id="si"></span>
-   <input id="q" type="search" placeholder="Search rules, sections, memory…">
+   <input id="q" type="search" placeholder="Search rules, sections, memory…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   </div>
   <button class="filter-toggle" id="ftBtn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false" type="button">
    <span id="ftIco"></span>
@@ -393,7 +399,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.6",NAME:"My Notes",
+const C={VER:"v4.7",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -620,7 +626,6 @@ class MSel{
   const q=this.si.value.trim().toLowerCase();
   const f=this.opts.filter(o=>!q||o.label.toLowerCase().includes(q));
   if(!f.length){this.l.innerHTML='<div class="ms-empty-mini">No matches</div>';return}
-  /* highlight high-count options */
   const maxCount=f.reduce((m,o)=>Math.max(m,typeof o.count==="number"?o.count:0),0);
   this.l.innerHTML=f.map(o=>{
    const on=this.sel.includes(o.value);
@@ -667,7 +672,6 @@ function getAvailable(field){
  if(field==="reference")F.reference.forEach(c=>{if(!(c in counts))counts[c]=0});
  const keys=Object.keys(counts);
  if(field==="reference"){
-  /* SORT REFERENCES BY COUNT DESC (tie-break alphabetically) */
   keys.sort((a,b)=> (counts[b]-counts[a]) || a.localeCompare(b));
  } else if(field==="status"){
   const ord=["V.Imp","Imp","Note"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
