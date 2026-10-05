@@ -37,8 +37,8 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
-/* ==================== SEARCH BAR + MATCHING FILTER TOGGLE ==================== */
-.filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch}
+/* ==================== SEARCH BAR + FILTER TOGGLE ==================== */
+.filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
 .filterbar .search-wrap{position:relative;min-width:0}
 .filterbar .search-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--t3);pointer-events:none;width:15px;height:15px}
 .filterbar input[type=search]{width:100%;height:48px;padding:0 12px 0 36px;background:var(--s);border:1px solid var(--b);border-radius:12px;color:var(--t);font-size:.86rem;outline:none;transition:.15s}
@@ -52,8 +52,8 @@ button,select,input{font-family:inherit}
 .filterbar .filter-toggle .badge-count.show{display:grid}
 .filterbar .filter-toggle.on .badge-count{background:#fff;color:var(--br);border-color:var(--br)}
 
-/* ==================== COLLAPSIBLE FILTER PANEL ==================== */
-.filters-panel{margin:8px 0 10px;background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden;display:none}
+/* ==================== FILTER PANEL — NO overflow clipping so dropdowns escape ==================== */
+.filters-panel{margin:8px 0 10px;background:var(--s);border:1px solid var(--b);border-radius:14px;display:none;position:relative}
 .filters-panel.show{display:block;animation:slideDown .28s cubic-bezier(.32,.72,0,1)}
 @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
 .filters-panel .fp-inner{padding:12px;display:flex;flex-direction:column;gap:10px}
@@ -71,12 +71,16 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ph{color:var(--t3)}
 .pill{display:inline-flex;align-items:center;gap:4px;padding:2px 5px 2px 8px;border-radius:6px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-size:.7rem;font-weight:600;white-space:nowrap;max-width:100%;overflow:hidden}
 .pill b{cursor:pointer;opacity:.7;font-style:normal}.pill b:hover{opacity:1}
-/* CRITICAL: dropdown menu is now absolutely positioned but anchored so it can scroll with viewport */
-.ms-m{display:none;position:absolute;top:calc(100% + 5px);left:0;right:0;z-index:100;background:var(--el);border:1px solid var(--b2);border-radius:12px;box-shadow:var(--sh);padding:5px;max-height:min(340px,60vh);flex-direction:column;overflow:hidden}
+/* ms.open → menu shown and stacked above neighboring panels */
+.ms.open{z-index:200}
+.ms-m{display:none;position:absolute;top:calc(100% + 5px);left:0;right:0;z-index:1000;background:var(--el);border:1px solid var(--b2);border-radius:12px;box-shadow:var(--sh);padding:5px;max-height:min(360px,65vh);flex-direction:column;overflow:hidden}
 .ms.open .ms-m{display:flex}
 .ms-s{padding:2px 2px 6px;flex-shrink:0}.ms-s input{padding:9px 10px;font-size:.82rem}
-.ms-l{overflow-y:auto;flex:1;min-height:0;padding:2px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
-.ms-l::-webkit-scrollbar{width:6px}.ms-l::-webkit-scrollbar-thumb{background:var(--b2);border-radius:6px}
+.ms-l{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;flex:1;min-height:0;padding:2px;scrollbar-width:thin}
+.ms-l::-webkit-scrollbar{width:8px}
+.ms-l::-webkit-scrollbar-track{background:transparent}
+.ms-l::-webkit-scrollbar-thumb{background:var(--b2);border-radius:8px}
+.ms-l::-webkit-scrollbar-thumb:hover{background:var(--t3)}
 .opt{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:.84rem;color:var(--t2);user-select:none;transition:.12s}
 .opt:hover,.opt:active{background:var(--s2);color:var(--t)}.opt.on{background:var(--bs);color:var(--bt)}
 .opt.disabled{opacity:.4;cursor:not-allowed}
@@ -91,7 +95,7 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ms-a button:hover{background:var(--s2);color:var(--t)}
 .ms-empty-mini{padding:14px;text-align:center;color:var(--t3);font-size:.76rem}
 
-/* Reset row */
+/* Reset all button */
 .reset-row{display:flex;justify-content:flex-end;padding-top:4px}
 .reset-all-btn{width:100%;padding:11px 14px;border-radius:10px;background:var(--erb);border:1px solid var(--err);color:var(--er);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
 .reset-all-btn:hover{background:var(--er);color:#fff;transform:translateY(-1px)}
@@ -536,7 +540,6 @@ function setReact(k, val){
  if(changed)sj(K.react,REACT);
 })();
 
-/* ==================== FILTER PANEL TOGGLE ==================== */
 function activeFilterCount(){
  let n=0;
  if(F.q)n++;
@@ -546,34 +549,28 @@ function activeFilterCount(){
  if(F.sort!=="default")n++;
  return n;
 }
-/* KEY FIX: filter button is only "on" when panel is OPEN or there are filters — never by default */
-function updateFilterButtonState(){
- const n=activeFilterCount();
- const b=$("ftBtn");
- const shouldBeOn = FPANEL_OPEN || n>0;
- b.classList.toggle("on", shouldBeOn);
- b.setAttribute("aria-expanded", FPANEL_OPEN?"true":"false");
- const el=$("ftCount");
- el.textContent=n;
- el.classList.toggle("show", n>0);
-}
 function setFPanel(open,save=true){
  FPANEL_OPEN=open;
- const p=$("fpanel");
+ const p=$("fpanel"),b=$("ftBtn");
  p.classList.toggle("show",open);
+ b.classList.toggle("on",open);
+ b.setAttribute("aria-expanded",open?"true":"false");
  if(save)sj(K.fpanel,open);
  if(open)refreshSelectOptions();
- updateFilterButtonState();
 }
 function refreshBadge(){
  const n=activeFilterCount();
+ const el=$("ftCount");
+ el.textContent=n;
+ el.classList.toggle("show",n>0);
+ const b=$("ftBtn");
+ b.classList.toggle("on",FPANEL_OPEN||n>0);
  const rc=$("resetCount");if(rc)rc.textContent=n;
  const rb=$("resetAllBtn");if(rb)rb.disabled=n===0;
- updateFilterButtonState();
 }
 $("ftBtn").onclick=()=>setFPanel(!FPANEL_OPEN);
+setFPanel(FPANEL_OPEN,false);
 
-/* ==================== RESET ALL ==================== */
 $("resetAllBtn").onclick=()=>{
  F={q:"",status:[],category:[],reference:[],sort:"default"};
  $("q").value="";
@@ -584,7 +581,7 @@ $("resetAllBtn").onclick=()=>{
  toast("Filters cleared.","ok");
 };
 
-/* ==================== MULTI-SELECT (with scroll-into-view) ==================== */
+/* ==================== MULTI-SELECT ==================== */
 class MSel{
  constructor(id,o){
   Object.assign(this,{el:$(id),ph:"Select…",sp:"Search…",opts:[],sel:[],on(){},getOptions:null},o);
@@ -601,11 +598,7 @@ class MSel{
     this.el.classList.add("open");
     this.si.value="";
     this.rl();
-    // KEY FIX: after opening, scroll the dropdown trigger into view so the menu is visible
-    setTimeout(()=>{
-     try{this.t.scrollIntoView({behavior:"smooth",block:"center"})}catch{}
-     try{this.si.focus({preventScroll:true})}catch{this.si.focus()}
-    },40);
+    setTimeout(()=>this.si.focus(),30);
    }
   };
   this.si.oninput=()=>this.rl();
@@ -650,7 +643,6 @@ class MSel{
 const closeMS=()=>document.querySelectorAll(".ms.open").forEach(m=>m.classList.remove("open"));
 document.addEventListener("click",closeMS);
 
-/* ==================== CASCADING OPTIONS ==================== */
 function passes(r,ignore){
  if(F.status.length && !ignore.includes("status") && !F.status.includes(String(r.status||"").trim())) return false;
  if(F.category.length && !ignore.includes("category") && !F.category.includes(String(r.category||"").trim())) return false;
@@ -689,7 +681,6 @@ function refreshSelectOptions(){
  if(MR){MR.opts=getAvailable("reference");MR.rt()}
 }
 
-/* ==================== NOTES TABS ==================== */
 function renderNotesTabs(){
  const tabs=[
   {v:"all",l:"All"},
@@ -890,7 +881,6 @@ function buildSelects(){
 
 $("q").oninput=e=>{F.q=e.target.value;apply()};$("sort").onchange=e=>{F.sort=e.target.value;apply()};
 
-/* ===== PROGRESS MODAL ===== */
 const RPT={period:"all",tab:"all"};
 const rm=$("rm"),rb=$("rb");
 const openR=()=>{renderR();rm.classList.add("show");document.body.style.overflow="hidden"};
