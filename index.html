@@ -37,25 +37,23 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
-/* ==================== SEARCH BAR — FIXED POINTER EVENTS ==================== */
+/* =============== SEARCH BAR — FINAL FIX =============== */
+/* Use a label wrapping the input. The whole label is the clickable area. */
 .filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
-.filterbar .search-wrap{position:relative;min-width:0;cursor:text}
-/* The decorative icon — spans and svg both MUST be pointer-transparent */
-.filterbar .search-wrap > span{
-  position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  color:var(--t3);pointer-events:none;user-select:none;
-  display:flex;align-items:center;justify-content:center;
-  width:15px;height:15px;z-index:1;
-}
-.filterbar .search-wrap > span svg{width:15px;height:15px;pointer-events:none;display:block}
-.filterbar input[type=search]{
-  position:relative;z-index:2;
-  width:100%;height:48px;padding:0 12px 0 36px;
-  background:var(--s);border:1px solid var(--b);border-radius:12px;
-  color:var(--t);font-size:.86rem;outline:none;transition:.15s;
+.search-wrap{position:relative;min-width:0;height:48px;background:var(--s);border:1px solid var(--b);border-radius:12px;display:flex;align-items:center;transition:.15s;cursor:text}
+.search-wrap:focus-within{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
+.search-wrap .s-ico{width:15px;height:15px;margin-left:12px;margin-right:8px;color:var(--t3);flex-shrink:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.search-wrap .s-ico svg{width:15px;height:15px;pointer-events:none;display:block}
+.search-wrap input{
+  flex:1;min-width:0;height:100%;
+  padding:0 12px 0 0;
+  background:transparent;border:0;outline:0;
+  color:var(--t);font-size:.86rem;
   cursor:text;-webkit-appearance:none;appearance:none;
 }
-.filterbar input[type=search]:focus{border-color:var(--br);box-shadow:0 0 0 3px var(--bs)}
+.search-wrap input::placeholder{color:var(--t3)}
+.search-wrap input::-webkit-search-cancel-button{-webkit-appearance:none}
+
 .filterbar .filter-toggle{position:relative;width:48px;height:48px;min-height:48px;border-radius:12px;background:var(--s);border:1px solid var(--b);color:var(--t2);cursor:pointer;display:grid;place-items:center;flex-shrink:0;transition:.15s;font-family:inherit;padding:0;touch-action:manipulation}
 .filterbar .filter-toggle:hover{color:var(--t);border-color:var(--b2)}
 .filterbar .filter-toggle:active{transform:scale(.96)}
@@ -162,6 +160,20 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .badge.vimp{color:var(--er);background:var(--erb);border-color:var(--err)}.badge.imp{color:var(--wa);background:var(--wab);border-color:var(--war)}.badge.note{color:var(--in);background:var(--inb);border-color:var(--inr)}.badge.other{color:var(--t3);background:var(--mb);border-color:var(--mr)}
 .mem{display:-webkit-box;-webkit-line-clamp:20;-webkit-box-orient:vertical;overflow:hidden;font-size:.9rem;font-weight:500;color:var(--t);padding:7px 9px;margin:-2px -3px;border-radius:8px;text-decoration:none;position:relative;cursor:pointer;transition:background .15s;word-break:break-word;overflow-wrap:anywhere}
 .mem:hover{background:var(--bs)}
+
+/* =============== ALWAYS-VISIBLE LIKE/DISLIKE ROW =============== */
+.react-inline{display:flex;gap:6px;padding:0}
+.rbtn-inline{flex:1;padding:8px 10px;border-radius:8px;border:1px solid var(--b);background:var(--s2);color:var(--t2);cursor:pointer;font-family:inherit;font-size:.72rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:5px;transition:.15s;touch-action:manipulation}
+.rbtn-inline:hover{border-color:var(--b2);color:var(--t)}
+.rbtn-inline:active{transform:scale(.97)}
+.rbtn-inline.like.on{background:var(--okb);border-color:var(--okr);color:var(--ok)}
+.rbtn-inline.dislike.on{background:var(--erb);border-color:var(--err);color:var(--er)}
+.rbtn-inline svg{width:14px;height:14px;flex-shrink:0;pointer-events:none}
+@media(max-width:640px){
+ .rbtn-inline{font-size:.7rem;padding:7px 8px;gap:4px}
+ .rbtn-inline svg{width:13px;height:13px}
+}
+
 .bot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding-top:6px;border-top:1px dashed var(--b);font-size:.64rem;font-weight:700;color:var(--t3);flex-wrap:wrap;min-height:22px}
 .bot>span:first-child{display:flex;gap:7px;align-items:center;flex-wrap:wrap;min-width:0}
 .rc{padding:2px 7px;border-radius:99px;background:var(--mb);font-size:.6rem;display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
@@ -180,12 +192,6 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .dr small{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);padding-top:3px}
 .dr strong{color:var(--t);font-weight:600}
 @media(max-width:640px){.dr{grid-template-columns:90px 1fr;gap:10px;font-size:.78rem}}
-.react{display:flex;gap:8px;padding:8px 0 4px;border-top:1px solid var(--b);margin-top:6px}
-.rbtn2{flex:1;padding:10px 12px;border-radius:9px;border:1px solid var(--b);background:var(--s2);color:var(--t2);cursor:pointer;font-family:inherit;font-size:.78rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:.15s}
-.rbtn2:hover{border-color:var(--b2);color:var(--t)}
-.rbtn2.like.on{background:var(--okb);border-color:var(--okr);color:var(--ok)}
-.rbtn2.dislike.on{background:var(--erb);border-color:var(--err);color:var(--er)}
-.rbtn2 svg{width:15px;height:15px}
 .state{padding:60px 20px;text-align:center;color:var(--t3);font-size:.85rem}
 .state h3{color:var(--t);margin-bottom:6px;font-size:1rem}
 footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-align:center;color:var(--t3);font-size:.74rem}
@@ -215,9 +221,10 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .ibtn{width:32px;height:32px;font-size:14px;border-radius:8px}
  .tin{gap:4px;padding:9px 12px}
  .filterbar{margin:12px 0 0;grid-template-columns:1fr 52px;gap:8px}
- .filterbar input[type=search]{height:52px;padding:0 12px 0 36px;font-size:.85rem;border-radius:14px}
- .filterbar .search-wrap > span{left:12px;width:16px;height:16px}
- .filterbar .search-wrap > span svg{width:16px;height:16px}
+ .search-wrap{height:52px;border-radius:14px}
+ .search-wrap .s-ico{width:16px;height:16px;margin-left:12px;margin-right:8px}
+ .search-wrap .s-ico svg{width:16px;height:16px}
+ .search-wrap input{font-size:.85rem}
  .filterbar .filter-toggle{width:52px;height:52px;min-height:52px;border-radius:14px}
  .filterbar .filter-toggle svg{width:20px;height:20px}
  .filterbar .filter-toggle .badge-count{min-width:20px;height:20px;font-size:.66rem;border-width:2px}
@@ -242,7 +249,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .cnum{font-size:.56rem;height:17px;line-height:15px;padding:0 5px}
  .clock{display:none}
  .filterbar{grid-template-columns:1fr 48px}
- .filterbar input[type=search]{height:48px;border-radius:12px}
+ .search-wrap{height:48px;border-radius:12px}
  .filterbar .filter-toggle{width:48px;height:48px;min-height:48px;border-radius:12px}
 }
 .pf{display:flex;gap:8px;align-items:center;margin-bottom:14px}
@@ -347,11 +354,12 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 </div></div>
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
+ <!-- Search + Filter toggle -->
  <div class="filterbar">
-  <div class="search-wrap" id="searchWrap">
-   <span id="si"></span>
+  <label class="search-wrap" for="q" id="searchWrap">
+   <span class="s-ico" id="si"></span>
    <input id="q" type="search" placeholder="Search rules, sections, memory…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-  </div>
+  </label>
   <button class="filter-toggle" id="ftBtn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false" type="button">
    <span id="ftIco"></span>
    <span class="badge-count" id="ftCount">0</span>
@@ -408,7 +416,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.7",NAME:"My Notes",
+const C={VER:"v4.8",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -439,9 +447,10 @@ $("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
 
-/* === SEARCH: click anywhere inside wrapper → focus input === */
-$("searchWrap").addEventListener("click",e=>{
- if(e.target.tagName !== "INPUT"){$("q").focus();}
+/* SEARCH: Label wrapping input handles focus natively; but if svg intercepts, ensure focus */
+$("searchWrap").addEventListener("click", e => {
+  const inp = $("q");
+  if(e.target !== inp) inp.focus();
 });
 
 /* PWA */
@@ -769,6 +778,12 @@ function card(r,i,idx,tot){
  <span class="ref">${esc(r.reference||"—")}</span>
  <span class="cat">${esc(r.category||"Uncategorized")}</span>
  <a class="mem" href="${gsearch(r.reference,r.memory,r.category)}" target="_blank" rel="noopener" data-key="${esc(k)}" title="Search on Google">${esc(r.memory||"")}</a>
+
+ <div class="react-inline" onclick="event.stopPropagation()">
+  <button type="button" class="rbtn-inline like ${likeCls}" data-act="like" data-key="${esc(k)}" aria-label="Like">${ico("thumbUp",2.2)}<span>Like</span></button>
+  <button type="button" class="rbtn-inline dislike ${dislikeCls}" data-act="dislike" data-key="${esc(k)}" aria-label="Dislike">${ico("thumbDown",2.2)}<span>Dislike</span></button>
+ </div>
+
  <div class="bot">
   <span>
    <span class="rc ${n?"h":""}">${eye}${n}×</span>
@@ -790,10 +805,6 @@ function card(r,i,idx,tot){
     ["Reaction",rx?(rx.type==="like"?"👍 Liked":rx.type==="dislike"?"👎 Disliked":"—"):"—"],
     ["Reacted at",rx&&rx.ts?fmtPKT(rx.ts):"—"]
   ].map(([l,v,p])=>`<div class="dr"><small>${l}</small><div>${p?esc(v||""):`<strong>${esc(v||"—")}</strong>`}</div></div>`).join("")}
-  <div class="react">
-   <button type="button" class="rbtn2 like ${likeCls}" data-act="like" data-key="${esc(k)}">${ico("thumbUp",2)}<span>Like</span></button>
-   <button type="button" class="rbtn2 dislike ${dislikeCls}" data-act="dislike" data-key="${esc(k)}">${ico("thumbDown",2)}<span>Dislike</span></button>
-  </div>
  </div>
  </article>`}
 
@@ -812,12 +823,12 @@ function bind(container){
   cardEl.classList.toggle("open");
  });
  container.querySelectorAll(".card").forEach(el=>el.onclick=e=>{
-  if(e.target.closest(".mem")||e.target.closest("[data-act=expand]")||e.target.closest(".det"))return;
+  if(e.target.closest(".mem")||e.target.closest("[data-act=expand]")||e.target.closest(".det")||e.target.closest(".react-inline"))return;
   const r=ALL.find(x=>key(x)===el.dataset.key);
   if(r){markRead(r);upd(el,el.dataset.key);info()}
  });
  container.querySelectorAll('[data-act=like]').forEach(b=>b.onclick=e=>{
-  e.stopPropagation();
+  e.stopPropagation();e.preventDefault();
   const k=b.dataset.key;
   setReact(k,"like");
   updReact(b.closest(".card"),k);
@@ -828,7 +839,7 @@ function bind(container){
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
-  e.stopPropagation();
+  e.stopPropagation();e.preventDefault();
   const k=b.dataset.key;
   setReact(k,"dislike");
   updReact(b.closest(".card"),k);
