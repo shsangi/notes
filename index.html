@@ -37,32 +37,11 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
-/* =============== SEARCH BAR — SINGLE CLEAN INPUT, NO ICON OVERLAY =============== */
 .filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
-.search-box{
-  position:relative;
-  background:var(--s);
-  border:1.5px solid var(--b);
-  border-radius:14px;
-  height:48px;
-  transition:border-color .15s,box-shadow .15s,background .15s;
-  overflow:hidden;
-  min-width:0;
-}
+.search-box{position:relative;background:var(--s);border:1.5px solid var(--b);border-radius:14px;height:48px;transition:border-color .15s,box-shadow .15s,background .15s;overflow:hidden;min-width:0}
 .search-box:hover{border-color:var(--b2)}
 .search-box:focus-within{border-color:var(--br);background:var(--el);box-shadow:0 0 0 3px var(--bs)}
-.search-box input{
-  width:100%;height:100%;
-  padding:0 16px;
-  background:transparent;border:0;outline:0;
-  color:var(--t);
-  font-size:.9rem;
-  font-family:inherit;
-  font-weight:450;
-  letter-spacing:-.005em;
-  -webkit-appearance:none;appearance:none;
-  cursor:text;
-}
+.search-box input{width:100%;height:100%;padding:0 16px;background:transparent;border:0;outline:0;color:var(--t);font-size:.9rem;font-family:inherit;font-weight:450;letter-spacing:-.005em;-webkit-appearance:none;appearance:none;cursor:text}
 .search-box input::placeholder{color:var(--t3)}
 .search-box input::-webkit-search-cancel-button{-webkit-appearance:none;height:16px;width:16px;background:transparent}
 
@@ -184,10 +163,7 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ric svg{width:16px;height:16px;pointer-events:none;display:block}
 .ric.like.on{background:var(--okb);border-color:var(--okr);color:var(--ok)}
 .ric.dislike.on{background:var(--erb);border-color:var(--err);color:var(--er)}
-@media(max-width:640px){
- .ric{width:34px;height:34px;border-radius:9px}
- .ric svg{width:17px;height:17px}
-}
+@media(max-width:640px){.ric{width:34px;height:34px;border-radius:9px}.ric svg{width:17px;height:17px}}
 
 .rc{padding:2px 8px;border-radius:99px;background:var(--mb);font-size:.62rem;display:inline-flex;align-items:center;gap:4px;flex-shrink:0;color:var(--t3);font-weight:700;font-family:'JetBrains Mono',monospace}
 .rc.h{background:var(--okb);color:var(--ok);border:1px solid var(--okr)}
@@ -231,6 +207,29 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .mh .ibtn{width:32px;height:32px;font-size:14px}
 .mbody{padding:14px 16px 16px;overflow-y:auto;flex:1;min-height:0}
 .mbody::-webkit-scrollbar{width:6px}.mbody::-webkit-scrollbar-thumb{background:var(--b2);border-radius:6px}
+
+/* ============ CACHE INFO PANEL (inside Progress modal) ============ */
+.cacheview{display:none;flex-direction:column;gap:12px}
+.cacheview.show{display:flex}
+.cachecard{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:14px}
+.cachecard h3{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;margin-bottom:10px}
+.bigsize{font:800 2rem 'JetBrains Mono';letter-spacing:-.03em;color:var(--br);line-height:1.1;display:block;margin-bottom:6px}
+.sizesub{font-size:.76rem;color:var(--t3);display:block;margin-bottom:12px}
+.bar{height:8px;background:var(--mb);border-radius:99px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .4s}
+.barlbl{display:flex;justify-content:space-between;font:600 .68rem 'JetBrains Mono';color:var(--t3);margin-bottom:14px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;font-size:.8rem;color:var(--t2);align-items:center}
+.kv+.kv{border-top:1px solid var(--b)}
+.kv strong{color:var(--t);font-weight:600;font-family:'JetBrains Mono',monospace;font-size:.82rem;text-align:right}
+.cachelist{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.cacherow{display:grid;grid-template-columns:1fr auto;gap:10px;padding:8px 10px;background:var(--s2);border:1px solid var(--b);border-radius:8px;align-items:center}
+.cacherow .k{font:700 .68rem 'JetBrains Mono';color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cacherow .d{font-size:.62rem;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.cacherow .v{font:700 .7rem 'JetBrains Mono';color:var(--bt);white-space:nowrap}
+.cleanbtn{width:100%;padding:12px;border-radius:10px;background:var(--erb);border:1px solid var(--err);color:var(--er);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s;margin-top:6px}
+.cleanbtn:hover{background:var(--er);color:#fff}
+.cleanbtn svg{width:14px;height:14px}
+
 @media(max-width:640px){
  .shell,.tin{padding:0 12px}
  .brand small{display:none}
@@ -255,6 +254,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .modal{max-width:100%;height:100%;max-height:100dvh;border-radius:0;border:none}
  .hx{display:none}
  .reset-all-btn{font-size:.8rem;padding:12px}
+ .bigsize{font-size:1.75rem}
 }
 @media(max-width:400px){
  .ref{font-size:.6rem;padding:2px 7px}
@@ -393,17 +393,14 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
      <option value="most">Most read first</option>
     </select>
    </div>
-
    <div class="af" id="af"></div>
-
    <button class="reset-all-btn" id="resetAllBtn" type="button">
     <span id="resetIco"></span>
     <span>Reset all filters</span>
     <span class="rcount" id="resetCount">0</span>
    </button>
-
    <div class="fp-lbl">Show</div>
-   <div class="fp-tabs" id="qmenu" role="tablist" aria-label="Notes filter tabs"></div>
+   <div class="fp-tabs" id="qmenu" role="tablist"></div>
   </div>
  </div>
 
@@ -412,7 +409,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  <div class="more" id="more"></div>
  <footer>Data · Google Sheets · Times in Pakistan Standard Time (UTC+5)</footer>
 </div>
-<div class="fabs"><button class="fab" id="bot" aria-label="Bottom">⌄</button><button class="fab" id="topb" aria-label="Top">⌃</button></div>
+<div class="fabs"><button class="fab" id="bot">⌄</button><button class="fab" id="topb">⌃</button></div>
 <div class="toast" id="toast"></div>
 <div class="toast rs" id="rs">Restored to your last position <u id="rsb">Top</u></div>
 
@@ -421,17 +418,27 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  <button class="ibtn g" id="rbackup" title="Download full backup CSV"></button>
  <button class="ibtn w" id="rimp" title="Import progress CSV"></button>
  <a class="ibtn p hx" id="rsheet" target="_blank" rel="noopener" title="Sheet"></a>
+ <button class="ibtn p" id="rcache" title="Storage info"></button>
  <button class="ibtn" id="rref" title="Refresh data"></button>
  <button class="ibtn" id="rx" title="Close">✕</button>
-</div><div class="mbody" id="rb"></div></div></div>
+</div><div class="mbody" id="rb">
+
+  <!-- Cache info panel -->
+  <div class="cacheview" id="cacheview"></div>
+
+  <!-- Normal report body -->
+  <div id="rbody"></div>
+
+</div></div></div>
 
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v5.0",NAME:"My Notes",
+const C={VER:"v5.1",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
-PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
+PAGE:200,PKT:300,
+K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1",first:"mn-first-use-v1",last:"mn-last-use-v1"}};
 const $=id=>document.getElementById(id),K=C.K,p2=n=>String(n).padStart(2,"0");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const IC={pen:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/>',
@@ -447,6 +454,10 @@ chev:'<polyline points="9 18 15 12 9 6"/>',
 chevDown:'<polyline points="6 9 12 15 18 9"/>',
 filter:'<path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>',
 reset:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><polyline points="3 3 3 8 8 8"/>',
+db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>',
+clock:'<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
+cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+trash:'<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
 thumbUp:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
 thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/>'};
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
@@ -455,8 +466,18 @@ $("mk").innerHTML=ico("pen");$("rmk").innerHTML=ico("chart");
 $("ftIco").innerHTML=ico("filter",2.4);
 $("resetIco").innerHTML=ico("reset",2.4);
 $("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
+$("rcache").innerHTML=ico("db",2.2);
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
+
+/* FIRST / LAST USE TIMESTAMPS */
+(function trackUse(){
+ try{
+  if(!localStorage.getItem(K.first)) localStorage.setItem(K.first,String(Date.now()));
+  localStorage.setItem(K.last,String(Date.now()));
+ }catch{}
+})();
+window.addEventListener("beforeunload",()=>{try{localStorage.setItem(K.last,String(Date.now()))}catch{}});
 
 /* PWA */
 (function(){
@@ -485,22 +506,18 @@ delete F.reaction; delete F.read;
 let CATS_OPEN=lj(K.cats,false);
 let NOTES_TAB=lj(K.qtab,"all");
 let FPANEL_OPEN=lj(K.fpanel,false);
-let NOSAVE=false,MC,MP,MR;
+let NOSAVE=false,MC,MP,MR,CACHE_VIEW=false;
 
 const off=()=>(C.PKT+new Date().getTimezoneOffset())*6e4;
-const nowP=()=>new Date(Date.now()+off());
 const dk=ms=>{const d=new Date(ms+off());return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`};
 const today=()=>dk(Date.now());
-
 const MON3=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-function fmtPKT(ms,withTime=true){
+function fmtPKT(ms){
  if(!ms)return"";
  const d=new Date(ms+off());
  let h=d.getHours(); const ampm=h>=12?"PM":"AM"; h=h%12||12;
- const base=`${DOW[d.getDay()]}, ${MON3[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
- if(!withTime)return base;
- return `${base}, ${p2(h)}:${p2(d.getMinutes())}:${p2(d.getSeconds())} ${ampm}`;
+ return `${DOW[d.getDay()]}, ${MON3[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}, ${p2(h)}:${p2(d.getMinutes())}:${p2(d.getSeconds())} ${ampm}`;
 }
 function fmtPKTShort(ms){
  if(!ms)return"";
@@ -509,7 +526,7 @@ function fmtPKTShort(ms){
  return `${d.getDate()} ${MON3[d.getMonth()]}, ${p2(h)}:${p2(d.getMinutes())} ${ampm}`;
 }
 
-(function tick(){const p=nowP(),h=p.getHours();$("clock").textContent=`${p2(h%12||12)}:${p2(p.getMinutes())} ${h>=12?"PM":"AM"}`;setTimeout(tick,15000)})();
+(function tick(){const p=new Date(Date.now()+off()),h=p.getHours();$("clock").textContent=`${p2(h%12||12)}:${p2(p.getMinutes())} ${h>=12?"PM":"AM"}`;setTimeout(tick,15000)})();
 
 const setTc=()=>{const l=document.documentElement.dataset.theme==="light";$("tc").content=l?"#f5f8fc":"#0a0b0f";$("theme").innerHTML=ico(l?"sun":"moon")};setTc();
 $("theme").onclick=()=>{const n=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=n;localStorage.setItem(K.theme,n);setTc()};
@@ -540,13 +557,9 @@ const gsearch=(...a)=>"https://www.google.com/search?q="+encodeURIComponent(a.fi
 function markRead(r){
  const k=key(r),n=Date.now(),dNow=dk(n);
  let rec=READ[k];
- if(!rec){
-  rec={count:1,first:n,last:n,lastDay:dNow};
- }else{
-  if(rec.lastDay !== dNow){
-   rec.count=(rec.count||0)+1;
-   rec.lastDay=dNow;
-  }
+ if(!rec){rec={count:1,first:n,last:n,lastDay:dNow}}
+ else{
+  if(rec.lastDay!==dNow){rec.count=(rec.count||0)+1;rec.lastDay=dNow}
   if(!rec.first)rec.first=n;
   rec.last=n;
  }
@@ -618,7 +631,7 @@ class MSel{
  constructor(id,o){
   Object.assign(this,{el:$(id),ph:"Select…",sp:"Search…",opts:[],sel:[],on(){},getOptions:null},o);
   this.el.className="ms";
-  this.el.innerHTML=`<button type="button" class="ms-t"></button><div class="ms-m"><div class="ms-s"><input type="text" placeholder="${esc(this.sp)}"></div><div class="ms-l"></div><div class="ms-a"><button type="button" data-a="all">Select all</button><button type="button" data-a="clr">Clear</button></div></div>`;
+  this.el.innerHTML=`<button type="button" class="ms-t"></button><div class="ms-m"><div class="ms-s"><input type="text" placeholder="${esc(this.sp)}"></div><div class="ms-l"></div><div class="ms-a"><button type="button" data-a="all">Select all</button><button type="button" data-a="clear">Clear</button></div></div>`;
   this.t=this.el.firstChild;this.si=this.el.querySelector("input");this.l=this.el.querySelector(".ms-l");
   this.rt();this.rl();
   this.t.onclick=e=>{
@@ -637,11 +650,11 @@ class MSel{
   this.el.querySelector(".ms-m").onclick=e=>e.stopPropagation();
   this.el.querySelector('[data-a=all]').onclick=()=>{
    const q=this.si.value.toLowerCase();
-   const addable=this.opts.filter(o=>(typeof o.count!=="number"||o.count>0) && o.label.toLowerCase().includes(q)).map(o=>o.value);
+   const addable=this.opts.filter(o=>(typeof o.count!=="number"||o.count>0)&&o.label.toLowerCase().includes(q)).map(o=>o.value);
    this.sel=[...new Set([...this.sel,...addable])];
    this.ch();
   };
-  this.el.querySelector('[data-a=clr]').onclick=()=>{this.sel=[];this.ch()};
+  this.el.querySelector('[data-a=clear]').onclick=()=>{this.sel=[];this.ch()};
  }
  ch(){this.rt();this.rl();this.on(this.sel.slice())}
  setOptions(o){this.opts=o;const v=new Set(o.map(x=>x.value));this.sel=this.sel.filter(x=>v.has(x));this.rt();this.rl()}
@@ -664,8 +677,7 @@ class MSel{
    const zero=typeof o.count==="number"&&o.count===0&&!on;
    const hi=!zero && typeof o.count==="number" && o.count===maxCount && maxCount>1;
    return`<div class="opt ${on?"on":""} ${zero?"disabled":""}" data-v="${esc(o.value)}">
-    <span class="ck">✓</span>
-    <span>${esc(o.label)}</span>
+    <span class="ck">✓</span><span>${esc(o.label)}</span>
     ${typeof o.count==="number"?`<span class="cnt ${zero?"zero":""} ${hi?"hi":""}">${o.count}</span>`:""}
    </div>`;
   }).join("");
@@ -703,14 +715,9 @@ function getAvailable(field){
  if(field==="status")F.status.forEach(c=>{if(!(c in counts))counts[c]=0});
  if(field==="reference")F.reference.forEach(c=>{if(!(c in counts))counts[c]=0});
  const keys=Object.keys(counts);
- if(field==="reference"){
-  keys.sort((a,b)=> (counts[b]-counts[a]) || a.localeCompare(b));
- } else if(field==="status"){
-  const ord=["V.Imp","Imp","Note"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};
-  keys.sort((a,b)=>ix(a)-ix(b)||a.localeCompare(b));
- } else {
-  keys.sort((a,b)=>a.localeCompare(b));
- }
+ if(field==="reference")keys.sort((a,b)=>(counts[b]-counts[a])||a.localeCompare(b));
+ else if(field==="status"){const ord=["V.Imp","Imp","Note"],ix=x=>{const i=ord.indexOf(x);return i<0?99:i};keys.sort((a,b)=>ix(a)-ix(b)||a.localeCompare(b))}
+ else keys.sort((a,b)=>a.localeCompare(b));
  return keys.map(k=>({value:k,label:k,count:counts[k]}));
 }
 function refreshSelectOptions(){
@@ -720,33 +727,12 @@ function refreshSelectOptions(){
 }
 
 function renderNotesTabs(){
- const tabs=[
-  {v:"all",l:"All"},
-  {v:"read",l:"Read"},
-  {v:"unread",l:"Unread"},
-  {v:"liked",l:"Liked"},
-  {v:"disliked",l:"Disliked"}
- ];
- const counts={
-  all:ALL.length,
-  read:Object.keys(READ).length,
-  unread:ALL.length-Object.keys(READ).length,
-  liked:Object.values(REACT).filter(r=>r&&r.type==="like").length,
-  disliked:Object.values(REACT).filter(r=>r&&r.type==="dislike").length
- };
+ const tabs=[{v:"all",l:"All"},{v:"read",l:"Read"},{v:"unread",l:"Unread"},{v:"liked",l:"Liked"},{v:"disliked",l:"Disliked"}];
+ const counts={all:ALL.length,read:Object.keys(READ).length,unread:ALL.length-Object.keys(READ).length,liked:Object.values(REACT).filter(r=>r&&r.type==="like").length,disliked:Object.values(REACT).filter(r=>r&&r.type==="dislike").length};
  const el=$("qmenu");
- el.innerHTML=tabs.map(t=>`<button class="${NOTES_TAB===t.v?"on":""}" data-v="${t.v}" role="tab" aria-selected="${NOTES_TAB===t.v}">
-  <span>${t.l}</span>
-  <small>${counts[t.v]}</small>
- </button>`).join("");
+ el.innerHTML=tabs.map(t=>`<button class="${NOTES_TAB===t.v?"on":""}" data-v="${t.v}"><span>${t.l}</span><small>${counts[t.v]}</small></button>`).join("");
  el.querySelectorAll("button").forEach(b=>{
-  b.onclick=()=>{
-   NOTES_TAB=b.dataset.v;
-   sj(K.qtab,NOTES_TAB);
-   el.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.v===NOTES_TAB));
-   LOADED=0;
-   apply();
-  };
+  b.onclick=()=>{NOTES_TAB=b.dataset.v;sj(K.qtab,NOTES_TAB);el.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x.dataset.v===NOTES_TAB));LOADED=0;apply()};
  });
 }
 
@@ -775,45 +761,30 @@ function card(r,i,idx,tot){
  const m=sm(r.status),k=key(r),rec=READ[k],n=rec?rec.count:0;
  const isToday=rec&&rec.lastDay===today();
  const lastTxt=rec&&rec.last?fmtPKTShort(rec.last):"";
- const rx=REACT[k];
- const reactType=rx?rx.type:"";
+ const rx=REACT[k],reactType=rx?rx.type:"";
  let statusHTML;
  if(!rec||!rec.count)statusHTML='<span class="st">○ Unread</span>';
  else if(isToday)statusHTML='<span class="st read">● Read today</span>';
  else statusHTML=`<span class="st read" title="Last read: ${esc(fmtPKT(rec.last))}">● Read · ${esc(lastTxt)}</span>`;
- const likeCls=reactType==="like"?"on":"", dislikeCls=reactType==="dislike"?"on":"";
+ const likeCls=reactType==="like"?"on":"",dislikeCls=reactType==="dislike"?"on":"";
  return`<article class="card ${m.c} ${n?"rd":""}" data-key="${esc(k)}">
  <div class="ctop"><span class="cnum">${idx} / ${tot}</span><span class="badge ${m.c}">${esc(m.l)}</span></div>
  <span class="ref">${esc(r.reference||"—")}</span>
  <span class="cat">${esc(r.category||"Uncategorized")}</span>
- <a class="mem" href="${gsearch(r.reference,r.memory,r.category)}" target="_blank" rel="noopener" data-key="${esc(k)}" title="Search on Google">${esc(r.memory||"")}</a>
-
+ <a class="mem" href="${gsearch(r.reference,r.memory,r.category)}" target="_blank" rel="noopener" data-key="${esc(k)}">${esc(r.memory||"")}</a>
  <div class="bot">
   <div class="bot-left">
-   <button type="button" class="ric like ${likeCls}" data-act="like" data-key="${esc(k)}" aria-label="Like" title="Like">${ico("thumbUp",2.2)}</button>
-   <button type="button" class="ric dislike ${dislikeCls}" data-act="dislike" data-key="${esc(k)}" aria-label="Dislike" title="Dislike">${ico("thumbDown",2.2)}</button>
+   <button type="button" class="ric like ${likeCls}" data-act="like" data-key="${esc(k)}" aria-label="Like">${ico("thumbUp",2.2)}</button>
+   <button type="button" class="ric dislike ${dislikeCls}" data-act="dislike" data-key="${esc(k)}" aria-label="Dislike">${ico("thumbDown",2.2)}</button>
   </div>
   <div class="bot-right">
    <span class="rc ${n?"h":""}">${eye}${n}×</span>
    ${statusHTML}
-   <button type="button" class="expand-hint" data-act="expand" aria-label="Expand" title="Expand detail">${ico("chevDown",2.6)}</button>
+   <button type="button" class="expand-hint" data-act="expand" aria-label="Expand">${ico("chevDown",2.6)}</button>
   </div>
  </div>
-
  <div class="det">
-  ${[
-    ["Position",`${idx} of ${tot}`],
-    ["Row",r.row],
-    ["Category",r.category],
-    ["Reference",r.reference],
-    ["Memory",r.memory,1],
-    ["Status",r.status],
-    ["Read count",rec?`${rec.count} day${rec.count===1?"":"s"}`:"0"],
-    ["First read",rec&&rec.first?fmtPKT(rec.first):"—"],
-    ["Last read",rec&&rec.last?fmtPKT(rec.last):"—"],
-    ["Reaction",rx?(rx.type==="like"?"👍 Liked":rx.type==="dislike"?"👎 Disliked":"—"):"—"],
-    ["Reacted at",rx&&rx.ts?fmtPKT(rx.ts):"—"]
-  ].map(([l,v,p])=>`<div class="dr"><small>${l}</small><div>${p?esc(v||""):`<strong>${esc(v||"—")}</strong>`}</div></div>`).join("")}
+  ${[["Position",`${idx} of ${tot}`],["Row",r.row],["Category",r.category],["Reference",r.reference],["Memory",r.memory,1],["Status",r.status],["Read count",rec?`${rec.count} day${rec.count===1?"":"s"}`:"0"],["First read",rec&&rec.first?fmtPKT(rec.first):"—"],["Last read",rec&&rec.last?fmtPKT(rec.last):"—"],["Reaction",rx?(rx.type==="like"?"👍 Liked":rx.type==="dislike"?"👎 Disliked":"—"):"—"],["Reacted at",rx&&rx.ts?fmtPKT(rx.ts):"—"]].map(([l,v,p])=>`<div class="dr"><small>${l}</small><div>${p?esc(v||""):`<strong>${esc(v||"—")}</strong>`}</div></div>`).join("")}
  </div>
  </article>`}
 
@@ -823,55 +794,37 @@ function bind(container){
   const r=ALL.find(x=>key(x)===a.dataset.key);
   if(r){markRead(r);upd(a.closest(".card"),a.dataset.key);info()}
  });
-
  container.querySelectorAll(".card").forEach(el=>el.onclick=e=>{
   if(e.target.closest(".mem")||e.target.closest(".ric")||e.target.closest(".det")||e.target.closest(".expand-hint"))return;
   const r=ALL.find(x=>key(x)===el.dataset.key);
   if(r){markRead(r);upd(el,el.dataset.key);info()}
   el.classList.toggle("open");
  });
-
  container.querySelectorAll('[data-act=expand]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();
   const cardEl=b.closest(".card");
-  const k=cardEl.dataset.key;
-  const r=ALL.find(x=>key(x)===k);
-  if(r){markRead(r);upd(cardEl,k);info()}
+  const r=ALL.find(x=>key(x)===cardEl.dataset.key);
+  if(r){markRead(r);upd(cardEl,cardEl.dataset.key);info()}
   cardEl.classList.toggle("open");
  });
-
- /* LIKE — now ALSO marks as read */
  container.querySelectorAll('[data-act=like]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();e.preventDefault();
-  const k=b.dataset.key;
-  const cardEl=b.closest(".card");
+  const k=b.dataset.key,cardEl=b.closest(".card");
   const r=ALL.find(x=>key(x)===k);
-  if(r){markRead(r);upd(cardEl,k);info()}          // <- Read is counted
-  setReact(k,"like");
-  updReact(cardEl,k);
-  upd(cardEl,k);
-  renderNotesTabs();
-  refreshSelectOptions();
-  refreshBadge();
-  if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
+  if(r){markRead(r);upd(cardEl,k);info()}
+  setReact(k,"like");updReact(cardEl,k);upd(cardEl,k);
+  renderNotesTabs();refreshSelectOptions();refreshBadge();
+  if(rm.classList.contains("show")&&!CACHE_VIEW){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
-
- /* DISLIKE — now ALSO marks as read */
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();e.preventDefault();
-  const k=b.dataset.key;
-  const cardEl=b.closest(".card");
+  const k=b.dataset.key,cardEl=b.closest(".card");
   const r=ALL.find(x=>key(x)===k);
-  if(r){markRead(r);upd(cardEl,k);info()}          // <- Read is counted
-  setReact(k,"dislike");
-  updReact(cardEl,k);
-  upd(cardEl,k);
-  renderNotesTabs();
-  refreshSelectOptions();
-  refreshBadge();
-  if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
+  if(r){markRead(r);upd(cardEl,k);info()}
+  setReact(k,"dislike");updReact(cardEl,k);upd(cardEl,k);
+  renderNotesTabs();refreshSelectOptions();refreshBadge();
+  if(rm.classList.contains("show")&&!CACHE_VIEW){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
-
  container.querySelectorAll(".det").forEach(d=>d.onclick=e=>e.stopPropagation());
 }
 
@@ -882,11 +835,10 @@ function upd(el,k){
  const st=el.querySelector(".st");
  if(st){
   const isToday=rec.lastDay===today(),lastTxt=fmtPKTShort(rec.last);
-  if(isToday){st.className="st read";st.textContent="● Read today";st.title="Last read: "+fmtPKT(rec.last)}
-  else{st.className="st read";st.textContent="● Read · "+lastTxt;st.title="Last read: "+fmtPKT(rec.last)}
+  if(isToday){st.className="st read";st.textContent="● Read today"}
+  else{st.className="st read";st.textContent="● Read · "+lastTxt}
  }
- const rows=el.querySelectorAll(".det .dr");
- const rx=REACT[k];
+ const rows=el.querySelectorAll(".det .dr"),rx=REACT[k];
  if(rows.length>=11){
   rows[6].innerHTML=`<small>Read count</small><div><strong>${rec.count} day${rec.count===1?"":"s"}</strong></div>`;
   rows[7].innerHTML=`<small>First read</small><div><strong>${esc(rec.first?fmtPKT(rec.first):"—")}</strong></div>`;
@@ -897,7 +849,7 @@ function upd(el,k){
 }
 function updReact(el,k){
  if(!el)return;
- const rx=REACT[k];const react=rx?rx.type:"";
+ const rx=REACT[k],react=rx?rx.type:"";
  const lb=el.querySelector('[data-act=like]'),db=el.querySelector('[data-act=dislike]');
  if(lb)lb.classList.toggle("on",react==="like");
  if(db)db.classList.toggle("on",react==="dislike");
@@ -935,13 +887,115 @@ function buildSelects(){
 
 $("q").oninput=e=>{F.q=e.target.value;apply()};$("sort").onchange=e=>{F.sort=e.target.value;apply()};
 
+/* =============== PROGRESS MODAL =============== */
 const RPT={period:"all",tab:"all"};
-const rm=$("rm"),rb=$("rb");
-const openR=()=>{renderR();rm.classList.add("show");document.body.style.overflow="hidden"};
+const rm=$("rm"),rb=$("rb"),rbody=$("rbody"),cacheview=$("cacheview");
+const openR=()=>{CACHE_VIEW=false;cacheview.classList.remove("show");rbody.style.display="";renderR();rm.classList.add("show");document.body.style.overflow="hidden"};
 const closeR=()=>{rm.classList.remove("show");document.body.style.overflow=""};
 $("brand").onclick=openR;$("rx").onclick=closeR;rm.onclick=e=>e.target===rm&&closeR();
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMS();closeR()}});
 
+/* =============== CACHE VIEW =============== */
+function fmtBytes(b){
+ if(b<1024)return b+" B";
+ if(b<1048576)return (b/1024).toFixed(2)+" KB";
+ if(b<1073741824)return (b/1048576).toFixed(2)+" MB";
+ return (b/1073741824).toFixed(2)+" GB";
+}
+function utf8Bytes(s){try{return new Blob([s]).size}catch{return s.length}}
+function cacheSnapshot(){
+ const items=[
+  [K.read,"Reading progress"],
+  [K.hist,"Read history log"],
+  [K.filt,"Saved filters"],
+  [K.theme,"Theme"],
+  [K.cats,"Category expand state"],
+  [K.qtab,"Notes tab preference"],
+  [K.fpanel,"Filter panel state"],
+  [K.first,"First use timestamp"],
+  [K.last,"Last use timestamp"]
+ ];
+ let total=0,rows=[];
+ items.forEach(([k,d])=>{
+  const raw=localStorage.getItem(k);
+  const b=raw?utf8Bytes(raw):0;
+  total+=b;
+  rows.push({k,d,b,raw});
+ });
+ try{
+  const s=sessionStorage.getItem(K.scroll);
+  if(s){const b=utf8Bytes(s);total+=b;rows.push({k:K.scroll,d:"Scroll position (session)",b,raw:s})}
+ }catch{}
+ return {rows,total};
+}
+function lastReadCard(){
+ let best=null;
+ Object.keys(READ).forEach(k=>{
+  const rec=READ[k];
+  if(!rec||!rec.last)return;
+  if(!best||rec.last>best.ts)best={key:k,ts:rec.last,rec};
+ });
+ return best;
+}
+function openCacheView(){
+ CACHE_VIEW=true;
+ rbody.style.display="none";
+ cacheview.classList.add("show");
+ renderCache();
+}
+$("rcache").onclick=()=>{CACHE_VIEW?closeCacheView():openCacheView()};
+function closeCacheView(){CACHE_VIEW=false;cacheview.classList.remove("show");rbody.style.display=""}
+
+function renderCache(){
+ const snap=cacheSnapshot();
+ const first=parseInt(localStorage.getItem(K.first)||"0",10);
+ const last=parseInt(localStorage.getItem(K.last)||"0",10);
+ const lr=lastReadCard();
+ const maxB=Math.max(1,...snap.rows.map(r=>r.b));
+
+ let lrTitle="—",lrSub="No cards read yet";
+ if(lr){
+  const r=ALL.find(x=>key(x)===lr.key);
+  const ref=r?r.reference:(lr.key.split("||")[1]||"");
+  const cat=r?r.category:(lr.key.split("||")[0]||"");
+  lrTitle=ref||"(no reference)";
+  lrSub=cat+" · "+fmtPKT(lr.ts);
+ }
+
+ cacheview.innerHTML=`
+  <div class="cachecard">
+   <h3>Storage on this device</h3>
+   <span class="bigsize">${fmtBytes(snap.total)}</span>
+   <span class="sizesub">${snap.rows.length} item${snap.rows.length===1?"":"s"} stored locally</span>
+   <div class="bar"><i style="width:100%"></i></div>
+   <div class="barlbl"><span>Total</span><span>${fmtBytes(snap.total)}</span></div>
+
+   <div class="cachelist">
+    ${snap.rows.map(r=>`<div class="cacherow">
+     <div style="min-width:0"><span class="k">${esc(r.k)}</span><span class="d">${esc(r.d)}</span></div>
+     <span class="v">${fmtBytes(r.b)}</span>
+    </div>`).join("")}
+   </div>
+  </div>
+
+  <div class="cachecard">
+   <h3>Usage timeline</h3>
+   <div class="kv"><span>First time used</span><strong>${first?fmtPKT(first):"—"}</strong></div>
+   <div class="kv"><span>Last time used</span><strong>${last?fmtPKT(last):"—"}</strong></div>
+   <div class="kv"><span>Last read card</span><strong style="font-family:Inter;font-weight:700">${esc(lrTitle)}</strong></div>
+   <div class="kv"><span>Read at</span><strong style="font-family:Inter;font-weight:500;font-size:.74rem">${esc(lrSub)}</strong></div>
+  </div>
+
+  <button class="cleanbtn" id="cleanCacheBtn">
+   ${ico("trash",2.4)}
+   <span>Clean all local data</span>
+  </button>
+ `;
+ const b=$("cleanCacheBtn");
+ if(b)b.onclick=()=>$("cf").classList.add("show");
+}
+
+/* =============== NORMAL REPORT =============== */
 const PERIODS=[
  {v:"all",l:"All time"},{v:"last",l:"Last read"},{v:"daily",l:"Today"},{v:"weekly",l:"This week"},
  {v:"monthly",l:"This month"},{v:"year",l:"This year"},{v:"lastyear",l:"Last year"},{v:"last12",l:"Last 12 months"}
@@ -982,41 +1036,30 @@ function renderR(){
 
  const allCatCounts=catCounts(),catKeys=Object.keys(allCatCounts).sort((a,b)=>a.localeCompare(b));
  const catReads={};ALL.forEach(r=>{if(READ[key(r)]){const c=String(r.category||"").trim()||"Uncategorized";catReads[c]=(catReads[c]||0)+1}});
-
  const catRows=catKeys.map(c=>{
   const tot=allCatCounts[c],rd=catReads[c]||0,pct=tot?Math.round(rd*100/tot):0;
   const cls=rd===tot&&tot>0?"full":rd===0?"empty":"";
-  return `<div class="cr ${cls}">
-    <span class="nm" title="${esc(c)}">${esc(c)}</span>
-    <div class="meta">
-      <span class="bar"><i style="width:${pct}%"></i></span>
-      <span class="right">
-        <span class="cnt2">${rd}/${tot}</span>
-        <span class="sep2">·</span>
-        <span class="pc2">${pct}%</span>
-      </span>
-    </div>
-  </div>`;
+  return `<div class="cr ${cls}"><span class="nm">${esc(c)}</span><div class="meta"><span class="bar"><i style="width:${pct}%"></i></span><span class="right"><span class="cnt2">${rd}/${tot}</span><span class="sep2">·</span><span class="pc2">${pct}%</span></span></div></div>`;
  }).join("");
 
  const catSec=`<div class="catsec ${CATS_OPEN?'open':''}" id="catsec">
-  <div class="cathead" id="cathead" role="button" tabindex="0" aria-expanded="${CATS_OPEN?'true':'false'}">
+  <div class="cathead" id="cathead" role="button" tabindex="0">
    <div class="ch-left"><span class="ch-arrow">${ico("chev",2.6)}</span><span class="ch-title">Categories Coverage</span></div>
    <div class="ch-summary"><span class="ch-count">${catsStarted}/${catsTotal}</span><span class="ch-pct">${catsPct}%</span></div>
   </div>
-  <div class="catbody" id="catbody"><div class="catlist">${catRows||'<div class="empty"><b>No categories</b>No cards loaded yet.</div>'}</div></div>
+  <div class="catbody"><div class="catlist">${catRows||'<div class="empty"><b>No categories</b></div>'}</div></div>
  </div>`;
 
  const tabCounts={all:{c:totalCards,l:"All"},liked:{c:likedCount,l:"Liked"},read:{c:Object.keys(READ).length,l:"Read"},unread:{c:totalCards-Object.keys(READ).length,l:"Unread"},disliked:{c:dislikedCount,l:"Disliked"}};
  const tabs=`<div class="tabs2">${Object.entries(tabCounts).map(([k,o])=>`<button data-tab="${k}" class="${RPT.tab===k?"on":""}"><span>${o.l}</span><small>${o.c}</small></button>`).join("")}</div>`;
 
- rb.innerHTML=pf+scores+catSec+tabs+`<div id="rtabsBody"></div>`;
+ rbody.innerHTML=pf+scores+catSec+tabs+`<div id="rtabsBody"></div>`;
  $("rperiod").onchange=e=>{RPT.period=e.target.value;renderR()};
- rb.querySelectorAll(".sc").forEach(sc=>sc.onclick=()=>{RPT.tab=sc.dataset.tab||"read";renderR()});
- rb.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>{RPT.tab=b.dataset.tab;renderTab();rb.querySelectorAll(".tabs2 button").forEach(x=>x.classList.toggle("on",x.dataset.tab===RPT.tab))});
+ rbody.querySelectorAll(".sc").forEach(sc=>sc.onclick=()=>{RPT.tab=sc.dataset.tab||"read";renderR()});
+ rbody.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>{RPT.tab=b.dataset.tab;renderTab();rbody.querySelectorAll(".tabs2 button").forEach(x=>x.classList.toggle("on",x.dataset.tab===RPT.tab))});
  const head=$("cathead"),sec=$("catsec");
  const toggleCats=()=>{CATS_OPEN=!CATS_OPEN;sec.classList.toggle("open",CATS_OPEN);head.setAttribute("aria-expanded",CATS_OPEN?"true":"false");sj(K.cats,CATS_OPEN)};
- head.onclick=toggleCats;head.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggleCats()}};
+ head.onclick=toggleCats;
  renderTab();
  const pl=PERIODS.find(p=>p.v===RPT.period);$("rsub").textContent=pl?pl.l:"";
 }
@@ -1056,19 +1099,15 @@ function renderTab(){
  const list=tabCards(RPT.tab);
  const tabLabels={all:"All Cards",liked:"Liked",read:"Read",unread:"Unread",disliked:"Disliked"};
  const hdr=`<div class="tabhdr"><div class="ttl">${tabLabels[RPT.tab]||"Cards"} <small>· ${list.length} total</small></div><button class="texp" id="texp" ${list.length?"":"disabled"}>${ico("dl",2.4)}<span>Export CSV</span></button></div>`;
- if(!list.length){
-  el.innerHTML=hdr+'<div class="empty"><b>Nothing here yet</b>No cards match this tab.</div>';
-  const b=$("texp");if(b)b.onclick=()=>exportTabCSV(RPT.tab);
-  return;
- }
+ if(!list.length){el.innerHTML=hdr+'<div class="empty"><b>Nothing here yet</b>No cards match this tab.</div>';const b=$("texp");if(b)b.onclick=()=>exportTabCSV(RPT.tab);return}
  const cap=list.slice(0,300);
- el.innerHTML=hdr+cap.map((r,i)=>card(r,i,i+1,list.length)).join("")+(list.length>cap.length?`<div class="empty">Showing ${cap.length} of ${list.length}. Use home filters to see all.</div>`:"");
+ el.innerHTML=hdr+cap.map((r,i)=>card(r,i,i+1,list.length)).join("")+(list.length>cap.length?`<div class="empty">Showing ${cap.length} of ${list.length}.</div>`:"");
  const b=$("texp");if(b)b.onclick=()=>exportTabCSV(RPT.tab);
  bind(el);
 }
 $("rbackup").onclick=exportFullBackup;
 $("cn").onclick=()=>$("cf").classList.remove("show");
-$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats,K.qtab,K.fpanel].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
+$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats,K.qtab,K.fpanel,K.first,K.last].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
 $("rimp").onclick=()=>$("file").click();
 $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();
  rd.onload=ev=>{try{const R=parseCSV(String(ev.target.result||""));if(R.length<2)throw Error("Empty CSV");
@@ -1089,18 +1128,19 @@ $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new Fil
    const rxType=iRx>=0?String(r[iRx]||"").trim().toLowerCase():"";
    if(rxType==="like"||rxType==="dislike"){const rxTs=iRxT>=0?parseTS(r[iRxT]):0;REACT[k]={type:rxType,ts:rxTs||Date.now()}}
   });
-  sj(K.read,READ);sj(K.react,REACT);buildSelects();apply();toast(`Loaded ${add} record${add==1?"":"s"}.`,"ok");if(rm.classList.contains("show"))renderR()}
+  sj(K.read,READ);sj(K.react,REACT);buildSelects();apply();toast(`Loaded ${add} record${add==1?"":"s"}.`,"ok");if(rm.classList.contains("show")&&!CACHE_VIEW)renderR()}
   catch(err){toast("Could not read file: "+err.message,"err")}e.target.value=""};rd.readAsText(f)};
+
 let busy=false;
 async function fetchData(show){if(busy)return;busy=true;
  try{const res=await fetch(C.CSV+"&_="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error("HTTP "+res.status);
   const R=parseCSV(await res.text());if(R.length<2)throw Error("Sheet is empty");
   ALL=R.slice(1).map(r=>{const o={row:"",category:"",reference:"",memory:"",status:""};R[0].forEach((h,i)=>{const k=norm(h);if(k in o)o[k]=(r[i]||"").trim()});return o}).filter(o=>o.memory||o.reference);
   buildSelects();apply(true);if(show)toast(`Refreshed — ${ALL.length} cards loaded.`,"ok")}
- catch(err){$("out").innerHTML=`<div class="state"><h3>Could not load data</h3><p>${esc(err.message)}<br><br>Serve this page over HTTP, or verify the sheet is published to the web as CSV.</p></div>`;if(show)toast("Refresh failed — "+err.message,"err")}
+ catch(err){$("out").innerHTML=`<div class="state"><h3>Could not load data</h3><p>${esc(err.message)}<br><br>Serve this page over HTTP.</p></div>`;if(show)toast("Refresh failed — "+err.message,"err")}
  finally{busy=false}}
 const spinBtn=(b,fn)=>async()=>{b.classList.add("spin");try{await fn()}finally{setTimeout(()=>b.classList.remove("spin"),850)}};
-$("rref").onclick=spinBtn($("rref"),async()=>{await fetchData(true);if(rm.classList.contains("show"))renderR()});
+$("rref").onclick=spinBtn($("rref"),async()=>{await fetchData(true);if(rm.classList.contains("show")&&!CACHE_VIEW)renderR()});
 
 (async()=>{
  const sv=loadScroll(),restore=!!(sv&&sv.y>40);
