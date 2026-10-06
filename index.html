@@ -37,15 +37,32 @@ button,select,input{font-family:inherit}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
 
-/* SEARCH BAR — NEW CLEAN LAYOUT */
+/* =============== SEARCH BAR — SINGLE CLEAN INPUT, NO ICON OVERLAY =============== */
 .filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
-.search-box{display:flex;align-items:center;background:var(--s);border:1.5px solid var(--b);border-radius:14px;height:48px;padding:0 14px;transition:border-color .15s,box-shadow .15s,background .15s;cursor:text;overflow:hidden;min-width:0}
+.search-box{
+  position:relative;
+  background:var(--s);
+  border:1.5px solid var(--b);
+  border-radius:14px;
+  height:48px;
+  transition:border-color .15s,box-shadow .15s,background .15s;
+  overflow:hidden;
+  min-width:0;
+}
 .search-box:hover{border-color:var(--b2)}
 .search-box:focus-within{border-color:var(--br);background:var(--el);box-shadow:0 0 0 3px var(--bs)}
-.search-box .s-ico{width:18px;height:18px;color:var(--t3);flex-shrink:0;display:grid;place-items:center;pointer-events:none;transition:color .15s}
-.search-box:focus-within .s-ico{color:var(--br)}
-.search-box .s-ico svg{width:18px;height:18px;display:block}
-.search-box input{flex:1;min-width:0;height:100%;padding:0 0 0 10px;background:transparent;border:0;outline:0;color:var(--t);font-size:.9rem;font-family:inherit;font-weight:450;letter-spacing:-.005em;cursor:text;-webkit-appearance:none;appearance:none}
+.search-box input{
+  width:100%;height:100%;
+  padding:0 16px;
+  background:transparent;border:0;outline:0;
+  color:var(--t);
+  font-size:.9rem;
+  font-family:inherit;
+  font-weight:450;
+  letter-spacing:-.005em;
+  -webkit-appearance:none;appearance:none;
+  cursor:text;
+}
 .search-box input::placeholder{color:var(--t3)}
 .search-box input::-webkit-search-cancel-button{-webkit-appearance:none;height:16px;width:16px;background:transparent}
 
@@ -224,10 +241,8 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  .ibtn{width:32px;height:32px;font-size:14px;border-radius:8px}
  .tin{gap:4px;padding:9px 12px}
  .filterbar{margin:12px 0 0;grid-template-columns:1fr 52px;gap:8px}
- .search-box{height:52px;border-radius:14px;padding:0 12px}
- .search-box .s-ico{width:18px;height:18px}
- .search-box .s-ico svg{width:18px;height:18px}
- .search-box input{font-size:.88rem}
+ .search-box{height:52px;border-radius:14px}
+ .search-box input{font-size:.88rem;padding:0 14px}
  .filterbar .filter-toggle{width:52px;height:52px;min-height:52px;border-radius:14px}
  .filterbar .filter-toggle svg{width:20px;height:20px}
  .filterbar .filter-toggle .badge-count{min-width:20px;height:20px;font-size:.66rem;border-width:2px}
@@ -354,8 +369,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <input type="file" id="file" accept=".csv,text/csv" hidden>
 <div class="shell">
  <div class="filterbar">
-  <div class="search-box" id="searchBox">
-   <span class="s-ico" id="si"></span>
+  <div class="search-box">
    <input id="q" type="search" placeholder="Search rules, sections, memory…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   </div>
   <button class="filter-toggle" id="ftBtn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false" type="button">
@@ -414,7 +428,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v4.9",NAME:"My Notes",
+const C={VER:"v5.0",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1"}};
@@ -426,11 +440,9 @@ ul:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5
 doc:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',
 sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/>',
 moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>',
-search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
 ref:'<path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/>',
 chart:'<path d="M3 3v18h18M7 15l4-4 3 3 5-7"/>',
 eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
-arrow:'<polyline points="9 18 15 12 9 6"/>',
 chev:'<polyline points="9 18 15 12 9 6"/>',
 chevDown:'<polyline points="6 9 12 15 18 9"/>',
 filter:'<path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>',
@@ -439,20 +451,14 @@ thumbUp:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2
 thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/>'};
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
 const eye=ico("eye");
-$("mk").innerHTML=ico("pen");$("rmk").innerHTML=ico("chart");$("si").innerHTML=ico("search");
+$("mk").innerHTML=ico("pen");$("rmk").innerHTML=ico("chart");
 $("ftIco").innerHTML=ico("filter",2.4);
 $("resetIco").innerHTML=ico("reset",2.4);
 $("rbackup").innerHTML=ico("dl");$("rimp").innerHTML=ico("ul");
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
 
-$("searchBox").addEventListener("mousedown", e => {
-  if(e.target.tagName !== "INPUT"){ e.preventDefault(); $("q").focus(); }
-});
-$("searchBox").addEventListener("touchstart", e => {
-  if(e.target.tagName !== "INPUT"){ $("q").focus(); }
-}, {passive:true});
-
+/* PWA */
 (function(){
  const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="url(#g)"/><g transform="translate(96,96) scale(13.3)" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${IC.pen}</g></svg>`;
  const u="data:image/svg+xml;base64,"+btoa(svg),a=(r,h,t)=>{const l=document.createElement("link");l.rel=r;l.href=h;if(t)l.type=t;document.head.appendChild(l)};
@@ -834,23 +840,32 @@ function bind(container){
   cardEl.classList.toggle("open");
  });
 
+ /* LIKE — now ALSO marks as read */
  container.querySelectorAll('[data-act=like]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();e.preventDefault();
   const k=b.dataset.key;
+  const cardEl=b.closest(".card");
+  const r=ALL.find(x=>key(x)===k);
+  if(r){markRead(r);upd(cardEl,k);info()}          // <- Read is counted
   setReact(k,"like");
-  updReact(b.closest(".card"),k);
-  upd(b.closest(".card"),k);
+  updReact(cardEl,k);
+  upd(cardEl,k);
   renderNotesTabs();
   refreshSelectOptions();
   refreshBadge();
   if(rm.classList.contains("show")){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
+
+ /* DISLIKE — now ALSO marks as read */
  container.querySelectorAll('[data-act=dislike]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();e.preventDefault();
   const k=b.dataset.key;
+  const cardEl=b.closest(".card");
+  const r=ALL.find(x=>key(x)===k);
+  if(r){markRead(r);upd(cardEl,k);info()}          // <- Read is counted
   setReact(k,"dislike");
-  updReact(b.closest(".card"),k);
-  upd(b.closest(".card"),k);
+  updReact(cardEl,k);
+  upd(cardEl,k);
   renderNotesTabs();
   refreshSelectOptions();
   refreshBadge();
