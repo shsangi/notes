@@ -144,6 +144,21 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .more button{padding:11px 22px;background:var(--br);border:0;color:#fff;border-radius:10px;font-size:.84rem;font-weight:600;cursor:pointer;font-family:inherit;box-shadow:0 5px 14px -5px var(--brand-shadow)}
 .more button:hover{background:var(--br2)}
 
+/* SLIDER */
+.loadslider{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--s);border:1px solid var(--b);border-radius:12px;margin:8px 0 4px;flex-wrap:wrap}
+.loadslider label{font-size:.68rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;flex-shrink:0}
+.loadslider input[type=range]{flex:1;min-width:100px;height:6px;-webkit-appearance:none;appearance:none;background:var(--mb);border-radius:99px;outline:none;cursor:pointer}
+.loadslider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--br);cursor:pointer;box-shadow:0 2px 8px var(--brand-shadow);border:2px solid var(--el);transition:.15s}
+.loadslider input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.1)}
+.loadslider input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--br);cursor:pointer;border:2px solid var(--el);box-shadow:0 2px 8px var(--brand-shadow)}
+.loadslider .lval{font:700 .76rem 'JetBrains Mono';color:var(--bt);min-width:70px;text-align:right;white-space:nowrap;flex-shrink:0}
+.loadslider .lval small{color:var(--t3);font-weight:600}
+.loadslider .lbtns{display:flex;gap:4px;flex-shrink:0}
+.loadslider .lbtns button{padding:5px 8px;border-radius:6px;background:var(--s2);border:1px solid var(--b);color:var(--t2);font-size:.64rem;font-weight:700;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:.15s}
+.loadslider .lbtns button:hover{background:var(--bs);color:var(--bt);border-color:var(--bb)}
+.loadslider .lbtns button.active{background:var(--br);color:#fff;border-color:var(--br)}
+@media(max-width:640px){.loadslider{padding:8px 10px;gap:8px}.loadslider .lval{font-size:.68rem;min-width:60px}}
+
 .card{background:var(--s);border:1px solid var(--b);border-radius:11px;padding:12px 14px 10px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:7px;transition:border-color .15s,background .15s;box-shadow:0 1px 2px rgba(0,0,0,.2);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .card:hover{border-color:var(--b2)}
 .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--mr)}
@@ -176,6 +191,8 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .ric.trash{color:var(--t3)}
 .ric.trash:hover{background:var(--erb);border-color:var(--err);color:var(--er)}
 .ric.trash.on{background:var(--erb);border-color:var(--err);color:var(--er)}
+.ric.restore{color:var(--ok);background:var(--okb);border-color:var(--okr)}
+.ric.restore:hover{background:var(--ok);color:#fff}
 @media(max-width:640px){.ric{width:34px;height:34px;border-radius:9px}.ric svg{width:17px;height:17px}}
 
 .rc{padding:2px 8px;border-radius:99px;background:var(--mb);font-size:.62rem;display:inline-flex;align-items:center;gap:4px;flex-shrink:0;color:var(--t3);font-weight:700;font-family:'JetBrains Mono',monospace}
@@ -199,7 +216,16 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .dr+.dr{border-top:1px solid var(--b)}
 .dr small{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);padding-top:3px}
 .dr strong{color:var(--t);font-weight:600}
-@media(max-width:640px){.dr{grid-template-columns:90px 1fr;gap:10px;font-size:.78rem}}
+.det-actions{display:flex;gap:8px;margin-top:10px;padding-top:10px;border-top:1px dashed var(--b);flex-wrap:wrap}
+.det-actions button{padding:9px 16px;border-radius:9px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px;transition:.15s;border:1px solid}
+.det-actions .trashbtn{background:var(--erb);border-color:var(--err);color:var(--er)}
+.det-actions .trashbtn:hover{background:var(--er);color:#fff}
+.det-actions .restorebtn{background:var(--okb);border-color:var(--okr);color:var(--ok)}
+.det-actions .restorebtn:hover{background:var(--ok);color:#fff}
+.det-actions .gobtn{background:var(--bs);border-color:var(--bb);color:var(--bt)}
+.det-actions .gobtn:hover{background:var(--br);color:#fff}
+.det-actions button svg{width:15px;height:15px}
+@media(max-width:640px){.det-actions button{flex:1;justify-content:center;padding:11px}}
 
 .state{padding:60px 20px;text-align:center;color:var(--t3);font-size:.85rem}
 .state h3{color:var(--t);margin-bottom:6px;font-size:1rem}
@@ -235,12 +261,19 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .ustep .ulbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)}
 .ustep .uval{font:700 .78rem 'JetBrains Mono';color:var(--t);line-height:1.3;word-break:break-word}
 .ustep .usub{font-size:.68rem;color:var(--t3);line-height:1.4;margin-top:1px}
-.ustep .uact{margin-top:4px;align-self:flex-start;padding:4px 10px;border-radius:6px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-size:.64rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.ustep .umem{font-size:.74rem;color:var(--t2);line-height:1.45;margin-top:3px;padding:6px 9px;background:var(--el);border:1px solid var(--b);border-radius:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ustep .uchips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ustep .uchip{font:.6rem 'JetBrains Mono';font-weight:700;padding:2px 7px;border-radius:99px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);white-space:nowrap}
+.ustep .uchip.q{background:var(--wab);border-color:var(--war);color:var(--wa)}
+.ustep .uchip.tab{background:rgba(250,204,21,.14);border-color:rgba(250,204,21,.35);color:var(--logo-yellow)}
+.ustep .uact{margin-top:6px;align-self:flex-start;padding:6px 12px;border-radius:7px;background:var(--bs);border:1px solid var(--bb);color:var(--bt);font-size:.68rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s;display:inline-flex;align-items:center;gap:6px}
 .ustep .uact:hover{background:var(--br);color:#fff}
+.ustep .uact svg{width:13px;height:13px}
 @media(max-width:640px){
  .usecard{padding:12px 14px;margin-bottom:12px}
  .ustep .uval{font-size:.74rem}
  .ustep .usub{font-size:.64rem}
+ .ustep .umem{font-size:.7rem}
 }
 
 .cacheview{display:none;flex-direction:column;gap:12px}
@@ -274,141 +307,21 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .trashopenbtn:hover{background:var(--er);color:#fff}
 .trashopenbtn svg{width:14px;height:14px}
 
-.dbtable{display:flex;flex-direction:column;border:1px solid var(--b);border-radius:10px;overflow:hidden;margin-top:10px;background:var(--el);font-family:'JetBrains Mono',monospace;font-size:.72rem}
-.dbrow{display:grid;grid-template-columns:44px 1.1fr 1fr 1.6fr .7fr;gap:6px;padding:8px 10px;border-bottom:1px solid var(--b);align-items:center;min-width:0}
-.dbrow:last-child{border-bottom:none}
-.dbrow.head{background:var(--s2);font-weight:700;color:var(--t3);font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;position:sticky;top:0;z-index:2}
-.dbrow .dbn{color:var(--t3);text-align:right;font-size:.66rem}
-.dbrow .dbr{font-weight:700;color:var(--bt);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dbrow .dbc{color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.68rem}
-.dbrow .dbm{color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.7rem;font-family:Inter,sans-serif;font-weight:450}
-.dbrow .dbs{color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.64rem;text-transform:uppercase;letter-spacing:.04em}
-.dbrow.firstrow{background:color-mix(in srgb,var(--okb) 40%,transparent)}
-.dbrow.lastrow{background:color-mix(in srgb,var(--bs) 40%,transparent)}
-.dbgap{text-align:center;padding:12px 8px;color:var(--t3);font-family:'JetBrains Mono',monospace;font-size:.7rem;background:var(--s2);border-bottom:1px solid var(--b);letter-spacing:.1em}
-.dbgap svg{width:14px;height:14px;vertical-align:-2px;margin:0 6px}
-.dbtoggle{width:100%;padding:10px 12px;background:var(--s2);border:0;border-top:1px solid var(--b);color:var(--t2);font-family:inherit;font-size:.74rem;font-weight:700;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:6px}
-.dbtoggle:hover{background:var(--bs);color:var(--bt)}
-.dbtoggle svg{width:12px;height:12px;transition:transform .2s}
-.dbtoggle.open svg{transform:rotate(180deg)}
-.dblegend{display:flex;gap:12px;flex-wrap:wrap;font-size:.64rem;color:var(--t3);margin-top:8px;font-family:'JetBrains Mono',monospace}
-.dblegend span{display:inline-flex;align-items:center;gap:5px}
-.dblegend i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.dblegend .lgFirst{background:var(--okb);border:1px solid var(--okr)}
-.dblegend .lgLast{background:var(--bs);border:1px solid var(--bb)}
-
-@media(max-width:640px){
- .dbrow{grid-template-columns:36px 1fr 1fr;font-size:.66rem;padding:7px 8px;gap:5px}
- .dbrow .dbm,.dbrow .dbs{display:none}
- .dbrow.head .dbm,.dbrow.head .dbs{display:none}
-}
-
-@media(max-width:640px){
- .shell,.tin{padding:0 12px}
- .brand small{display:none}
- .brand b{font-size:.84rem}
- .mark{width:30px;height:30px;font-size:15px}
- .clock{padding:4px 7px;font-size:.62rem}
- .clock i{width:5px;height:5px}
- .net{padding:4px 8px;font-size:.6rem}
- .net .dot{width:7px;height:7px}
- .ibtn{width:32px;height:32px;font-size:14px;border-radius:8px}
- .tin{gap:4px;padding:9px 12px}
- .filterbar{margin:12px 0 0;grid-template-columns:1fr 52px;gap:8px}
- .search-box{height:52px;border-radius:14px}
- .search-box input{font-size:.88rem;padding:0 14px}
- .filterbar .filter-toggle{width:52px;height:52px;min-height:52px;border-radius:14px}
- .filterbar .filter-toggle svg{width:20px;height:20px}
- .filterbar .filter-toggle .badge-count{min-width:20px;height:20px;font-size:.66rem;border-width:2px}
- .filters-panel .fp-inner{padding:11px;gap:9px}
- .card{padding:11px 12px 9px;gap:6px}
- .mem{font-size:.85rem;padding:6px 8px}
- .mh{padding:12px;padding-top:calc(12px + env(safe-area-inset-top,0))}
- .mbody{padding:12px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0))}
- .mb{padding:0}
- .modal{max-width:100%;height:100%;max-height:100dvh;border-radius:0;border:none}
- .hx{display:none}
- .reset-all-btn{font-size:.8rem;padding:12px}
- .bigsize{font-size:1.75rem}
-}
-@media(max-width:400px){
- .ref{font-size:.6rem;padding:2px 7px}
- .cat{font-size:.54rem;padding:2px 6px}
- .badge{font-size:.54rem;padding:2px 6px}
- .cnum{font-size:.56rem;height:17px;line-height:15px;padding:0 5px}
- .clock{display:none}
- .net .lbl{display:none}
- .net{padding:5px 8px}
- .filterbar{grid-template-columns:1fr 48px}
- .search-box{height:48px;border-radius:12px}
- .filterbar .filter-toggle{width:48px;height:48px;min-height:48px;border-radius:12px}
-}
-.pf{display:flex;gap:8px;align-items:center;margin-bottom:14px}
-.pf label{font-size:.72rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em}
-.pf select{flex:1;padding:10px 34px 10px 12px;font-size:.84rem}
-.scores{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-@media(max-width:640px){.scores{grid-template-columns:1fr 1fr}}
-.sc{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:12px;cursor:pointer;transition:.2s;position:relative;overflow:hidden;text-align:left}
-.sc:hover{border-color:var(--b2);transform:translateY(-1px)}
-.sc:active{transform:translateY(0) scale(.98)}
-.sc::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--br)}
-.sc.read::after{background:var(--br)}
-.sc.cat::after{background:var(--logo-yellow)}
-.sc.like::after{background:#22c55e}
-.sc.dislike::after{background:var(--er)}
-.sc .lbl{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:2px}
-.sc .num{font:800 1.5rem 'JetBrains Mono';line-height:1.1;letter-spacing:-.03em;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sc .num small{font-size:.78rem;font-weight:700;color:var(--t3)}
-.sc .sub{font-size:.66rem;color:var(--t3);margin-top:2px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sc .sub b{color:var(--t2);font-weight:700}
-.sc .pc{position:absolute;top:10px;right:10px;font:700 .68rem 'JetBrains Mono';padding:2px 6px;border-radius:99px;background:var(--mb);color:var(--t3)}
-.sc.read .pc{background:var(--bs);color:var(--bt)}
-.sc.cat .pc{background:rgba(250,204,21,.15);color:var(--logo-yellow);border:1px solid rgba(250,204,21,.35)}
-.sc.like .pc{background:var(--okb);color:var(--ok)}
-.sc.dislike .pc{background:var(--erb);color:var(--er)}
-
-.catsec{margin-bottom:16px;background:var(--s);border:1px solid var(--b);border-radius:12px;overflow:hidden;transition:border-color .15s}
-.catsec:hover{border-color:var(--b2)}
-.cathead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:background .15s;text-align:left}
-.cathead:hover{background:var(--s2)}
-.cathead .ch-left{display:flex;align-items:center;gap:9px;min-width:0;flex:1}
-.cathead .ch-arrow{width:14px;height:14px;flex-shrink:0;color:var(--t3);transition:transform .25s;display:inline-flex}
-.catsec.open .cathead .ch-arrow{transform:rotate(90deg);color:var(--br)}
-.cathead .ch-title{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.cathead .ch-summary{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.cathead .ch-count{font:700 .7rem 'JetBrains Mono';padding:2px 8px;border-radius:99px;background:var(--mb);color:var(--t2)}
-.cathead .ch-pct{font:700 .68rem 'JetBrains Mono';padding:2px 8px;border-radius:99px;background:var(--bs);color:var(--bt);border:1px solid var(--bb)}
-.catsec.open .cathead{border-bottom:1px solid var(--b)}
-.catbody{max-height:0;overflow:hidden;transition:max-height .3s cubic-bezier(.32,.72,0,1)}
-.catsec.open .catbody{max-height:4000px}
-.catlist{display:flex;flex-direction:column;gap:8px;padding:10px 12px 12px}
-.cr{padding:10px 12px;background:var(--s2);border:1px solid var(--b);border-radius:9px;transition:background .15s;display:flex;flex-direction:column;gap:7px;text-align:left!important;align-items:stretch!important}
-.cr:hover{background:var(--s);border-color:var(--b2)}
-.cr .nm{font-size:.8rem;font-weight:700;color:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;letter-spacing:-.005em;text-align:left!important;margin:0!important}
-.cr .meta{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;min-width:0;text-align:left!important}
-.cr .bar{height:7px;background:var(--mb);border-radius:99px;overflow:hidden;position:relative;min-width:0;display:block!important;width:100%!important}
-.cr .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .35s;min-width:0}
-.cr .right{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:'JetBrains Mono',monospace;justify-content:flex-end}
-.cr .cnt2{font-weight:700;font-size:.72rem;color:var(--t2);white-space:nowrap}
-.cr .sep2{color:var(--t3);opacity:.5;font-size:.7rem}
-.cr .pc2{font-weight:700;font-size:.7rem;padding:2px 7px;border-radius:99px;background:var(--bs);color:var(--bt);white-space:nowrap}
-.cr.full .bar i{background:linear-gradient(90deg,var(--ok),#34d399)}
-.cr.full .pc2{background:var(--okb);color:var(--ok)}
-.cr.empty .bar i{background:var(--mb)}
-.cr.empty .pc2{background:var(--mb);color:var(--t3)}
-@media(max-width:640px){
- .cr{padding:9px 10px;gap:6px}
- .cr .nm{font-size:.76rem}
- .cr .cnt2{font-size:.68rem}
- .cr .pc2{font-size:.66rem;padding:1px 6px}
-}
-@media(max-width:400px){
- .cathead{padding:11px 12px}
- .cathead .ch-title{font-size:.62rem}
- .cr .nm{font-size:.72rem}
- .cr .cnt2{font-size:.64rem}
- .cr .pc2{font-size:.62rem}
-}
+.trashitem{background:var(--s);border:1px solid var(--b);border-radius:11px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.trashitem::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--er)}
+.trashitem .tr-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.trashitem .tr-ref{font:700 .66rem 'JetBrains Mono';color:var(--er);background:var(--erb);border:1px solid var(--err);padding:3px 9px;border-radius:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.trashitem .tr-cat{font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700;background:var(--s2);border:1px solid var(--b2);color:var(--t2);padding:3px 8px;border-radius:6px}
+.trashitem .tr-mem{font-size:.86rem;color:var(--t);font-weight:500;line-height:1.5;word-break:break-word}
+.trashitem .tr-time{font:600 .62rem 'JetBrains Mono';color:var(--t3)}
+.trashitem .tr-actions{display:flex;gap:8px;padding-top:8px;border-top:1px dashed var(--b)}
+.trashitem .tr-actions button{flex:1;padding:10px 14px;border-radius:9px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s;border:1px solid}
+.trashitem .restorebtn{background:var(--okb);border-color:var(--okr);color:var(--ok)}
+.trashitem .restorebtn:hover{background:var(--ok);color:#fff}
+.trashitem .gobtn{background:var(--bs);border-color:var(--bb);color:var(--bt)}
+.trashitem .gobtn:hover{background:var(--br);color:#fff}
+.trashitem button svg{width:14px;height:14px}
+.trashitem .tr-refwrap{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0;flex:1}
 
 .tabs2{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;padding:3px;background:var(--s);border:1px solid var(--b);border-radius:11px;margin-bottom:12px}
 .tabs2 button{padding:9px 3px;background:0;border:0;border-radius:8px;color:var(--t2);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;flex-direction:column;align-items:center;gap:1px}
@@ -488,6 +401,14 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
  </div>
 
  <div class="infobar"><div class="ib" id="ibL">Loading…</div><div class="ib" id="ibR"></div></div>
+
+ <div class="loadslider" id="loadslider">
+  <label>Load</label>
+  <input type="range" id="loadRange" min="25" max="500" step="25" value="200">
+  <span class="lval" id="loadVal">200 <small>/ 200</small></span>
+  <div class="lbtns" id="loadBtns"></div>
+ </div>
+
  <div class="list" id="out"><div class="state">Fetching memory cards…</div></div>
  <div class="more" id="more"></div>
  <footer>Data · Google Sheets · Times in Pakistan Standard Time (UTC+5)</footer>
@@ -515,11 +436,11 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v5.5",NAME:"My Notes",
+const C={VER:"v5.6",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
-PAGE:200,PKT:300,
-K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1",first:"mn-first-use-v1",last:"mn-last-use-v1",db:"mn-cache-db-v1",synced:"mn-db-synced-v1",trash:"mn-trash-v1",lastview:"mn-last-view-v1"}};
+PAGE:200,PKT:300,MIN_LOAD:25,MAX_LOAD:500,LOAD_STEP:25,
+K:{read:"mn-read-v2",hist:"mn-history-v1",react:"mn-react-v1",scroll:"mn-scroll-pos-v1",filt:"mn-filters-v1",theme:"mn-theme",cats:"mn-cats-open-v1",qtab:"mn-notes-tab-v1",fpanel:"mn-fpanel-open-v1",first:"mn-first-use-v1",last:"mn-last-use-v1",db:"mn-cache-db-v1",synced:"mn-db-synced-v1",trash:"mn-trash-v1",lastview:"mn-last-view-v1",pagesize:"mn-page-size-v1"}};
 const $=id=>document.getElementById(id),K=C.K,p2=n=>String(n).padStart(2,"0");
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const IC={pen:'<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/>',
@@ -539,6 +460,7 @@ db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.3
 clock:'<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
 cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
 trash:'<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+restore:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><polyline points="3 3 3 8 8 8"/><path d="M12 8v8M8 12h8"/>',
 back:'<polyline points="15 18 9 12 15 6"/>',
 list:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
 thumbUp:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
@@ -629,6 +551,8 @@ delete F.reaction; delete F.read;
 let CATS_OPEN=lj(K.cats,false);
 let NOTES_TAB=lj(K.qtab,"all");
 let FPANEL_OPEN=lj(K.fpanel,false);
+let PAGESIZE=lj(K.pagesize,C.PAGE);
+if(typeof PAGESIZE!=="number"||PAGESIZE<C.MIN_LOAD||PAGESIZE>C.MAX_LOAD)PAGESIZE=C.PAGE;
 let NOSAVE=false,MC,MP,MR,CACHE_VIEW=false,DB_VIEW=false,DB_SHOWALL=false,TRASH_VIEW=false;
 
 const off=()=>(C.PKT+new Date().getTimezoneOffset())*6e4;
@@ -894,7 +818,8 @@ function apply(skip){
  if(F.sort==="priority")VIEW.sort((a,b)=>sm(a.status).r-sm(b.status).r);
  else if(F.sort==="unread")VIEW.sort((a,b)=>(cnt(a)>0)-(cnt(b)>0));
  else if(F.sort==="most")VIEW.sort((a,b)=>cnt(b)-cnt(a));
- LOADED=Math.min(C.PAGE,VIEW.length);
+ LOADED=Math.min(PAGESIZE,VIEW.length);
+ updateLoadSlider();
  if(!VIEW.length){$("out").innerHTML='<div class="state"><h3>No cards found</h3><p>Try a different search or clear the filters.</p></div>';$("more").innerHTML=""}else renderPage();
  info();activeF();renderNotesTabs();refreshBadge();
  refreshSelectOptions();
@@ -911,7 +836,6 @@ function card(r,i,idx,tot){
  else if(isToday)statusHTML='<span class="st read">● Read today</span>';
  else statusHTML=`<span class="st read" title="Last read: ${esc(fmtPKT(rec.last))}">● Read · ${esc(lastTxt)}</span>`;
  const likeCls=reactType==="like"?"on":"",dislikeCls=reactType==="dislike"?"on":"";
- const trashCls=trashed?"on":"";
  return`<article class="card ${m.c} ${n?"rd":""} ${trashed?"trashed":""}" data-key="${esc(k)}">
  <div class="ctop"><span class="cnum">${idx} / ${tot}</span><span class="badge ${m.c}">${esc(m.l)}</span></div>
  <span class="ref">${esc(r.reference||"—")}</span>
@@ -925,12 +849,17 @@ function card(r,i,idx,tot){
   <div class="bot-right">
    <span class="rc ${n?"h":""}">${eye}${n}×</span>
    ${statusHTML}
-   <button type="button" class="ric trash ${trashCls}" data-act="trash" data-key="${esc(k)}" aria-label="Trash">${ico("trash",2.2)}</button>
    <button type="button" class="expand-hint" data-act="expand" aria-label="Expand">${ico("chevDown",2.6)}</button>
   </div>
  </div>
  <div class="det">
   ${[["Position",`${idx} of ${tot}`],["Row",r.row],["Category",r.category],["Reference",r.reference],["Memory",r.memory,1],["Status",r.status],["Read count",rec?`${rec.count} day${rec.count===1?"":"s"}`:"0"],["First read",rec&&rec.first?fmtPKT(rec.first):"—"],["Last read",rec&&rec.last?fmtPKT(rec.last):"—"],["Reaction",rx?(rx.type==="like"?"👍 Liked":"👎 Disliked"):"—"],["Reacted at",rx&&rx.ts?fmtPKT(rx.ts):"—"],["Trashed",trashed?fmtPKT(TRASH[k]):"—"]].map(([l,v,p])=>`<div class="dr"><small>${l}</small><div>${p?esc(v||""):`<strong>${esc(v||"—")}</strong>`}</div></div>`).join("")}
+  <div class="det-actions">
+   ${trashed
+    ?`<button type="button" class="restorebtn" data-act="restore" data-key="${esc(k)}">${ico("restore",2.4)}Restore card</button>`
+    :`<button type="button" class="trashbtn" data-act="trash" data-key="${esc(k)}">${ico("trash",2.4)}Move to trash</button>`}
+   <button type="button" class="gobtn" data-act="gosearch" data-key="${esc(k)}">${ico("ref",2.4)}Search online</button>
+  </div>
  </div>
  </article>`}
 
@@ -941,7 +870,7 @@ function bind(container){
   if(r){markRead(r);upd(a.closest(".card"),a.dataset.key);info();saveLastView(a.dataset.key)}
  });
  container.querySelectorAll(".card").forEach(el=>el.onclick=e=>{
-  if(e.target.closest(".mem")||e.target.closest(".ric")||e.target.closest(".det")||e.target.closest(".expand-hint"))return;
+  if(e.target.closest(".mem")||e.target.closest(".ric")||e.target.closest(".det")||e.target.closest(".expand-hint")||e.target.closest(".det-actions"))return;
   const r=ALL.find(x=>key(x)===el.dataset.key);
   if(r){markRead(r);upd(el,el.dataset.key);info()}
   el.classList.toggle("open");
@@ -973,14 +902,30 @@ function bind(container){
   saveLastView(k);
   if(rm.classList.contains("show")&&!CACHE_VIEW){const at=RPT.tab;if(at==="liked"||at==="disliked")renderTab()}
  });
+ // Trash / Restore buttons inside expanded detail
  container.querySelectorAll('[data-act=trash]').forEach(b=>b.onclick=e=>{
   e.stopPropagation();e.preventDefault();
   const k=b.dataset.key,cardEl=b.closest(".card");
   toggleTrash(k);
   renderNotesTabs();refreshSelectOptions();refreshBadge();
-  if(NOTES_TAB==="trash"){cardEl.classList.toggle("trashed");}
-  else{cardEl.style.transition="opacity .25s";cardEl.style.opacity="0";setTimeout(()=>{apply()},250)}
-  toast(TRASH[k]?"Moved to trash.":"Restored from trash.","ok");
+  if(NOTES_TAB==="trash"){apply();}
+  else{cardEl.style.transition="opacity .25s,transform .25s";cardEl.style.opacity="0";cardEl.style.transform="scale(.97)";setTimeout(()=>{apply()},250)}
+  toast("Moved to trash.","ok");
+ });
+ container.querySelectorAll('[data-act=restore]').forEach(b=>b.onclick=e=>{
+  e.stopPropagation();e.preventDefault();
+  const k=b.dataset.key;
+  toggleTrash(k);
+  renderNotesTabs();refreshSelectOptions();refreshBadge();
+  toast("Restored from trash.","ok");
+  // refresh whichever view we're in
+  if(NOTES_TAB==="trash"){apply()}
+  else{apply()}
+ });
+ container.querySelectorAll('[data-act=gosearch]').forEach(b=>b.onclick=e=>{
+  e.stopPropagation();e.preventDefault();
+  const r=ALL.find(x=>key(x)===b.dataset.key);
+  if(r)window.open(gsearch(r.reference,r.memory,r.category),"_blank","noopener");
  });
  container.querySelectorAll(".det").forEach(d=>d.onclick=e=>e.stopPropagation());
 }
@@ -1016,8 +961,8 @@ function updReact(el,k){
 function renderPage(){$("out").innerHTML=VIEW.slice(0,LOADED).map((r,i)=>card(r,i,i+1,VIEW.length)).join("");bind($("out"));more();info()}
 function more(){const w=$("more");if(!VIEW.length){w.innerHTML="";return}const rem=VIEW.length-LOADED;
  if(rem<=0){w.innerHTML=`✓ All ${VIEW.length} loaded`;return}
- w.innerHTML=`<div><b>${LOADED}</b> loaded · <b>${rem}</b> remaining</div><button id="lm">Load ${Math.min(C.PAGE,rem)} more</button>`;
- $("lm").onclick=()=>{const p=LOADED;LOADED=Math.min(LOADED+C.PAGE,VIEW.length);appendCards(p,LOADED);more();info()}}
+ w.innerHTML=`<div><b>${LOADED}</b> loaded · <b>${rem}</b> remaining</div><button id="lm">Load ${Math.min(PAGESIZE,rem)} more</button>`;
+ $("lm").onclick=()=>{const p=LOADED;LOADED=Math.min(LOADED+PAGESIZE,VIEW.length);appendCards(p,LOADED);more();info();updateLoadSlider()}}
 function appendCards(a,b){const f=document.createElement("div");f.style.display="contents";f.innerHTML=VIEW.slice(a,b).map((r,i)=>card(r,i,a+i+1,VIEW.length)).join("");$("out").appendChild(f);bind(f)}
 function info(){const sh=Math.min(LOADED,VIEW.length),rd=VIEW.filter(r=>READ[key(r)]).length,pc=VIEW.length?Math.round(rd*100/VIEW.length):0;
  $("ibL").innerHTML=`<b>${sh}</b>/<b>${VIEW.length}</b>&nbsp;of&nbsp;<b>${ALL.length}</b>`;
@@ -1042,6 +987,45 @@ function buildSelects(){
  else MR=new MSel("msR",{ph:"All References",sp:"Search references…",getOptions:()=>getAvailable("reference"),on:v=>{F.reference=v;apply()}});
  MC.rt();MP.rt();MR.rt();
 }
+
+/* LOAD SLIDER */
+function updateLoadSlider(){
+ const r=$("loadRange");if(!r)return;
+ const max=Math.max(VIEW.length,C.MIN_LOAD);
+ r.max=Math.min(max,C.MAX_LOAD);
+ r.min=Math.min(C.MIN_LOAD,VIEW.length||C.MIN_LOAD);
+ r.step=C.LOAD_STEP;
+ if(LOADED>r.max)r.value=r.max;else if(LOADED<r.min)r.value=r.min;else r.value=LOADED;
+ const lv=$("loadVal");
+ lv.innerHTML=`${LOADED} <small>/ ${VIEW.length}</small>`;
+ // quick buttons
+ const btns=$("loadBtns");
+ const quick=[50,100,200,500].filter(v=>v<=VIEW.length||v===50).slice(0,4);
+ btns.innerHTML=quick.map(v=>`<button data-v="${v}" class="${LOADED>=v?"active":""}">${v}</button>`).join("")+`<button data-v="all" class="${LOADED>=VIEW.length?"active":""}">All</button>`;
+ btns.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+  let v=b.dataset.v==="all"?VIEW.length:parseInt(b.dataset.v,10);
+  v=Math.min(v,VIEW.length);
+  if(v<=0)return;
+  if(v>LOADED){const p=LOADED;LOADED=v;appendCards(p,LOADED);more();info()}
+  else{LOADED=v;renderPage()}
+  updateLoadSlider();
+ });
+}
+(function initLoadSlider(){
+ const r=$("loadRange");
+ r.addEventListener("input",()=>{
+  const v=parseInt(r.value,10);
+  $("loadVal").innerHTML=`${v} <small>/ ${VIEW.length}</small>`;
+ });
+ r.addEventListener("change",()=>{
+  let v=parseInt(r.value,10);
+  v=Math.min(v,VIEW.length||C.MIN_LOAD);
+  if(v<=0)return;
+  if(v>LOADED){const p=LOADED;LOADED=v;appendCards(p,LOADED);more();info()}
+  else{LOADED=v;renderPage()}
+  updateLoadSlider();
+ });
+})();
 
 $("q").oninput=e=>{F.q=e.target.value;apply()};$("sort").onchange=e=>{F.sort=e.target.value;apply()};
 
@@ -1071,53 +1055,43 @@ function cacheSnapshot(){
   [K.read,"Reading progress"],[K.hist,"Read history log"],[K.filt,"Saved filters"],[K.theme,"Theme"],
   [K.cats,"Category expand state"],[K.qtab,"Notes tab preference"],[K.fpanel,"Filter panel state"],
   [K.first,"First use timestamp"],[K.last,"Last use timestamp"],[K.db,"Cached sheet database"],
-  [K.synced,"Last DB sync timestamp"],[K.trash,"Trashed cards"],[K.lastview,"Last viewed state"]
+  [K.synced,"Last DB sync timestamp"],[K.trash,"Trashed cards"],[K.lastview,"Last viewed state"],[K.pagesize,"Page size"]
  ];
  let total=0,rows=[];
  items.forEach(([k,d])=>{const raw=localStorage.getItem(k);const b=raw?utf8Bytes(raw):0;total+=b;rows.push({k,d,b,raw})});
  try{const s=sessionStorage.getItem(K.scroll);if(s){const b=utf8Bytes(s);total+=b;rows.push({k:K.scroll,d:"Scroll position (session)",b,raw:s})}}catch{}
  return {rows,total};
 }
-function lastReadCard(){
- let best=null;
- Object.keys(READ).forEach(k=>{const rec=READ[k];if(!rec||!rec.last)return;if(!best||rec.last>best.ts)best={key:k,ts:rec.last,rec}});
- return best;
-}
 function usageTimelineHTML(){
  const first=parseInt(localStorage.getItem(K.first)||"0",10);
  const last=parseInt(localStorage.getItem(K.last)||"0",10);
- const lr=lastReadCard();
- let lrRef="—",lrSub="No cards read yet";
- if(lr){
-  const r=ALL.find(x=>key(x)===lr.key);
-  lrRef=r?r.reference:(lr.key.split("||")[1]||"—");
-  const cat=r?r.category:(lr.key.split("||")[0]||"");
-  lrSub=(cat?cat+" · ":"")+fmtPKT(lr.ts);
- }
  let lastViewHtml="";
  if(LASTVIEW.cardKey){
   const r=ALL.find(x=>key(x)===LASTVIEW.cardKey);
   const ref=r?r.reference:LASTVIEW.cardKey.split("||")[1]||"—";
   const cat=r?r.category:LASTVIEW.cardKey.split("||")[0]||"";
+  const mem=r?r.memory:"";
   const f=LASTVIEW.filters||{};
   const chips=[];
-  if(f.q)chips.push("Search: "+f.q);
-  if(f.category&&f.category.length)chips.push("Cat: "+f.category.join(", "));
-  if(f.status&&f.status.length)chips.push("Priority: "+f.status.join(", "));
-  if(f.reference&&f.reference.length)chips.push("Ref: "+f.reference.join(", "));
-  if(f.sort&&f.sort!=="default")chips.push("Sort: "+f.sort);
-  if(LASTVIEW.notestab&&LASTVIEW.notestab!=="all")chips.push("Tab: "+LASTVIEW.notestab);
+  if(f.q)chips.push({t:"Search: "+f.q,c:"q"});
+  if(f.category&&f.category.length)chips.push({t:"Cat: "+f.category.join(", "),c:""});
+  if(f.status&&f.status.length)chips.push({t:"Priority: "+f.status.join(", "),c:""});
+  if(f.reference&&f.reference.length)chips.push({t:"Ref: "+f.reference.join(", "),c:""});
+  if(f.sort&&f.sort!=="default")chips.push({t:"Sort: "+f.sort,c:""});
+  if(LASTVIEW.notestab&&LASTVIEW.notestab!=="all")chips.push({t:"Tab: "+LASTVIEW.notestab,c:"tab"});
   lastViewHtml=`<div class="ustep last"><span class="ulbl">Last viewed card</span><span class="uval">${esc(ref)}</span><span class="usub">${esc(cat)} · ${fmtPKT(LASTVIEW.timestamp)}</span>
-   ${chips.length?`<span class="usub" style="margin-top:4px">Filters: ${esc(chips.join(" · "))}</span>`:''}
-   <button class="uact" id="goLastView">Go to this card & filters</button>
+   ${mem?`<div class="umem">${esc(mem)}</div>`:""}
+   ${chips.length?`<div class="uchips">${chips.map(c=>`<span class="uchip ${c.c}">${esc(c.t)}</span>`).join("")}</div>`:""}
+   <button class="uact" id="goLastView">${ico("chev",2.6)} Go to this card & filters</button>
   </div>`;
+ } else {
+  lastViewHtml=`<div class="ustep last"><span class="ulbl">Last viewed card</span><span class="uval">—</span><span class="usub">No card viewed yet</span></div>`;
  }
  return `<div class="usecard">
   <h3>${ico("clock",2.4)} Usage timeline</h3>
   <div class="usetl">
    <div class="ustep first"><span class="ulbl">First time used</span><span class="uval">${first?fmtPKT(first):"—"}</span></div>
    <div class="ustep last"><span class="ulbl">Last time used</span><span class="uval">${last?fmtPKT(last):"—"}</span></div>
-   <div class="ustep read"><span class="ulbl">Last read card</span><span class="uval">${esc(lrRef)}</span>${lrSub?`<span class="usub">${esc(lrSub)}</span>`:""}</div>
    ${lastViewHtml}
   </div>
  </div>`;
@@ -1174,13 +1148,27 @@ function renderTrashView(){
    <h2>${ico("trash",2.4)} Trashed cards (${trashedCards.length})</h2>
    <button class="ibtn" id="trashBack" title="Close">${ico("back",2.4)}</button>
   </div>
-  ${trashedCards.length?trashedCards.map((r,i)=>card(r,i,i+1,trashedCards.length)).join(""):'<div class="empty"><b>Trash is empty</b>Cards you trash will appear here.</div>'}
+  ${trashedCards.length?trashedCards.map((r,i)=>{
+   const k=key(r);
+   return `<div class="trashitem" data-key="${esc(k)}">
+    <div class="tr-top">
+     <div class="tr-refwrap">
+      <span class="tr-ref">${esc(r.reference||"—")}</span>
+      <span class="tr-cat">${esc(r.category||"Uncategorized")}</span>
+     </div>
+     <span class="tr-time">${fmtPKTShort(TRASH[k])}</span>
+    </div>
+    <div class="tr-mem">${esc(r.memory||"")}</div>
+    <div class="tr-actions">
+     <button class="restorebtn" data-act="restore" data-key="${esc(k)}">${ico("restore",2.4)}Restore</button>
+     <button class="gobtn" data-act="gosearch" data-key="${esc(k)}">${ico("ref",2.4)}Search</button>
+    </div>
+   </div>`;
+  }).join(""):'<div class="empty"><b>Trash is empty</b>Cards you trash will appear here with a restore button.</div>'}
  `;
  const b=$("trashBack");if(b)b.onclick=closeCacheView;
  const container=cacheview;
- bind(container);
- // Override trash action in trash view: restore
- container.querySelectorAll('[data-act=trash]').forEach(btn=>btn.onclick=e=>{
+ container.querySelectorAll('[data-act=restore]').forEach(btn=>btn.onclick=e=>{
   e.stopPropagation();e.preventDefault();
   const k=btn.dataset.key;
   toggleTrash(k);
@@ -1188,16 +1176,18 @@ function renderTrashView(){
   renderTrashView();
   toast("Restored from trash.","ok");
  });
+ container.querySelectorAll('[data-act=gosearch]').forEach(btn=>btn.onclick=e=>{
+  e.stopPropagation();e.preventDefault();
+  const r=ALL.find(x=>key(x)===btn.dataset.key);
+  if(r)window.open(gsearch(r.reference,r.memory,r.category),"_blank","noopener");
+ });
 }
 
 function renderCache(){
  const snap=cacheSnapshot();
  const first=parseInt(localStorage.getItem(K.first)||"0",10);
  const last=parseInt(localStorage.getItem(K.last)||"0",10);
- const lr=lastReadCard();
  const info=dbInfo();
- let lrTitle="—",lrSub="No cards read yet";
- if(lr){const r=ALL.find(x=>key(x)===lr.key);lrTitle=r?r.reference:(lr.key.split("||")[1]||"—");const cat=r?r.category:(lr.key.split("||")[0]||"");lrSub=(cat?cat+" · ":"")+fmtPKT(lr.ts);}
 
  let dbHtml="";
  if(DB_VIEW){const db=loadDB();const rows=db?db.rows:[];
@@ -1225,8 +1215,7 @@ function renderCache(){
   <div class="cachecard"><h3>Usage timeline</h3>
    <div class="kv"><span>First time used</span><strong>${first?fmtPKT(first):"—"}</strong></div>
    <div class="kv"><span>Last time used</span><strong>${last?fmtPKT(last):"—"}</strong></div>
-   <div class="kv"><span>Last read card</span><strong style="font-family:Inter;font-weight:700">${esc(lrTitle)}</strong></div>
-   <div class="kv"><span>Read at</span><strong style="font-family:Inter;font-weight:500;font-size:.74rem">${esc(lrSub)}</strong></div>
+   <div class="kv"><span>Page size</span><strong>${PAGESIZE} cards</strong></div>
   </div>
   <button class="cleanbtn" id="cleanCacheBtn">${ico("trash",2.4)}<span>Clean all local data</span></button>`;
  const b=$("cacheBack");if(b)b.onclick=closeCacheView;
@@ -1307,7 +1296,7 @@ function goToLastView(){
  setTimeout(()=>{
   const cardEl=document.querySelector(`.card[data-key="${CSS.escape(LASTVIEW.cardKey)}"]`);
   if(cardEl){cardEl.scrollIntoView({behavior:"smooth",block:"center"});cardEl.classList.add("open");}
-  else{const idx=VIEW.findIndex(r=>key(r)===LASTVIEW.cardKey);if(idx>=0){const need=Math.min(idx+1,VIEW.length);if(need>LOADED){const p=LOADED;LOADED=need;appendCards(p,LOADED);more();info()}setTimeout(()=>{const el=document.querySelector(`.card[data-key="${CSS.escape(LASTVIEW.cardKey)}"]`);if(el)el.scrollIntoView({behavior:"smooth",block:"center"})},100)}}
+  else{const idx=VIEW.findIndex(r=>key(r)===LASTVIEW.cardKey);if(idx>=0){const need=Math.min(idx+1,VIEW.length);if(need>LOADED){const p=LOADED;LOADED=need;appendCards(p,LOADED);more();info();updateLoadSlider()}setTimeout(()=>{const el=document.querySelector(`.card[data-key="${CSS.escape(LASTVIEW.cardKey)}"]`);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("open")}},100)}}
  },200);
 }
 
@@ -1356,7 +1345,7 @@ function renderTab(){
 }
 $("rbackup").onclick=exportFullBackup;
 $("cn").onclick=()=>$("cf").classList.remove("show");
-$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats,K.qtab,K.fpanel,K.first,K.last,K.db,K.synced,K.trash,K.lastview].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
+$("cy").onclick=()=>{[K.read,K.hist,K.react,K.filt,K.theme,K.cats,K.qtab,K.fpanel,K.first,K.last,K.db,K.synced,K.trash,K.lastview,K.pagesize].forEach(k=>{try{localStorage.removeItem(k)}catch{}});clearScroll();$("cf").classList.remove("show");closeR();setTimeout(()=>{toast("All local data cleared.","ok");location.reload()},300)};
 $("rimp").onclick=()=>$("file").click();
 $("file").onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();
  rd.onload=ev=>{try{const R=parseCSV(String(ev.target.result||""));if(R.length<2)throw Error("Empty CSV");
@@ -1417,7 +1406,6 @@ addEventListener("offline",()=>{updateNet();if(ALL.length)renderOfflineBanner()}
 /* INIT — restore last view if available */
 (async()=>{
  const sv=loadScroll(),restore=!!(sv&&sv.y>40);
- // Restore last view filters and tab
  if(LASTVIEW.filters){
   F={q:LASTVIEW.filters.q||"",status:LASTVIEW.filters.status||[],category:LASTVIEW.filters.category||[],reference:LASTVIEW.filters.reference||[],sort:LASTVIEW.filters.sort||"default"};
   NOTES_TAB=LASTVIEW.notestab||"all";
@@ -1425,7 +1413,7 @@ addEventListener("offline",()=>{updateNet();if(ALL.length)renderOfflineBanner()}
  $("q").value=F.q||"";$("sort").value=F.sort||"default";
  await fetchData(false);
  if(!restore)return;
- const need=Math.min(sv.loaded||C.PAGE,VIEW.length);if(need>LOADED){const p=LOADED;LOADED=need;appendCards(p,LOADED);more();info()}
+ const need=Math.min(sv.loaded||PAGESIZE,VIEW.length);if(need>LOADED){const p=LOADED;LOADED=need;appendCards(p,LOADED);more();info();updateLoadSlider()}
  NOSAVE=true;
  requestAnimationFrame(()=>requestAnimationFrame(()=>{scrollTo({top:sv.y,behavior:"auto"});
   if(sv.y>200){$("rs").classList.add("show");setTimeout(()=>$("rs").classList.remove("show"),4000)}
