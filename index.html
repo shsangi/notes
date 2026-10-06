@@ -36,6 +36,8 @@ button,select,input{font-family:inherit}
 .ibtn:hover{color:var(--t);border-color:var(--b2)}
 .ibtn:active{transform:scale(.94)}
 .ibtn.p{background:var(--bs);border-color:var(--bb);color:var(--bt)}
+.ibtn.g{background:var(--okb);border-color:var(--okr);color:var(--ok)}
+.ibtn.w{background:var(--wab);border-color:var(--war);color:var(--wa)}
 
 .filterbar{display:grid;grid-template-columns:1fr 48px;gap:8px;margin:14px 0 0;align-items:stretch;position:relative;z-index:20}
 .search-box{position:relative;background:var(--s);border:1.5px solid var(--b);border-radius:14px;height:48px;transition:border-color .15s,box-shadow .15s,background .15s;overflow:hidden;min-width:0}
@@ -117,11 +119,7 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .fp-tabs button:hover{color:var(--t);background:var(--s2)}
 .fp-tabs button.on{background:var(--br);color:#fff;box-shadow:0 2px 8px -2px var(--brand-shadow)}
 .fp-tabs button.on small{color:rgba(255,255,255,.72)}
-@media(max-width:640px){
- .fp-tabs{gap:2px}
- .fp-tabs button{font-size:.62rem;padding:8px 2px}
- .fp-tabs button small{font-size:.54rem}
-}
+@media(max-width:640px){.fp-tabs{gap:2px}.fp-tabs button{font-size:.62rem;padding:8px 2px}.fp-tabs button small{font-size:.54rem}}
 .fp-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;padding:0 2px;margin-bottom:-4px}
 
 .infobar{display:flex;justify-content:space-between;gap:8px;padding:8px 4px 10px;color:var(--t3);font-size:.7rem;flex-wrap:wrap}
@@ -208,7 +206,28 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .mbody{padding:14px 16px 16px;overflow-y:auto;flex:1;min-height:0}
 .mbody::-webkit-scrollbar{width:6px}.mbody::-webkit-scrollbar-thumb{background:var(--b2);border-radius:6px}
 
-/* ============ CACHE INFO PANEL (inside Progress modal) ============ */
+/* ============ USAGE TIMELINE CARD (on Progress top) ============ */
+.usecard{background:linear-gradient(135deg,var(--s) 0%,color-mix(in srgb,var(--bs) 40%,var(--s)) 100%);border:1px solid var(--bb);border-radius:14px;padding:14px 16px;margin-bottom:14px;position:relative;overflow:hidden}
+.usecard::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--br),var(--br2))}
+.usecard h3{font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;color:var(--bt);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.usecard h3 svg{width:13px;height:13px}
+.usetl{display:flex;flex-direction:column;gap:0;position:relative;padding-left:20px}
+.usetl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--br),var(--bb) 60%,transparent)}
+.ustep{position:relative;padding:6px 0;display:flex;flex-direction:column;gap:2px}
+.ustep::before{content:"";position:absolute;left:-20px;top:12px;width:12px;height:12px;border-radius:50%;background:var(--br);border:2px solid var(--el);box-shadow:0 0 0 2px var(--bb)}
+.ustep.first::before{background:var(--ok);box-shadow:0 0 0 2px var(--okr)}
+.ustep.last::before{background:var(--br2);box-shadow:0 0 0 2px var(--bb)}
+.ustep.read::before{background:var(--logo-yellow);box-shadow:0 0 0 2px rgba(250,204,21,.35)}
+.ustep .ulbl{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3)}
+.ustep .uval{font:700 .78rem 'JetBrains Mono';color:var(--t);line-height:1.3;word-break:break-word}
+.ustep .usub{font-size:.68rem;color:var(--t3);line-height:1.4;margin-top:1px}
+@media(max-width:640px){
+ .usecard{padding:12px 14px;margin-bottom:12px}
+ .ustep .uval{font-size:.74rem}
+ .ustep .usub{font-size:.64rem}
+}
+
+/* ============ CACHE VIEW ============ */
 .cacheview{display:none;flex-direction:column;gap:12px}
 .cacheview.show{display:flex}
 .cachecard{background:var(--s);border:1px solid var(--b);border-radius:12px;padding:14px}
@@ -216,7 +235,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .bigsize{font:800 2rem 'JetBrains Mono';letter-spacing:-.03em;color:var(--br);line-height:1.1;display:block;margin-bottom:6px}
 .sizesub{font-size:.76rem;color:var(--t3);display:block;margin-bottom:12px}
 .bar{height:8px;background:var(--mb);border-radius:99px;overflow:hidden;margin-bottom:6px}
-.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px;transition:width .4s}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--br),var(--br2));border-radius:99px}
 .barlbl{display:flex;justify-content:space-between;font:600 .68rem 'JetBrains Mono';color:var(--t3);margin-bottom:14px}
 .kv{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;font-size:.8rem;color:var(--t2);align-items:center}
 .kv+.kv{border-top:1px solid var(--b)}
@@ -229,6 +248,11 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 .cleanbtn{width:100%;padding:12px;border-radius:10px;background:var(--erb);border:1px solid var(--err);color:var(--er);font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.15s;margin-top:6px}
 .cleanbtn:hover{background:var(--er);color:#fff}
 .cleanbtn svg{width:14px;height:14px}
+
+/* Cache-view back button */
+.cachehdr{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.cachehdr h2{font-size:.94rem;font-weight:700;display:flex;align-items:center;gap:8px;color:var(--t)}
+.cachehdr h2 svg{width:16px;height:16px;color:var(--br)}
 
 @media(max-width:640px){
  .shell,.tin{padding:0 12px}
@@ -434,7 +458,7 @@ footer{margin:40px 0 20px;padding-top:20px;border-top:1px solid var(--b);text-al
 <div class="cf" id="cf"><div class="cb"><b>Clear all local data?</b>This permanently deletes all reading progress, likes, history, and settings.<div><button id="cn">Cancel</button><button class="d" id="cy">Clear all</button></div></div></div>
 
 <script>
-const C={VER:"v5.1",NAME:"My Notes",
+const C={VER:"v5.2",NAME:"My Notes",
 CSV:"https://docs.google.com/spreadsheets/d/e/2PACX-1vTR3op0RZuTMJ-HegiLJYV18VR97DAnZpcUPRWwMYRfr5pVVf_x6ZOYMfiS8aXIJQcTh2hHpsgqJ8ks/pub?output=csv",
 SHEET:"https://docs.google.com/spreadsheets/d/1BLOOydCf9vAAWuqM4J3LR0PGcIosijzw5o_JhbsT3gM/edit",
 PAGE:200,PKT:300,
@@ -458,6 +482,8 @@ db:'<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.3
 clock:'<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/>',
 cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
 trash:'<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>',
+back:'<polyline points="15 18 9 12 15 6"/>',
+book:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
 thumbUp:'<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z"/>',
 thumbDown:'<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22h0a3.13 3.13 0 0 1-3-3.88Z"/>'};
 const ico=(n,sw=2)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
@@ -470,7 +496,7 @@ $("rcache").innerHTML=ico("db",2.2);
 ["sheet","rsheet"].forEach(i=>{$(i).innerHTML=ico("doc");$(i).href=C.SHEET});$("rref").innerHTML=ico("ref");
 $("ver").textContent=C.VER;
 
-/* FIRST / LAST USE TIMESTAMPS */
+/* FIRST / LAST USE */
 (function trackUse(){
  try{
   if(!localStorage.getItem(K.first)) localStorage.setItem(K.first,String(Date.now()));
@@ -893,9 +919,9 @@ const rm=$("rm"),rb=$("rb"),rbody=$("rbody"),cacheview=$("cacheview");
 const openR=()=>{CACHE_VIEW=false;cacheview.classList.remove("show");rbody.style.display="";renderR();rm.classList.add("show");document.body.style.overflow="hidden"};
 const closeR=()=>{rm.classList.remove("show");document.body.style.overflow=""};
 $("brand").onclick=openR;$("rx").onclick=closeR;rm.onclick=e=>e.target===rm&&closeR();
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMS();closeR()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeMS();if(CACHE_VIEW)closeCacheView();else closeR()}});
 
-/* =============== CACHE VIEW =============== */
+/* =============== USAGE TIMELINE =============== */
 function fmtBytes(b){
  if(b<1024)return b+" B";
  if(b<1048576)return (b/1024).toFixed(2)+" KB";
@@ -937,39 +963,75 @@ function lastReadCard(){
  });
  return best;
 }
+function usageTimelineHTML(){
+ const first=parseInt(localStorage.getItem(K.first)||"0",10);
+ const last=parseInt(localStorage.getItem(K.last)||"0",10);
+ const lr=lastReadCard();
+ let lrRef="—",lrSub="No cards read yet";
+ if(lr){
+  const r=ALL.find(x=>key(x)===lr.key);
+  lrRef=r?r.reference:(lr.key.split("||")[1]||"—");
+  const cat=r?r.category:(lr.key.split("||")[0]||"");
+  lrSub=(cat?cat+" · ":"")+fmtPKT(lr.ts);
+ }
+ return `<div class="usecard">
+  <h3>${ico("clock",2.4)} Usage timeline</h3>
+  <div class="usetl">
+   <div class="ustep first">
+    <span class="ulbl">First time used</span>
+    <span class="uval">${first?fmtPKT(first):"—"}</span>
+   </div>
+   <div class="ustep last">
+    <span class="ulbl">Last time used</span>
+    <span class="uval">${last?fmtPKT(last):"—"}</span>
+   </div>
+   <div class="ustep read">
+    <span class="ulbl">Last read card</span>
+    <span class="uval">${esc(lrRef)}</span>
+    ${lrSub?`<span class="usub">${esc(lrSub)}</span>`:""}
+   </div>
+  </div>
+ </div>`;
+}
+
+/* =============== CACHE VIEW =============== */
 function openCacheView(){
  CACHE_VIEW=true;
  rbody.style.display="none";
  cacheview.classList.add("show");
  renderCache();
 }
+function closeCacheView(){
+ CACHE_VIEW=false;
+ cacheview.classList.remove("show");
+ rbody.style.display="";
+}
 $("rcache").onclick=()=>{CACHE_VIEW?closeCacheView():openCacheView()};
-function closeCacheView(){CACHE_VIEW=false;cacheview.classList.remove("show");rbody.style.display=""}
 
 function renderCache(){
  const snap=cacheSnapshot();
  const first=parseInt(localStorage.getItem(K.first)||"0",10);
  const last=parseInt(localStorage.getItem(K.last)||"0",10);
  const lr=lastReadCard();
- const maxB=Math.max(1,...snap.rows.map(r=>r.b));
-
  let lrTitle="—",lrSub="No cards read yet";
  if(lr){
   const r=ALL.find(x=>key(x)===lr.key);
-  const ref=r?r.reference:(lr.key.split("||")[1]||"");
+  lrTitle=r?r.reference:(lr.key.split("||")[1]||"—");
   const cat=r?r.category:(lr.key.split("||")[0]||"");
-  lrTitle=ref||"(no reference)";
-  lrSub=cat+" · "+fmtPKT(lr.ts);
+  lrSub=(cat?cat+" · ":"")+fmtPKT(lr.ts);
  }
-
  cacheview.innerHTML=`
+  <div class="cachehdr">
+   <h2>${ico("db",2.4)} Storage on this device</h2>
+   <button class="ibtn" id="cacheBack" title="Close" aria-label="Close">${ico("back",2.4)}</button>
+  </div>
+
   <div class="cachecard">
-   <h3>Storage on this device</h3>
+   <h3>Total</h3>
    <span class="bigsize">${fmtBytes(snap.total)}</span>
    <span class="sizesub">${snap.rows.length} item${snap.rows.length===1?"":"s"} stored locally</span>
    <div class="bar"><i style="width:100%"></i></div>
    <div class="barlbl"><span>Total</span><span>${fmtBytes(snap.total)}</span></div>
-
    <div class="cachelist">
     ${snap.rows.map(r=>`<div class="cacherow">
      <div style="min-width:0"><span class="k">${esc(r.k)}</span><span class="d">${esc(r.d)}</span></div>
@@ -991,8 +1053,8 @@ function renderCache(){
    <span>Clean all local data</span>
   </button>
  `;
- const b=$("cleanCacheBtn");
- if(b)b.onclick=()=>$("cf").classList.add("show");
+ const b=$("cacheBack");if(b)b.onclick=closeCacheView;
+ const c=$("cleanCacheBtn");if(c)c.onclick=()=>$("cf").classList.add("show");
 }
 
 /* =============== NORMAL REPORT =============== */
@@ -1053,7 +1115,7 @@ function renderR(){
  const tabCounts={all:{c:totalCards,l:"All"},liked:{c:likedCount,l:"Liked"},read:{c:Object.keys(READ).length,l:"Read"},unread:{c:totalCards-Object.keys(READ).length,l:"Unread"},disliked:{c:dislikedCount,l:"Disliked"}};
  const tabs=`<div class="tabs2">${Object.entries(tabCounts).map(([k,o])=>`<button data-tab="${k}" class="${RPT.tab===k?"on":""}"><span>${o.l}</span><small>${o.c}</small></button>`).join("")}</div>`;
 
- rbody.innerHTML=pf+scores+catSec+tabs+`<div id="rtabsBody"></div>`;
+ rbody.innerHTML=usageTimelineHTML()+pf+scores+catSec+tabs+`<div id="rtabsBody"></div>`;
  $("rperiod").onchange=e=>{RPT.period=e.target.value;renderR()};
  rbody.querySelectorAll(".sc").forEach(sc=>sc.onclick=()=>{RPT.tab=sc.dataset.tab||"read";renderR()});
  rbody.querySelectorAll(".tabs2 button").forEach(b=>b.onclick=()=>{RPT.tab=b.dataset.tab;renderTab();rbody.querySelectorAll(".tabs2 button").forEach(x=>x.classList.toggle("on",x.dataset.tab===RPT.tab))});
