@@ -35,6 +35,7 @@
 const SPEED = 5;     // drawing speed (units/sec): smaller = slower
 const FLY   = 12;    // pen speed while lifted
 const SCALE = 0.55;  // pen size
+const WAIT  = 5;     // seconds to hold the finished drawing before it starts again
 
 const svg     = document.getElementById('s');
 const strokes = [...svg.querySelectorAll('.ink')];
@@ -111,18 +112,24 @@ function render(t) {
   pen.setAttribute('transform', `translate(${o.x} ${o.y}) scale(${o.sc}) translate(-2 -2)`);
 }
 
-let t0, raf;
+// ---------- Loop: finish, hold WAIT seconds, start again ----------
+let t0, raf, timer;
+
 function tick(now) {
   const t = (now - t0) / 1000;
   render(Math.min(t, T));
   if (t < T) raf = requestAnimationFrame(tick);
+  else timer = setTimeout(play, WAIT * 1000);   // finished: wait, then restart
 }
+
 function play() {
   cancelAnimationFrame(raf);
+  clearTimeout(timer);                          // tapping mid-wait restarts cleanly
   render(0);
   t0 = performance.now();
   raf = requestAnimationFrame(tick);
 }
+
 svg.onclick = play;
 play();
 </script>
